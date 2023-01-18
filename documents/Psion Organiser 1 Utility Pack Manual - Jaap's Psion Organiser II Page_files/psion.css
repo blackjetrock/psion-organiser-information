@@ -1,0 +1,164 @@
+body       {
+  font-family: Arial, "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+  font-size: 104%;
+  text-align:left;
+  background: #fff;
+}
+.header h1 { display:none; }
+.header .jpp {
+   display:block; 
+   margin:0px;
+   height:80px;
+   background: url(pics/logo.gif) #08F center no-repeat;
+   border:1px solid #000;
+}
+.header a:hover
+{
+  background-color: #0CF;
+}
+
+
+.fixed, .screen, .program, .code {
+  font-family: Courier, "Courier New", monospace;
+}
+.contents, .screen, .program, .code {
+  white-space: pre;
+}
+.indent, .program {
+  margin-left:40px;
+}
+dt, .program , .menuoption, .key {
+  font-weight: bold;
+}
+.screen {
+  background:silver;
+}
+.key {
+  text-decoration: underline;
+}
+.nowrap {
+  white-space: nowrap
+}
+
+hr {
+    border: 0px;
+    height: 2px;
+    width:312px;
+    background: #08F;
+    background-image: -webkit-linear-gradient(to left, #0CF, #08F, #0CF);
+    background-image: -moz-linear-gradient(to left, #0CF, #08F, #0CF);
+    background-image: -ms-linear-gradient(to left, #0CF, #08F, #0CF);
+    background-image: -o-linear-gradient(to left, #0CF, #08F, #0CF);
+    background-image: linear-gradient(to left, #0CF, #08F, #0CF);
+}
+
+
+h1, h2, h3, h4, h5 {
+  margin-top:40px;
+  font-weight: bold;
+}
+h1 { font-size: 200%; font-style: italic; text-align: center; }
+h2 { font-size: 170%; }
+h3 { font-size: 150%; }
+h4 { font-size: 130%; }
+h5 { font-size: 105%; }
+
+th, td, li { font-size: 100%; }
+th, td  {
+  vertical-align:top;
+}
+th {
+  text-align:left;
+}
+
+.clear { clear:both }
+
+
+div.nav{
+  clear: both;
+  width: 100%;
+  margin-left:auto;
+  margin-right:auto;
+}
+div.nav ul
+{
+  list-style-type: none;
+  text-align: center;
+  font-size: 125%;
+  font-weight: bold;
+}
+div.nav ul li
+{
+  display:inline-block;
+}
+div.nav li a, div.nav li.navactive {
+  display:inline-block;
+  width: 6em;
+  margin: 10px;
+  color: #000;
+  padding: .3em 0em;
+  background-color: #08F;
+  border: 1px solid #000;
+}
+div.nav ul li a:hover
+{
+  background-color: #0CF;
+}
+li.navactive
+{
+  background-color: #CCC;
+}
+
+ul.arrowlist
+{
+   list-style: none outside none;
+}
+ul.arrowlist li:before {
+   content: "\2023";
+   float: left;
+   margin: 0 0 0 -15px;
+   padding: 0;
+}
+ul.arrowlist li {
+   list-style-type: none;
+}
+
+.boxed {
+  padding: 0.3em 0.3em;
+  border: 1px solid #000;
+}
+.boxedtable{
+  padding: 0.3em 0.3em;
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
+table.boxedtable td, table.boxedtable th{
+  border: 1px solid #000;
+}
+table.boxedtable th{
+  border-bottom: 2px solid #000;
+}
+
+.boxedcolumns{
+  padding: 0.3em 0.3em;
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
+table.boxedcolumns td, table.boxedcolumns th{
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  border-top: 0px;
+  border-bottom: 0px;
+}
+table.boxedcolumns th{
+  border-bottom: 1px solid #000;
+}
+
+ol.breadcrumb {
+  list-style:none;
+  padding-left:0px;
+  font-size: 75%;
+}
+ol.breadcrumb li {
+  display:inline-block;
+}

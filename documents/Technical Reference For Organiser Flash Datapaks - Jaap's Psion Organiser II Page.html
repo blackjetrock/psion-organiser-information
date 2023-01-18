@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0039)https://www.jaapsch.net/psion/flash.htm -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Technical Reference For Organiser Flash Datapaks - Jaap's Psion Organiser II Page</title>
+<link rel="stylesheet" type="text/css" href="./Technical Reference For Organiser Flash Datapaks - Jaap&#39;s Psion Organiser II Page_files/psion.css">
+<link rel="shortcut icon" href="https://www.jaapsch.net/psion/pics/favicon.ico">
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org", "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem", "position": 1,
+    "item": { "@id": "../index.htm", "name": "Home" }
+  },{
+    "@type": "ListItem", "position": 2,
+    "item": { "@id": "index.htm", "name": "Psion II" }
+  },{
+    "@type": "ListItem", "position": 3,
+    "item": { "@id": "flash.htm", "name": "Technical Reference For Flashpaks" }
+  }]
+}
+</script>
+</head>
+<body>
+<div class="header"><h1>Jaap's Psion II Page</h1><a href="https://www.jaapsch.net/psion/index.htm" class="jpp"></a></div>
+<ol class="breadcrumb">
+  <li><a href="https://www.jaapsch.net/index.htm">Home</a> /</li>
+  <li><a href="https://www.jaapsch.net/psion/index.htm">Psion II</a> /</li>
+  <li>Technical Reference For Flashpaks</li>
+</ol>
+
+<h1>TECHNICAL REFERENCE FOR ORGANISER FLASH DATAPAKS</h1>
+
+<hr>
+
+<table width="100%" summary="">
+<tbody><tr><td align="left">Date of issue: 14/1/91</td><td align="right">Document Version: 1.0</td></tr>
+</tbody></table>
+
+<p>
+This is a supplement to the Organiser II Technical Manual.
+
+</p><ol type="1">
+<li><a href="https://www.jaapsch.net/psion/flash.htm#c1">Introduction</a>
+</li><li><a href="https://www.jaapsch.net/psion/flash.htm#c2">Hardware</a>
+</li><li><a href="https://www.jaapsch.net/psion/flash.htm#c3">Reading</a>
+</li><li><a href="https://www.jaapsch.net/psion/flash.htm#c4">Writing</a>
+</li><li><a href="https://www.jaapsch.net/psion/flash.htm#c5">Formatting</a>
+</li><li><a href="https://www.jaapsch.net/psion/flash.htm#c6">Write Protect</a>
+</li><li><a href="https://www.jaapsch.net/psion/flash.htm#c7">The Flash Driver</a>
+</li><li><a href="https://www.jaapsch.net/psion/flash.htm#c8">The Multiboot Flash Driver</a>
+</li><li><a href="https://www.jaapsch.net/psion/flash.htm#c9">Other Facilities</a>
+</li><li><a href="https://www.jaapsch.net/psion/flash.htm#c10">Versions</a>
+</li><li><a href="https://www.jaapsch.net/psion/flash.htm#c11">Flash Datapak software versions</a>
+</li></ol>
+<hr>
+
+<a id="c1"></a><h2>1. Introduction</h2>
+
+<p>
+Flash Datapaks on the Organiser represent a substantial
+improvement in storage technology.  There are four major
+advantages:
+
+</p><ul>
+<li>significantly less power used when writing,
+</li><li>non-volatile,
+</li><li>can be formatted in place,
+</li><li>bigger than available EPROMs.
+</li></ul>
+
+<p>
+This document explains the technical details that enable
+this new technology to be implemented.
+
+<a id="c2"></a></p><h2>2. Hardware</h2>
+
+<p>
+Flash Datapaks consist of either one or two Flash chips on
+a board with associated regulator, counters and logic.  All
+circuitry is CMOS so reading requires very little power.
+
+<a id="c3"></a></p><h2>3. Reading</h2>
+
+<p>
+Flash Datapaks are paged and segmented.  Segments control
+address lines A14 to A18 (16K byte blocks) and pages
+control lines A8 to A13 (256 byte blocks).  So to get to
+the last byte requires the segment to be set, 63 toggles of
+the page and 255 toggles of the address.  This will take in
+the order of 1 millisecond.
+
+</p><p>
+All Organiser models can read data from Flash Datapaks
+except CMs which are not able to recognise segmented packs.
+
+<a id="c4"></a></p><h2>4. Writing</h2>
+
+<p>
+Writing is done in a completely different way to EPROMs and
+a special software driver must be present.  If the Flash
+driver is not present and a write is attempted a "READ ONLY
+PACK" error is reported.
+
+</p><p>
+It is impossible to quantify the power saving compared to
+EPROMs.  It depends primarily on the length of the data
+being written.  The longer the data the greater the saving.
+As a generalisation a user can expect an order of magnitude
+improvement though 2 orders is quite possible.
+
+<a id="c5"></a></p><h2>5. Formatting</h2>
+
+<p>
+Flash Datapaks can be formatted in place.  To do this each
+byte must be written to zero and then for the one or two
+chips present they must commanded to erase back to FF.
+When doing this each byte must be checked to ensure that is
+has been erased properly.  If not it tries another erase
+until either all bytes are FF or the chip is judged to have
+failed.
+
+</p><p>
+In Flash driver Version 1.3 and greater packs can be
+formatted by calling the OPL procedure FLSHFORM:("B",0)
+where the first parameter is the slot (B or C) and the
+second is whether a display is required.  If the second is
+non-zero then the standard display is given otherwise the
+screen is not altered.
+
+</p><p>
+Formatting does consume a noticeable amount of power and it
+is suggested that a power supply unit is connected.
+
+<a id="c6"></a></p><h2>6. Write Protect</h2>
+
+<p>
+All Flash Datapaks have their write protect bit set to zero
+so that unless the Flash driver is present no writing can
+take place.  In order that Flash Datapaks can be write
+protected the most significant bit of byte 8 of the header
+is used as the alternate write protect bit.  When a pack is
+freshly formatted it is always 1 (i.e. write enabled).
+
+</p><p>
+The format of the header is basically the standard bootable
+header:
+
+</p><table border="1" summary="">
+<tbody><tr>
+<td>TYPE</td>
+<td>SIZE</td>
+<td>CODE</td>
+<td>DEV</td>
+<td>VER</td>
+<td>PRIOR</td>
+<td>BOOT ADDR</td>
+<td>RANDOM WORD</td>
+</tr>
+</tbody></table>
+<br>
+<table summary="">
+<tbody><tr>
+<td valign="top">TYPE</td>
+<td>
+  <table summary="">
+  <tbody><tr><td>bit 0</td><td>Not used, always 0</td></tr>
+  <tr><td>bit 1</td><td>EPROM (i.e. not RAMPAK) always set to 1</td></tr>
+  <tr><td>bit 2</td><td>PGCPK always set to 1 as paged</td></tr>
+  <tr><td>bit 3</td><td>RDWRT always set to 0</td></tr>
+  <tr><td>bit 4</td><td>BOOT generally set to 0 as pack bootable</td></tr>
+  <tr><td>bit 5</td><td>COPYPK generally set to 1 as pack is copyable</td></tr>
+  <tr><td>bit 6</td><td>NYIMPL set 0 to indicate flash</td></tr>
+  <tr><td>bit 7</td><td>MK1PAK set to 0 as not MKI pack</td></tr>
+  </tbody></table>
+  The default type byte is $26.
+</td></tr>
+
+<tr><td>SIZE</td><td>$20 for 256K pack.</td></tr>
+<tr><td>CODE</td><td>$01</td></tr>
+<tr><td>DEV &amp; PRIOR</td><td>$F8</td></tr>
+<tr><td>BOOT</td><td>$19 default</td></tr>
+<tr><td>RANDOM WORD</td><td>The most significant bit is used as the real write protect bit</td></tr>
+</tbody></table>
+
+
+<a id="c7"></a><h2>7. The Flash Driver</h2>
+
+<p>
+The driver software comes as a bootable device on every
+standard Flash Datapak and on the Flash Formatter packs.
+It is different from other drivers in that it is permanent,
+it does not get removed when On/Clear is pressed at the top
+level even if the bootable pack is no longer present.
+
+</p><p>
+In order to achieve this it assumes that it is the first
+item booted in.  It has priority $F8.  If something else is
+already booted in and not also a permanent device it will
+be removed from the device list.  This should, of course,
+never happen.
+
+</p><p>
+To make a device permanent two alternative strategies
+should be followed depending on whether the code is booted
+in the low 7K or in the PERMCELL.
+
+</p><p>
+If it is booted in the low 7K then make 'dva_bot' the same
+as 'dva_top'.  Remember both the old values.  When
+attempting to remove check that both 'dva_top' and
+'dva_bot' are equal and the same as the old 'dva_top'.
+Refuse if they are not.  If they are then replace both with
+the old 'dva_bot'.
+
+</p><p>
+If it is booted in the PERMCELL then remember the old base
+value (at $2000) and make it equal to the value at $2002.
+When attempting to remove check that the value at $2000 &amp;
+$2002 is as you left it then make $2000 the old value.
+Then push the address of 'al$zero' on the stack and exit
+(get the address by looking in the table pointed to by
+'bta_vect').
+
+</p><p>
+To ensure that you are not booted in more than once use a
+bit in 'dvt_spar'.  To be allocated a bit talk to Support.
+Flash sets bit 2 of $2178 when it is present.
+It re-vectors the following OS routines:
+</p><table summary="">
+<tbody><tr><td>pk$save</td><td>fl$writ</td><td>fl$eras</td><td>fl$copy</td></tr>
+<tr><td>fl$deln</td><td>fl$bdel</td><td>fl$renm</td><td>dv$vect</td></tr>
+<tr><td>dv$lkup</td><td>dv$clsr</td><td>pk$setp</td><td></td></tr>
+</tbody></table>
+
+<p>
+To remove the driver all other drivers must be removed (by
+pulling out all bootable packs and then pressing On/Clear
+at the top level) and REMOVE used in the FLASH menu.  All
+other drivers must be removed to avoid re-revectoring
+problems.  If a device is still present the REMOVE fails
+with the message "BAD DEVICE CALL".  If other permanent
+drivers are released then they should be removed in this
+way, one at a time, and in the reverse order to which they
+were inserted.
+
+</p><p>
+This is a complete new procedure and care must be taken to
+explain it to users when an upgrade of the driver is
+released.  There is no exterior indication that the driver
+has been upgraded.
+
+</p><p>
+Every time the Organiser is rebooted he name FLASH is re-
+inserted in the menu.  This is to avoid the situation where
+FLASH has been deleted from the menu.
+
+<a id="c8"></a></p><h2>8. The Multiboot Flash Driver</h2>
+
+<p>
+The multi-boot Flash driver allows all long records
+following to be booted in.  This means that other OPL
+extensions can be added without altering the Flash Driver.
+It is an extension to the standard Flash Driver.
+
+</p><p>
+It requires about 500 bytes of extra code some of which
+will be taken out of the PERMANENT cell.  For this reason
+it is not included in the standard driver.
+
+</p><p>
+The first time it boots as well as making itself permanent,
+it boots all the long records (02 80 type that are assumed
+to be .BINs) immediately after the bootable code on the
+pack.  The second time (i.e. when the driver is already
+present) it will be boot into the PERMCELL (the existing
+flash driver will already take up most of the lower 7K).
+Once it has determined that the flash driver is already
+present it minimises its size and boots the following long
+records.
+
+</p><p>
+To generate a pack to utilise this feature either use
+custom software or release 3.20 or above of BLDPACK.
+
+</p><p>
+WARNING:  BLDPACK is unable to adjust any absolute pack
+addressing in the .BINs that it strings together.  The main
+use of absolute pack addresses is for loading overlays.
+There are a variety of ways round this problem if it is
+absolutely necessary.
+
+<a id="c9"></a></p><h2>9. Other Facilities</h2>
+
+<p>
+MAKE - version 3.20 and above will allow Flash Datapaks to
+be made in the ordinary way.
+
+</p><p>
+FMAKE - uses the copier parallel interface to the IBM and
+allows 256k Flash Datapaks to be made from a 256K image.
+
+</p><p>
+Copier File Transfer Utilities - serial and parallel utilities
+in beta test, on this disk in COPIER directory.
+
+<a id="c10"></a></p><h2>10. Versions</h2>
+
+<table summary="">
+<tbody><tr><td valign="top">V1.2</td>
+<td>RELEASED 1st November 1990
+<br>First release.</td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr><td valign="top">V1.3b</td>
+<td>Not RELEASED ? January 1991
+<br>OPL call FLSHFORM supported.
+<br>Multi Boot version released.</td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr><td valign="top">V1.5 (FDRIVE15.BIN) &amp; M1.5 (FDRIVM15.BIN)</td>
+<td>Released Dec 91
+<br>
+New versions of normal flash driver and multi-boot flash driver
+to support new flash chips. Also downwardly compatible. Please
+read following for details of upgrading versions. Note, M1.5 is
+the multi-boot version.</td></tr>
+</tbody></table>
+
+<a id="c11"></a><h2>11. Flash Datapak software versions</h2>
+
+<p>
+If you have more than one Flash Datapak, they may have different
+versions of the controlling software. You MUST install whichever
+version is the latest. The original version of the software did not
+display a version number; subsequent versions display a version
+number when you select the `Flash' option. (On XPs, the number is on
+the end of the menu.)
+
+</p><p>
+To use a second Flash Datapak, first note the version of your current
+software, then remove the software (as explained in the Flash Datapak
+leaflet). Now install the software from the new Datapak, and note its
+version number. It will probably be the same version, or a later one.
+You can now use both Flash Datapaks.
+
+</p><p>
+The new Flash Datapak may not work if you do not do this.
+
+</p><p>
+In the unlikely event that the new software is an earlier version
+that the software from your original Datapak, remove the new software
+and re-install your previous software.
+
+</p><p>
+If you do have different versions of the software, then having
+installed the most recent version, you should format any Flash
+Datapaks which have the old version. (Otherwise, when you come to
+format the newer Datapak, the formatting process would copy the older
+version of the software from the older Datapak onto the newer one,
+and the newer Datapak might not work.) You can copy any data from the
+older Datapak - perhaps to the newer one - before formatting it.
+
+</p><p>
+Flash Datapak Formatters contain the same formatting software as
+Flash Datapaks themselves, and you can check the version number of
+the software in the same way. You must not use a Flash Datapak
+Formatter to format a Flash Datapak if the Datapak itself has a later
+version of the software. In this event, return your Flash Datapak
+Formatter to Psion for an upgrade.
+
+
+</p><hr>
+
+<div class="nav"><ul>
+<li><a href="https://www.jaapsch.net/index.htm">Home</a></li>
+</ul></div>
+
+
+
+</body></html>
