@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0040)https://www.jaapsch.net/psion/p1form.htm -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Psion Series 1 Datapak Format - Jaap's Psion Organiser II Page</title>
+<link rel="stylesheet" type="text/css" href="./Psion Series 1 Datapak Format - Jaap&#39;s Psion Organiser II Page_files/psion.css">
+<link rel="shortcut icon" href="https://www.jaapsch.net/psion/pics/favicon.ico">
+<style type="text/css">
+  table {
+    margin-left:30px;
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org", "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem", "position": 1,
+    "item": { "@id": "../index.htm", "name": "Home" }
+  },{
+    "@type": "ListItem", "position": 2,
+    "item": { "@id": "index.htm", "name": "Psion II" }
+  },{
+    "@type": "ListItem", "position": 3,
+    "item": { "@id": "p1form.htm", "name": "Datapak Format" }
+  }]
+}
+</script>
+</head>
+<body>
+<div class="header"><h1>Jaap's Psion II Page</h1><a href="https://www.jaapsch.net/psion/index.htm" class="jpp"></a></div>
+<ol class="breadcrumb">
+  <li><a href="https://www.jaapsch.net/index.htm">Home</a> /</li>
+  <li><a href="https://www.jaapsch.net/psion/index.htm">Psion II</a> /</li>
+  <li>Datapak Format</li>
+</ol>
+
+<h1>Psion Series 1 Datapak Format</h1>
+
+<hr>
+
+<p>This text will explain the various format of the data stored on a Datapak by
+the Series 1 Psion Organiser.</p>
+
+<p class="contents"><b><a href="https://www.jaapsch.net/psion/p1form.htm#bootpack">1. Bootable Packs</a></b>
+<b><a href="https://www.jaapsch.net/psion/p1form.htm#normpack">2. Ordinary Packs</a></b>
+      <a href="https://www.jaapsch.net/psion/p1form.htm#header">2.1 Pack Header</a>
+      <a href="https://www.jaapsch.net/psion/p1form.htm#record">2.2 Records</a>
+      <a href="https://www.jaapsch.net/psion/p1form.htm#datarec">2.3 Data Record</a>
+      <a href="https://www.jaapsch.net/psion/p1form.htm#namerec">2.4 Program Name Record</a>
+      <a href="https://www.jaapsch.net/psion/p1form.htm#bodyrec">2.5 Program Body Record</a>
+</p>
+
+<a id="bootpack"></a><h2>1. Bootable Packs</h2>
+
+<p>A bootable pack has a very simple format. The first byte on the pack is $03,
+to indicate that it is bootable. When the organiser reads this, it will then
+copy the next $C7 (=199) bytes of code to the RAM address $4006, where it is then
+immediately executed. This code should do all the necessary initialisation, such
+as adding menu items. It is likely that this cannot possibly all be done in 199 bytes,
+so the code will probably copy a larger block of program code from the pack and
+run that.
+
+</p><p>It is interesting to note that most of the bootable packs that Psion produced
+are essentially the same. They contain a runtime environment, which allows the
+organiser to interpret programs stored on the pack. For example, the Maths Pack,
+the Finance Pack, and the Science Pack have identical boot code, and differ only
+in their additional program records.
+</p>
+
+<a id="normpack"></a><h2>2. Ordinary Packs</h2>
+
+<a id="header"></a><h3>2.1 Pack header</h3>
+
+<p> An ordinary pack is used for data storage. Like a series II pack, it begins with
+a 10 byte header:
+
+</p><table summary="0" border="0">
+<tbody><tr><th valign="top">Byte:   </th><th valign="top">Meaning:</th></tr>
+<tr><td valign="top">0       </td><td valign="top">$FC, which marks it as an organiser 1 data pack.</td></tr>
+<tr><td valign="top">1/2     </td><td valign="top">Size in bytes minus 1, so $1FFF for an 8K pack, $3FFF for a 16K pack, or $7FFF for a 32K pack.</td></tr>
+<tr><td valign="top">3-9     </td><td valign="top">Apparently unused, filled with $FF.</td></tr>
+</tbody></table>
+
+<p>The first data record starts at address $000A of the pack.
+
+</p><p>Note that the Series 1 could only use packs with linear addressing. Some linear
+32K packs were produced for the Series 1, but most 32K packs for the Series II use
+paged addressing and will therefore not work on the series 1.</p>
+
+
+<a id="record"></a><h3>2.2 Records</h3>
+
+<p>Each item on the pack is a record with the following format:
+
+</p><table summary="0" border="0">
+<tbody><tr><th valign="top">Byte:</th><th valign="top">Meaning:</th></tr>
+<tr><td valign="top">0    </td><td valign="top">Length of the data that follows, including the type byte.</td></tr>
+<tr><td valign="top">1    </td><td valign="top">Type byte. See below.</td></tr>
+<tr><td valign="top">2+   </td><td valign="top">Contents, i.e. the stored data.</td></tr>
+</tbody></table>
+
+<p>The type byte is one of the following:
+
+</p><table summary="0" border="0">
+<tbody><tr><td valign="top">80</td><td valign="top">A data record.</td></tr>
+<tr><td valign="top">81</td><td valign="top">A program name record.</td></tr>
+<tr><td valign="top">82</td><td valign="top">A program body record.</td></tr>
+</tbody></table>
+
+<p>These are explained further in the sections below. When the organiser deletes a record,
+the high bit of the type byte is cleared, so a type byte of 00, 01, or 02 means it is a
+deleted data record, program name record, or program body record.
+
+
+<a id="datarec"></a></p><h3>2.3 Data Record</h3>
+
+<p>A data record contains text in a packed form. Each letter of the
+text is stored into 6 bits, and four of those can be stored in 3 bytes,
+which gives a saving of up to 25%.
+
+</p><p>Firstly, the letters and symbols are encoded into a number in the range
+0 ($00) to 63 ($3F). This is simply the ASCII code minus 32 ($20), as shown in
+the following table:
+
+</p><table summary="0" border="0">
+<tbody><tr><th>Code</th><th>Char</th><td width="10"></td><th>Code</th><th>Char</th><td width="10"></td><th>Code</th><th>Char</th><td width="10"></td><th>Code</th><th>Char</th></tr>
+<tr><td>00</td><td>space</td><td></td><td>10</td><td>0</td><td></td><td>20</td><td>@</td><td></td><td>30</td><td>P</td></tr>
+<tr><td>01</td><td>!</td><td></td><td>11</td><td>1</td><td></td><td>21</td><td>A</td><td></td><td>31</td><td>Q</td></tr>
+<tr><td>02</td><td>"</td><td></td><td>12</td><td>2</td><td></td><td>22</td><td>B</td><td></td><td>32</td><td>R</td></tr>
+<tr><td>03</td><td>#</td><td></td><td>13</td><td>3</td><td></td><td>23</td><td>C</td><td></td><td>33</td><td>S</td></tr>
+<tr><td>04</td><td>$</td><td></td><td>14</td><td>4</td><td></td><td>24</td><td>D</td><td></td><td>34</td><td>T</td></tr>
+<tr><td>05</td><td>%</td><td></td><td>15</td><td>5</td><td></td><td>25</td><td>E</td><td></td><td>35</td><td>U</td></tr>
+<tr><td>06</td><td>&amp;</td><td></td><td>16</td><td>6</td><td></td><td>26</td><td>F</td><td></td><td>36</td><td>V</td></tr>
+<tr><td>07</td><td>'</td><td></td><td>17</td><td>7</td><td></td><td>27</td><td>G</td><td></td><td>37</td><td>W</td></tr>
+<tr><td>08</td><td>(</td><td></td><td>18</td><td>8</td><td></td><td>28</td><td>H</td><td></td><td>38</td><td>X</td></tr>
+<tr><td>09</td><td>)</td><td></td><td>19</td><td>9</td><td></td><td>29</td><td>I</td><td></td><td>39</td><td>Y</td></tr>
+<tr><td>0A</td><td>*</td><td></td><td>1A</td><td>:</td><td></td><td>2A</td><td>J</td><td></td><td>3A</td><td>Z</td></tr>
+<tr><td>0B</td><td>+</td><td></td><td>1B</td><td>;</td><td></td><td>2B</td><td>K</td><td></td><td>3B</td><td>[</td></tr>
+<tr><td>0C</td><td>,</td><td></td><td>1C</td><td>&lt;</td><td></td><td>2C</td><td>L</td><td></td><td>3C</td><td>\</td></tr>
+<tr><td>0D</td><td>-</td><td></td><td>1D</td><td>=</td><td></td><td>2D</td><td>M</td><td></td><td>3D</td><td>]</td></tr>
+<tr><td>0E</td><td>.</td><td></td><td>1E</td><td>&gt;</td><td></td><td>2E</td><td>N</td><td></td><td>3E</td><td>^</td></tr>
+<tr><td>0F</td><td>/</td><td></td><td>1F</td><td>?</td><td></td><td>2F</td><td>O</td><td></td><td>3F</td><td>_</td></tr>
+</tbody></table>
+
+
+<p>The bits of four consecutive data characters are distributed over three bytes like this:
+</p><table summary="0" border="0">
+<tbody><tr><th>Character bits:</th><td>A1 A2 A3 A4 A5 A6&nbsp;&nbsp;;&nbsp;&nbsp;B1 B2 B3 B4 B5 B6&nbsp;&nbsp;;&nbsp;&nbsp;C1 C2 C3 C4 C5 C6&nbsp;&nbsp;;&nbsp;&nbsp;D1 D2 D3 D4 D5 D6</td></tr>
+<tr><th>Bytes:         </th><td>B5 B6 A1 A2 A3 A4 A5 A6&nbsp;&nbsp;;&nbsp;&nbsp;C3 C4 C5 C6 B1 B2 B3 B4&nbsp;&nbsp;;&nbsp;&nbsp;D1 D2 D3 D4 D5 D6 C1 C2</td></tr>
+</tbody></table>
+
+<p>So the first character is formed by the rightmost six bits of the first byte. The other two bits are left over.
+When the next byte is read, it is pasted onto the left of the previously read left-over bits, and then the 6
+rightmost bits form the second character. Now we have four bits left over. The next byte is pasted onto the left of
+that, and so on.</p>
+
+<p>When a string is stored, it is always padded at the end by an extra _ ($3F) character. Any unused bits in the
+last byte are simply ignored.
+
+</p><p>Let's take for example, the string "ABCDE". The 6-bit codes to store are $21, $22, $23, $24, $25, and a
+terminating $3F. The first four characters are interwoven to become the bytes $A1, $38, $92, and the next two
+characters interweave to become $E5, $0F. The complete data record that is stored will therefore be
+06 80 A1 38 92 E5 0F.
+
+
+</p><p>The earlier CM or XP Series II organisers (rom version 3.3 and earlier) can read the data records
+of an organiser 1 pack, allowing the data to be copied. They cannot write to such a pack, unless it
+is reformatted first. This compatibility was removed in later versions (some time between rom versions
+3.3 and 3.6).
+
+
+<a id="namerec"></a></p><h3>2.4 Program Name Record</h3>
+
+<p>A program name record simply contains as its data the program name in normal ASCII. A program name
+record is immediately followed by a program body record.
+
+
+<a id="bodyrec"></a></p><h3>2.5 Program Body Record</h3>
+
+<p>A program body contains a condensed version of the source code of the program.
+Every line of the program begins with a length byte, followed by the line of source
+code in ASCII, except that each multi-character keyword is represented by a one-byte code.
+After the last line of the program there is a single byte containing the number
+of lines the program has.</p>
+
+<p>The bytes for all the keywords are shown here.
+
+
+</p><table summary="0" border="0"><tbody><tr><td valign="top">
+
+<table summary="0" border="0">
+<tbody><tr><th>Byte:</th><th>Keyword:</th></tr>
+<tr><td>80</td><td>IF</td></tr>
+<tr><td>81</td><td>IN</td></tr>
+<tr><td>82</td><td>OUT</td></tr>
+<tr><td>83</td><td>GOTO</td></tr>
+<tr><td>84</td><td>&gt;=</td></tr>
+<tr><td>85</td><td>&lt;=</td></tr>
+<tr><td>86</td><td>&lt;&gt;</td></tr>
+<tr><td>87</td><td>**</td></tr>
+<tr><td>88</td><td>OR</td></tr>
+<tr><td>89</td><td>AND</td></tr>
+<tr><td>8A</td><td>NOT</td></tr>
+<tr><td>8B</td><td>LN</td></tr>
+<tr><td>8C</td><td>PI</td></tr>
+<tr><td>8D</td><td>P1</td></tr>
+<tr><td>8E</td><td>P2</td></tr>
+<tr><td>8F</td><td>P3</td></tr>
+</tbody></table>
+</td><td valign="top">
+<table summary="0" border="0">
+<tbody><tr><th>Byte:</th><th>Keyword:</th></tr>
+<tr><td>90</td><td>P4</td></tr>
+<tr><td>90</td><td>P5</td></tr>
+<tr><td>92</td><td>ABS</td></tr>
+<tr><td>93</td><td>?</td></tr>
+<tr><td>94</td><td>?</td></tr>
+<tr><td>95</td><td>ATN</td></tr>
+<tr><td>96</td><td>COS</td></tr>
+<tr><td>97</td><td>DEG</td></tr>
+<tr><td>98</td><td>ENG</td></tr>
+<tr><td>99</td><td>EXP</td></tr>
+<tr><td>9A</td><td>FAC</td></tr>
+<tr><td>9B</td><td>FIX</td></tr>
+<tr><td>9C</td><td>INT</td></tr>
+<tr><td>9D</td><td>LOG</td></tr>
+<tr><td>9E</td><td>MAX</td></tr>
+<tr><td>9F</td><td>MIN</td></tr>
+</tbody></table>
+</td><td valign="top">
+<table summary="0" border="0">
+<tbody><tr><th>Byte:</th><th>Keyword:</th></tr>
+<tr><td>A0</td><td>MOD</td></tr>
+<tr><td>A1</td><td>RAD</td></tr>
+<tr><td>A2</td><td>RND</td></tr>
+<tr><td>A3</td><td>SGN</td></tr>
+<tr><td>A4</td><td>SIN</td></tr>
+<tr><td>A5</td><td>?</td></tr>
+<tr><td>A6</td><td>ALOG</td></tr>
+<tr><td>A7</td><td>?</td></tr>
+<tr><td>A8</td><td>RAND</td></tr>
+<tr><td>A9</td><td>?</td></tr>
+<tr><td>AA</td><td>SQRT</td></tr>
+<tr><td>AB</td><td>?</td></tr>
+<tr><td>AC</td><td>MEAN</td></tr>
+<tr><td>AD</td><td>STDEV</td></tr>
+<tr><td>AE</td><td>ROUND</td></tr>
+<tr><td>AF</td><td>STORE</td></tr>
+</tbody></table>
+</td><td valign="top">
+<table summary="0" border="0">
+<tbody><tr><th>Byte:</th><th>Keyword:</th></tr>
+<tr><td>B0</td><td>GETKEY</td></tr>
+<tr><td>B1</td><td>RECALL</td></tr>
+</tbody></table>
+</td></tr></tbody></table>
+
+<p>Here are two short examples from the Science Pack. The <b>TAN</b> program contains <b>=SIN(P1)/COS(P1)</b>.
+This is stored on the pack as follows:
+
+</p><table summary="0" border="0">
+<tbody><tr><th>Bytes:</th><th>Meaning:</th></tr>
+<tr><td>04</td><td>Length of program name record</td>
+</tr><tr><td>81</td><td>Program name record type</td>
+</tr><tr><td>54 41 4E</td><td>Program name TAN in ascii</td>
+</tr><tr><td>0D</td><td>Length of program body record</td>
+</tr><tr><td>82</td><td>Program body record type</td>
+</tr><tr><td>0A</td><td>Length of first line of program</td>
+</tr><tr><td>3D</td><td>=</td>
+</tr><tr><td>A4</td><td>SIN</td>
+</tr><tr><td>28</td><td>(</td>
+</tr><tr><td>8D</td><td>P1</td>
+</tr><tr><td>29</td><td>)</td>
+</tr><tr><td>2F</td><td>/</td>
+</tr><tr><td>96</td><td>COS</td>
+</tr><tr><td>28</td><td>(</td>
+</tr><tr><td>8D</td><td>P1</td>
+</tr><tr><td>29</td><td>)</td>
+</tr><tr><td>01</td><td>Number of lines in the program</td>
+</tr></tbody></table>
+
+<p>The <b>PLASMA</b> program contains:
+</p><p class="indent"><b>IN "ELECTRON DENSITY"N
+<br>=SQRT(N*KE*KE/(KME*KEPS))</b>
+
+</p><p>This is stored on the pack as follows:
+
+</p><table summary="0" border="0">
+<tbody><tr><th>Bytes:</th><th>Meaning:</th></tr>
+<tr><td>07</td><td>Length of program name record</td>
+</tr><tr><td>81</td><td>Program name record type</td>
+</tr><tr><td>50 4C 41 53 41</td><td>Program name PLASMA in ascii</td>
+</tr><tr><td>2E</td><td>Length of program body record</td>
+</tr><tr><td>82</td><td>Program body record type</td>
+</tr><tr><td>14</td><td>Length of first line of program</td>
+</tr><tr><td>81</td><td>IN</td>
+</tr><tr><td>22</td><td>"</td>
+</tr><tr><td>45 4C 45 43 54 52 4F 4E 20 44 45 4E 53 49 54 59</td><td>ELECTRON DENSITY</td>
+</tr><tr><td>22</td><td>"</td>
+</tr><tr><td>4E</td><td>N</td>
+</tr><tr><td>16</td><td>Length of second line of program</td>
+</tr><tr><td>3D</td><td>=</td>
+</tr><tr><td>AA</td><td>SQRT</td>
+</tr><tr><td>28</td><td>(</td>
+</tr><tr><td>4E</td><td>N</td>
+</tr><tr><td>2A</td><td>*</td>
+</tr><tr><td>4B 45</td><td>KE</td>
+</tr><tr><td>2A</td><td>*</td>
+</tr><tr><td>4B 45</td><td>KE</td>
+</tr><tr><td>2F</td><td>/</td>
+</tr><tr><td>28</td><td>(</td>
+</tr><tr><td>4B 4D 45</td><td>KME</td>
+</tr><tr><td>2A</td><td>*</td>
+</tr><tr><td>4B 45 50 53</td><td>KEPS</td>
+</tr><tr><td>29</td><td>)</td>
+</tr><tr><td>29</td><td>)</td>
+</tr><tr><td>02</td><td>Number of lines in the program</td>
+</tr></tbody></table>
+
+
+<hr>
+
+<div class="nav"><ul>
+<li><a href="https://www.jaapsch.net/index.htm">Home</a></li>
+</ul></div>
+
+
+
+</body></html>

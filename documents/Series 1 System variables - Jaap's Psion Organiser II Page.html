@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0043)https://www.jaapsch.net/psion/p1sysvars.htm -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Series 1 System variables - Jaap's Psion Organiser II Page</title>
+<link rel="stylesheet" type="text/css" href="./Series 1 System variables - Jaap&#39;s Psion Organiser II Page_files/psion.css">
+<link rel="shortcut icon" href="https://www.jaapsch.net/psion/pics/favicon.ico">
+<script language="JavaScript1.1" type="text/javascript"><!--
+function insertemail(first,last){var em = first+"@"+last;document.write("<a href='mailto:"+em+"' onmouseover='return prev(-1)'>"+em+"<\/a>");}
+//--></script>
+<style type="text/css">
+td, th {
+  padding-right:25px;
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org", "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem", "position": 1,
+    "item": { "@id": "../index.htm", "name": "Home" }
+  },{
+    "@type": "ListItem", "position": 2,
+    "item": { "@id": "index.htm", "name": "Psion II" }
+  },{
+    "@type": "ListItem", "position": 3,
+    "item": { "@id": "p1sysvars.htm", "name": "Series 1 System Variables" }
+  }]
+}
+</script>
+</head>
+<body>
+<div class="header"><h1>Jaap's Psion II Page</h1><a href="https://www.jaapsch.net/psion/index.htm" class="jpp"></a></div>
+<ol class="breadcrumb">
+  <li><a href="https://www.jaapsch.net/index.htm">Home</a> /</li>
+  <li><a href="https://www.jaapsch.net/psion/index.htm">Psion II</a> /</li>
+  <li>Series 1 System Variables</li>
+</ol>
+
+<h1>The Psion Organiser Series 1 System Variables</h1>
+
+<hr>
+
+<p>The Organiser Series 1 has only 2K of RAM, with the address range $4000 to $47FF.
+Most of the system variables, the settings and bookkeeping information it needs to
+run properly, are however stored in the small amount of space provided by the
+processor, in the address range $00 to $FF.
+<br>The only source for this information I have is from partially disassembling the ROM,
+so this list is very incomplete. If you have any information about any of the
+variables which is not here, please let me
+(<script language="JavaScript" type="text/javascript"><!--
+insertemail("psion", "jaap"+"sch."+"net");
+//--></script><a href="mailto:psion@jaapsch.net" onmouseover="return prev(-1)">psion@jaapsch.net</a><noscript>psion a t jaapsch d o t net.</noscript>) know. I obviously
+cannot guarantee that this information is completely correct, nor am I responsible
+for any loss of data or any other damage resulting from your use of this
+information.
+
+</p><hr>
+
+<p>The addresses in the range $01 to $1F are used as internal registers
+by the 6303 processor. Extreme care should be taken with these addresses.
+They control/receive/send data to and from the other hardware - for example
+the operating system uses these for access to packs. The addresses marked W
+can only be written to, and similarly those marked R should only be
+read. The most useful and least dangerous is Port 5 ($15) which is used
+to read the keyboard and test for low battery.
+</p>
+
+<table border="0" cellspacing="0" width="100%" cellpadding="0" summary="">
+  <tbody><tr>
+    <td width="8%">&nbsp;</td>
+    <td width="5%" align="right">00</td>
+    <td>&nbsp;</td>
+    <td width="5%">&nbsp;</td>
+    <td>Not used</td>
+  </tr>
+  <tr>
+    <td>pob_ddr2</td>
+    <td align="right">01</td>
+    <td></td>
+    <td align="right">W&nbsp;&nbsp;</td>
+    <td>Port 2 data direction register. Bit 0 controls the direction of bit
+0 of port 6 (1=output,0=input) and bit 1 control the direction of bits 1-7 of
+port 6.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">02</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Port 1. This is the low byte of the address bus. Do not use.</td>
+  </tr>
+  <tr>
+    <td>pob_port2</td>
+    <td align="right">03</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Port 2. Used as data bus to slots, i.e. to packs etc.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">04</td>
+    <td></td>
+    <td align="right">W&nbsp;&nbsp;</td>
+    <td>Port 3 data direction register of data bus. Do not use.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">05</td>
+    <td></td>
+    <td>&nbsp;</td>
+    <td>Not used</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">06</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Port 3. This the data bus. Do not use.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">07</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Port 4. This is the high byte of the address bus. Do not use.</td>
+  </tr>
+  <tr>
+    <td>pob_tcsr1</td>
+    <td align="right">08</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Timer Control/Status 1. Bit 3 (EOCI1) is used to enable or disable OCI
+interrupts.</td>
+  </tr>
+  <tr>
+    <td>pow_frc</td>
+    <td align="right">09/0A</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Timer 1 Free Running Counter, automatically incremented by processor
+clock. Used for OCI interrupts.</td>
+  </tr>
+  <tr>
+    <td>pow_ocr1</td>
+    <td align="right">0B/0C</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Timer 1 output compare register. When pow_frc (Timer 1 frc) reaches this
+value, pow_frc is set back to zero and an OCI interrupt is generated. The OCI
+interrupt is used in the Psion as the keyboard interrupt.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">0D/0E</td>
+    <td></td>
+    <td align="right">R&nbsp;&nbsp;</td>
+    <td>Input capture register</td>
+  </tr>
+  <tr>
+    <td>pob_tcsr2</td>
+    <td align="right">0F</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Timer control/Status register 2</td>
+  </tr>
+  <tr>
+    <td>pob_rmcr</td>
+    <td align="right">10</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Rate, mode control register</td>
+  </tr>
+  <tr>
+    <td>pob_trcsr</td>
+    <td align="right">11</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Tx/Rx control status register</td>
+  </tr>
+  <tr>
+    <td>pob_rdr</td>
+    <td align="right">12</td>
+    <td></td>
+    <td align="right">R&nbsp;&nbsp;</td>
+    <td>Receive data register</td>
+  </tr>
+  <tr>
+    <td>pob_tdr</td>
+    <td align="right">13</td>
+    <td></td>
+    <td align="right">W&nbsp;&nbsp;</td>
+    <td>Transmit data register</td>
+  </tr>
+  <tr>
+    <td>pob_rcr</td>
+    <td align="right">14</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>RAM/Port 5 control register. Note that bit 7 (STBY PWR) is used to
+test whether a cold or warm boot is needed on startup. If it is clear on
+startup, then it is set and a cold boot is performed, but if bit 7 was already
+set it only does a warm boot. If bit 6 (RAME) is cleared, it disables the
+internal RAM ($40-$FF) of the processor so that these addresses refer to
+external memory instead. This feature cannot be used as there is no external
+memory for those addresses. Bits 0-3 control whether the corresponding bits read from
+port 5 are the port lines or the lines IRQ1, IRQ2, MRE or HLTE respectively.
+On the Psion these 4 bits normally are clear, so that the normal port 5 lines
+are used. The external interrupts IRQ1 and IRQ2 are therefore ignored.</td>
+  </tr>
+  <tr>
+    <td>pob_port5</td>
+    <td align="right">15</td>
+    <td></td>
+    <td align="right">R&nbsp;&nbsp;</td>
+    <td>Port 5, input port only. On the Psion it is used to read the activated
+keyboard lines and ON/CLEAR key. Bit 7 is clear when ON/CLEAR pressed, and
+bits 2 to 6 are cleared whenever the corresponding key is pressed on one of
+the active keyboard lines. (See $3000). Bit 0 is clear when the battery is
+running low. Bit 1 (ACOUT) is connected to bit 12 of the clock counter (see
+$3000), so that when the organiser switches on this bit will show whether it
+was because the timer elapsed (i.e. 2048 half-seconds elapsed)
+or whether it was because ON/CLEAR was pressed.</td>
+  </tr>
+  <tr>
+    <td>pob_ddr6</td>
+    <td align="right">16</td>
+    <td></td>
+    <td align="right">W&nbsp;&nbsp;</td>
+    <td>Port 6 data direction register, controlling the direction of each of
+the bits of port 6 individually.</td>
+  </tr>
+  <tr>
+    <td>pob_port6</td>
+    <td align="right">17</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Port 6. Bits 7 to 0 are labelled PACON, CS3, CS2, CS1, OE, PGM, MR,
+CLK. This port is used in the Psion to control whether the packs are on or
+off, which pack is selected, and to set the pack address. The series 1 has
+no top slot to select, so CS3 is used in a different way that I don't quite
+understand.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">18</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Port 7</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">19/1A</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Output compare register</td>
+  </tr>
+  <tr>
+    <td>pob_tcsr3</td>
+    <td align="right">1B</td>
+    <td></td>
+    <td>&nbsp;</td>
+    <td>Timer control/Status register for timer 2. Bits 0-1 select the clock
+used (if both set then bit 7 of port 2 used for timing, otherwise the internal
+clock is used). Bits 2-3 selects the action is needed at bit 6 of port 2 when
+time-out is reached (if bit 3 is set then bit 2 will be output, if bit 3 clear
+and bit 2 set then port 2 bit 6 is toggled, if bit 2, 3 both clear then port2
+bit 6 becomes an I/O port). If bit 4 cleared then timer 2 is temporarily
+disabled. Bit 5 is unused. If Bit 6 is set then a timeout causes an interrupt
+(CMI). Bit 7 is set whenever a timeout occurs (is not reset
+automatically).</td>
+  </tr>
+  <tr>
+    <td>pob_tconr</td>
+    <td align="right">1C</td>
+    <td></td>
+    <td align="right">W&nbsp;&nbsp;</td>
+    <td>Timer constant register for timer 2. The timer 2 up counter is
+incremented until this value is reached at which time the action indicated by
+the control register is taken.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">1D</td>
+    <td></td>
+    <td align="right">R/W&nbsp;&nbsp;</td>
+    <td>Timer 2 Up counter.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">1E</td>
+    <td></td>
+    <td>&nbsp;</td>
+    <td>Not used</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">1F</td>
+    <td></td>
+    <td>&nbsp;</td>
+    <td>Test register. Do not use.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="right">20-3F</td>
+    <td></td>
+    <td>&nbsp;</td>
+    <td>Not used</td>
+  </tr>
+</tbody></table>
+
+<hr>
+
+<p>The addresses in the range $40 to $FF are registers in the
+processor's internal memory. The machine code instructions to access these
+'zero-page' addresses are shorter, and therefore execute faster than those
+accessing two-byte addresses.</p>
+
+<table summary="">
+<tbody><tr><td>                </td><td>40              </td><td>Timer for switch off</td></tr>
+<tr><td>                </td><td>41              </td><td>Non-zero if natural updating disabled (B pressed) while setting clock.</td></tr>
+<tr><td>tmb_hfsec       </td><td>42              </td><td>Current time, half-seconds</td></tr>
+<tr><td>tmb_mins        </td><td>43              </td><td>Current time, minutes</td></tr>
+<tr><td>tmb_hours       </td><td>44              </td><td>Current time, hour     </td></tr>
+<tr><td>tmb_date        </td><td>45              </td><td>Current date, day</td></tr>
+<tr><td>tmb_mons        </td><td>46              </td><td>Current date, month</td></tr>
+<tr><td>                </td><td>47/48           </td><td>Saved SP for when error occurs</td></tr>
+<tr><td>                </td><td>49              </td><td>Not used?</td></tr>
+<tr><td>                </td><td>4A              </td><td></td></tr>
+<tr><td>                </td><td>4B              </td><td>Number of unread bytes of currently selected record on pack</td></tr>
+<tr><td>                </td><td>4C              </td><td>Byte length of currently selected record on pack</td></tr>
+<tr><td>                </td><td>4D              </td><td></td></tr>
+<tr><td>                </td><td>4E              </td><td>Record ID of currently selected record</td></tr>
+<tr><td>                </td><td>4F              </td><td>Number of bits remaining in first byte of 16-bit pack buffer</td></tr>
+<tr><td>                </td><td>50              </td><td>Number of bits to be read to make next character</td></tr>
+<tr><td>                </td><td>51              </td><td></td></tr>
+<tr><td>pk_buf          </td><td>52/53           </td><td>16 bit buffer read/written to pack.</td></tr>
+<tr><td>pk_addr         </td><td>54/55           </td><td>Current pack address</td></tr>
+<tr><td>                </td><td>56/57           </td><td>Index number of record being read (?)</td></tr>
+<tr><td>                </td><td>58/59           </td><td>Index number of current record (?)</td></tr>
+<tr><td>                </td><td>5A              </td><td></td></tr>
+<tr><td>                </td><td>5B              </td><td></td></tr>
+<tr><td>                </td><td>5C              </td><td>Number of half-seconds till packs switched off, or ignored if bit 7 set.</td></tr>
+<tr><td>                </td><td>5D              </td><td>Length of activity indication</td></tr>
+<tr><td>                </td><td>5E              </td><td>Current cursor type (00001EUF)</td></tr>
+<tr><td>                </td><td>5F              </td><td></td></tr>
+<tr><td>                </td><td>60              </td><td></td></tr>
+<tr><td>                </td><td>61              </td><td></td></tr>
+<tr><td>swap_reg        </td><td>62/63           </td><td>Swap register. The SWI command swaps its contents with X register.</td></tr>
+<tr><td>buf1_len        </td><td>64              </td><td>Length of Buffer1 at 4006.</td></tr>
+<tr><td>buf2_len        </td><td>65              </td><td>Length of Buffer2 at 40DD.</td></tr>
+<tr><td>                </td><td>66              </td><td>? Amount by which buffer is scrolled for display</td></tr>
+<tr><td>                </td><td>67              </td><td>Current reading/cursor position in Buffer1 | current date/time section selected for editing</td></tr>
+<tr><td>                </td><td>68              </td><td></td></tr>
+<tr><td>                </td><td>69              </td><td></td></tr>
+<tr><td>                </td><td>6A              </td><td></td></tr>
+<tr><td>                </td><td>6B              </td><td></td></tr>
+<tr><td>                </td><td>6C              </td><td></td></tr>
+<tr><td>                </td><td>6D              </td><td>Length of floating point stack at D4 in bytes</td></tr>
+<tr><td>                </td><td>6E              </td><td>Maximum length of buffer1 when reading in a record</td></tr>
+<tr><td>                </td><td>6F              </td><td></td></tr>
+<tr><td>revector        </td><td>70              </td><td>If bit 0 set, warm reboot jumps to 47FC. If bit 1 set, OCI jumps to 47F9. If bit 2 set, NMI jumps to 47F6.</td></tr>
+<tr><td>                </td><td>71              </td><td>non-zero if boot code already run and loaded</td></tr>
+<tr><td>pk_curpk        </td><td>72              </td><td>Current pack (10 for pack A, 20 for pack B)</td></tr>
+<tr><td>                </td><td>73              </td><td>Pack used according to menu item</td></tr>
+<tr><td>                </td><td>74              </td><td></td></tr>
+<tr><td>                </td><td>75              </td><td></td></tr>
+<tr><td>                </td><td>76/77           </td><td>Address of current menu option routine</td></tr>
+<tr><td>                </td><td>78              </td><td></td></tr>
+<tr><td>                </td><td>79              </td><td>Current menu item, or FF for clock</td></tr>
+<tr><td>                </td><td>7A              </td><td>Pack id of pack 1</td></tr>
+<tr><td>                </td><td>7B              </td><td>Pack id of pack 2</td></tr>
+<tr><td>pk_size         </td><td>7C/7D           </td><td>Size of current pack (in bytes)</td></tr>
+<tr><td>                </td><td>7E/7F           </td><td></td></tr>
+<tr><td>                </td><td>80              </td><td></td></tr>
+<tr><td>                </td><td>81              </td><td></td></tr>
+<tr><td>                </td><td>82              </td><td>Key currently depressed</td></tr>
+<tr><td>                </td><td>83              </td><td></td></tr>
+<tr><td>                </td><td>84              </td><td></td></tr>
+<tr><td>                </td><td>85              </td><td></td></tr>
+<tr><td>                </td><td>86              </td><td></td></tr>
+<tr><td>                </td><td>87              </td><td></td></tr>
+<tr><td>                </td><td>88              </td><td></td></tr>
+<tr><td>                </td><td>89              </td><td></td></tr>
+<tr><td>                </td><td>8A              </td><td></td></tr>
+<tr><td>                </td><td>8B              </td><td>Error flag. bit 0 set when parsing or arithmetical error occurs</td></tr>
+<tr><td>                </td><td>8C              </td><td>Used as loop counter in calculation routines</td></tr>
+<tr><td>                </td><td>8D/8E           </td><td></td></tr>
+<tr><td>                </td><td>8F              </td><td></td></tr>
+<tr><td>                </td><td>90              </td><td></td></tr>
+<tr><td>                </td><td>91              </td><td></td></tr>
+<tr><td>                </td><td>92              </td><td></td></tr>
+<tr><td>                </td><td>93-96           </td><td>Extra mantissa working space</td></tr>
+<tr><td>                </td><td>97              </td><td>Extra mantissa byte of register below, for rounding</td></tr>
+<tr><td>fp_acc1         </td><td>98-9B,9C,9D     </td><td>Floating point register, mantissa, sign, exponent</td></tr>
+<tr><td>                </td><td>9E              </td><td>Extra mantissa byte of register below, for rounding</td></tr>
+<tr><td>fp_acc2         </td><td>9F-A2,A3,A4     </td><td>Floating point register, mantissa, sign, exponent</td></tr>
+<tr><td>                </td><td>A5-A9           </td><td>Mantissa temporary register</td></tr>
+<tr><td>                </td><td>AA-AE           </td><td>Mantissa temporary register (can be combined with previous)</td></tr>
+<tr><td>                </td><td>AF              </td><td></td></tr>
+<tr><td>                </td><td>B0              </td><td>Exponent sign during parsing</td></tr>
+<tr><td>kbw_tdel        </td><td>B2/B3           </td><td>OCI interrupt interval (B3F6)</td></tr>
+<tr><td>bta_tabl        </td><td>B4/B5           </td><td>Address of keyboard table (key_tabl)</td></tr>
+<tr><td>                </td><td>B6              </td><td>Number of menu items (initially 05, can be 06)</td></tr>
+<tr><td>                </td><td>B7/B8           </td><td>Enter menu item (F939)</td></tr>
+<tr><td>                </td><td>B9/BA           </td><td>Find2 menu item (F887)</td></tr>
+<tr><td>                </td><td>BB/BC           </td><td>Save2 menu item (F8A5)</td></tr>
+<tr><td>                </td><td>BD/BE           </td><td>Erase menu item (F948)</td></tr>
+<tr><td>                </td><td>BF/C0           </td><td>Off menu item (F987)</td></tr>
+<tr><td>                </td><td>C1/C2           </td><td>Calc menu item (F977)</td></tr>
+<tr><td>fpstack         </td><td>D4-??           </td><td>Floating point stack. Length is in 6D</td></tr>
+<tr><td>                </td><td>FA              </td><td>Bootable pack slot</td></tr>
+<tr><td>                </td><td>FD/FE           </td><td>Bootable pack, pack address of data</td></tr>
+</tbody></table>
+
+<p>The address range $100 to $3FFF does not point to physical memory storage.
+Some of this address range is used to control the semi-custom chip, which
+controls all external communication for the CPU including the LCD screen,
+the keyboard and the buzzer. The semi-custom chip does not decode
+all the address lines. For the LCD driver the even addresses $2000, $2002 ... up
+to $27FE are considered identical, as are the odd ones $2001 up to $27FF.  For
+the other addresses all of the bottom 10 bits are ignored by the semi-custom
+chip. Simply performing a TST instruction on any of these addresses will have
+the required effect. Only the LCD addresses are such that STA or LDA instructions
+are required.</p>
+
+<table summary="">
+<tbody><tr><td>sca_lcdcontrol  </td><td>2000            </td><td>Liquid Crystal Display control register. When bit 7 of the contents
+                                                      of this register is set it means that the LCD is busy and cannot take any
+                                                      commands. The remaining 7 bits contain the current address pointer in the LCD
+                                                      memory. Writing to this register (only when bit 7 is clear) is used to pass
+                                                      a command to the LCD chip.</td></tr>
+<tr><td>sca_lcddata     </td><td>2001            </td><td>LCD data register. Is used to pass data to/from the LCD chip (only do
+                                                      this when bit 7 of $2000 is clear). Any data written/read here is stored
+                                                      at/read from the current LCD address, after which the LCD address pointer is
+                                                      automatically incremented.</td></tr>
+<tr><td>sca_counterreset</td><td>2800            </td><td>Reset counter for kybd + clock</td></tr>
+<tr><td>sca_pulseenable </td><td>2C00            </td><td>Pulse enable. Enables a high voltage pulse (21V) used in writing to
+                                                      datapaks. Take extreme care.</td></tr>
+<tr><td>sca_switchoff   </td><td>2E00            </td><td>Switch off</td></tr>
+<tr><td>sca_counterclock</td><td>3000            </td><td>Counter for kybd + clock increment once. The keyboard has 7 lines of
+                                                      5 keys (ON/Clear is separate). Bits 0 to 6 of the clock/keyboard counter
+                                                      determines which of these lines are active. When reset, all lines are active.
+                                                      To make only one line active, set the counter to 3F, 5F, 6F, 77, 7B, 7D or 7E
+                                                      which have only one of its low bits clear. These values activate the following
+                                                      key lines:
+                                                            <table summary="">
+                                                              <tbody><tr valign="top">
+                                                                <td>&nbsp;</td><td>3F</td><td>mode save find &lt;&lt; &gt;&gt;</td>
+                                                              </tr><tr valign="top">
+                                                                <td></td><td>5F</td><td>AGMS shift</td>
+                                                              </tr><tr valign="top">
+                                                                <td></td><td>6F</td><td>BHNTY</td>
+                                                              </tr><tr valign="top">
+                                                                <td></td><td>77</td><td>CIOUZ</td>
+                                                              </tr><tr valign="top">
+                                                                <td></td><td>7B</td><td>DJPV space</td>
+                                                              </tr><tr valign="top">
+                                                                <td></td><td>7D</td><td>EKQW delete</td>
+                                                              </tr><tr valign="top">
+                                                                <td></td><td>7E</td><td>FLRX execute</td>
+                                                              </tr>
+                                                            </tbody></table>
+                                                            Which of these keys is pressed (and the ON/CLEAR key) can then be read
+                                                      at pob_port5 ($15). This counter is also used to control the number of seconds
+                                                      that the organiser is switched off, and the number of NMI's that were missed
+                                                      if they are disabled.</td></tr>
+</tbody></table>
+
+<p>
+The address range $4000 to $47FF is the ordinary RAM.
+</p>
+
+<table summary="">
+<tbody><tr><td>                </td><td>4000            </td><td></td></tr>
+<tr><td>Buffer1         </td><td>4006            </td><td>Buffer 1, with length in 64</td></tr>
+<tr><td>Buffer2         </td><td>40DD            </td><td>Buffer 2, with length in 65</td></tr>
+<tr><td>...             </td><td>...             </td><td>...</td></tr>
+<tr><td>                </td><td>47EF            </td><td>Top of stack</td></tr>
+<tr><td>                </td><td>47F0-2          </td><td>TRAP revector entry point (enough room for JMP xxxx)</td></tr>
+<tr><td>                </td><td>47F3-5          </td><td>SIO revector entry point (enough room for JMP xxxx)</td></tr>
+<tr><td>                </td><td>47F6-8          </td><td>NMI interrupt revector entry point (enough room for JMP xxxx)</td></tr>
+<tr><td>                </td><td>47F9-B          </td><td>OCI interrupt revector entry point (enough room for JMP xxxx)</td></tr>
+<tr><td>                </td><td>47FC-E          </td><td>Warm boot revector entry point (enough room for JMP xxxx)</td></tr>
+<tr><td>                </td><td>47FF            </td><td></td></tr>
+</tbody></table>
+
+<hr>
+
+<div class="nav"><ul>
+<li><a href="https://www.jaapsch.net/index.htm">Home</a></li>
+</ul></div>
+
+
+
+</body></html>
