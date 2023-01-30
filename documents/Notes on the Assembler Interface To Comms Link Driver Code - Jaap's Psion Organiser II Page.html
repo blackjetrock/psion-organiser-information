@@ -1,0 +1,453 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0041)https://www.jaapsch.net/psion/ionotes.htm -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Notes on the Assembler Interface To Comms Link Driver Code - Jaap's Psion Organiser II Page</title>
+<link rel="stylesheet" type="text/css" href="./Notes on the Assembler Interface To Comms Link Driver Code - Jaap&#39;s Psion Organiser II Page_files/psion.css">
+<link rel="shortcut icon" href="https://www.jaapsch.net/psion/pics/favicon.ico">
+<style type="text/css">
+  table {
+    margin-left:30px;
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org", "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem", "position": 1,
+    "item": { "@id": "../index.htm", "name": "Home" }
+  },{
+    "@type": "ListItem", "position": 2,
+    "item": { "@id": "index.htm", "name": "Psion II" }
+  },{
+    "@type": "ListItem", "position": 3,
+    "item": { "@id": "ionotes.htm", "name": "Assembler Interface To Comms Link" }
+  }]
+}
+</script>
+</head>
+<body>
+<div class="header"><h1>Jaap's Psion II Page</h1><a href="https://www.jaapsch.net/psion/index.htm" class="jpp"></a></div>
+<ol class="breadcrumb">
+  <li><a href="https://www.jaapsch.net/index.htm">Home</a> /</li>
+  <li><a href="https://www.jaapsch.net/psion/index.htm">Psion II</a> /</li>
+  <li>Assembler Interface To Comms Link</li>
+</ol>
+
+<h1>Notes on the Assembler Interface To Comms Link Driver Code</h1>
+
+<hr>
+
+<p>COMMS LINK driver code is now interrupt driven and handles
+XON/XOFF and hardware handshaking at the lowest level. It
+also now parity checks all incoming data if parity is
+enabled.
+
+</p><p>As all serial I/O is now interrupt driven, interrupts CANNOT
+be disabled (as with the keyboard).  All calls to the
+operating system via the SWI instruction are intercepted by
+the new driver code once the port has been opened, to make
+data pack access transparent (and possible!) while the port
+is open.  It also ensures that the port is active and not
+affected by various power saving techniques in the operating
+system while it is open.
+
+</p><p>The function of the following operating system services are
+altered when the  port is opened; PK$SETP, PK$PKOF, BZ$TONE,
+BZ$ALRM and BZ$BELL.  As all SWI's and interrupts are
+intercepted directly, and the old handlers are not chained
+to, any other application that re-vectors the same services
+will not function correctly while the port is open.  The old
+handlers are saved only when the comms pack is booted during
+the install code but are restored every time the port is
+closed.  Any application booted in after the comms pack,
+which re-vectors any service used by the comms pack, will not
+function correctly even when the port has been closed as the
+original handler will be restored.
+
+</p><p>PK$SETP - This function will first wait for the correct time
+to elapse from the last character being sent and then switch
+off the port.  From this point the port will no longer be
+able to receive characters.  The operating system function
+will then select the pack in the normal way, and the next
+call made to a COMMS LINK service will switch the port on
+again.
+
+</p><p>PK$PKOF - This function will do nothing while the port is
+open.
+
+</p><p>BZ$TONE, BZ$ALRM, BZ$BELL These three functions will all just
+do a beep regardless of any parameters passed while the port
+is open because interrupts cannot be disabled.
+
+</p><p>The interface to the COMMS LINK driver code is via a block of
+fixed address memory of 40 bytes long starting at dvt_spar
+(=$214F).  This memory is divided into two areas: a table of
+variables which set various i/o parameters and an entry point
+for calls to the driver code.  All these variables and a
+macro for calling the driver code via this entry point are
+defined below.
+
+</p><p>The following variables can be set to control the
+function of the COMMS LINK driver code.  However, these
+variables are also set by the SETUP option in the COMMS menu
+and by the LSET OPL function, so generally their values must
+be preserved.
+
+</p><table summary="">
+<tbody><tr><th>Address</th><th>Name</th><th>Size</th><th>Range</th><td></td></tr>
+<tr><td>$2150</td><td>rsb_baud</td><td>1 byte</td><td>0-9</td><td>50,75,110,150,300,600,1200,2400,4800,9600
+</td></tr><tr><td>$2151</td><td>rsb_parity</td><td>1 byte</td><td>0-4</td><td>NONE,ODD,EVEN,MARK,SPACE</td></tr>
+<tr><td>$2152</td><td>rsb_bits</td><td>1 byte</td><td>0-1</td><td>7 BIT DATA, 8 BIT DATA</td></tr>
+<tr><td>$2153</td><td>rsb_stop</td><td>1 byte</td><td>0-1</td><td>1 STOP BIT, 2 STOP BITS</td></tr>
+<tr><td>$2154</td><td>rsb_hand</td><td>1 byte</td><td>0-7</td><td>NONE,XON,RTS,XON+RTS,DTR,DTR+XON,DTR+RTS,ALL</td></tr>
+<tr><td>$2155</td><td>rsb_proto</td><td>1 byte</td><td>0-2</td><td>NONE, XMODEM, PSION (File transfer protocol)</td></tr>
+<tr><td>$2156</td><td>rsb_echo</td><td>1 byte</td><td>0-1</td><td>LOCAL, HOST (Terminal emulation only)</td></tr>
+<tr><td>$2157</td><td>rsb_width</td><td>1 byte</td><td>0-250</td><td>NONE,1-250 (Forced line width)</td></tr>
+<tr><td>$2158</td><td>rsb_timout</td><td>1 byte</td><td>0-255</td><td>NONE,1-255 (LPRINT timeout in seconds)</td></tr>
+<tr><td>$2159</td><td>rst_reol</td><td>3 bytes</td><td>0-2</td><td>NONE,1,2 (1st byte only, other two data)</td></tr>
+<tr><td>$215C</td><td>rst_reof</td><td>3 bytes</td><td>0-2</td><td>NONE,1,2 (1st byte only, other two data)</td></tr>
+<tr><td>$215F</td><td>rst_rtrn</td><td>3 bytes</td><td>0-2</td><td>NONE,1,2 (1st byte only, other two data)</td></tr>
+<tr><td>$2162</td><td>rst_teol</td><td>3 bytes</td><td>0-2</td><td>NONE,1,2 (1st byte only, other two data)</td></tr>
+<tr><td>$2165</td><td>rst_teof</td><td>3 bytes</td><td>0-2</td><td>NONE,1,2 (1st byte only, other two data)</td></tr>
+<tr><td>$2168</td><td>rst_ttrn</td><td>3 bytes</td><td>0-2</td><td>NONE,1,2 (1st byte only, other two data)</td></tr>
+<tr><td>$216B</td><td>rsb_off_del</td><td>1 byte</td><td>1-255</td><td>(Time to off delay in characters default=3)</td></tr>
+<tr><td>$216C</td><td>rsb_xoff_del</td><td>1 byte</td><td>1-255</td><td>(Time to off delay with XON/XOFF default=7)</td></tr>
+<tr><td>$216D</td><td>rsb_tcon_val</td><td>1 byte</td><td>0-255</td><td>Time constant value for timer 2 baud rate gen</td></tr>
+<tr><td>$216E</td><td>rsb_off_ticks</td><td>1 byte</td><td>0-255</td><td>No. of ticks for baud rate dependent Tx off delay</td></tr>
+<tr><td>$216F</td><td>rsw_off_tcon</td><td>2 bytes</td><td>0-65535</td><td>Time constant for single tick Tx off delay</td></tr>
+<tr><td>$2171</td><td>rsb_sec_timer</td><td>1 byte</td><td>0-255</td><td>General purpose decrement to zero second timer</td></tr>
+<tr><td>$2172</td><td>RESERVED WORD</td><td>2 bytes</td><td></td><td></td></tr>
+<tr><td>$2174</td><td>rst_entry_point</td><td>3 bytes</td><td>-</td><td>Entry point for assembler interface</td></tr>
+</tbody></table>
+
+<p>All the 3 byte fields are of the following format:
+</p><table summary="">
+<tbody><tr><td>byte 0 = Length of data, 0 for none</td></tr>
+<tr><td>byte 1 = First data byte (optional)</td></tr>
+<tr><td>byte 2 = Second data byte (optional)</td></tr>
+</tbody></table>
+
+
+<p>After any of these variables have been altered a call to
+rs$setvars must be made to set up various derived variables.
+None of these variables should be altered while the port is
+open.
+
+</p><p>In addition a general purpose timer is available,
+rsb_sec_timer.  This location is decremented once every
+second if it is non-zero.  This timer is used by the
+higher level functions such as LPRINT to implement time outs
+so be warned!
+
+</p><p>All calls to the COMMS LINK driver code are made via the
+macro "rs" which is defined below:-
+
+</p><p class="program">;
+; RS - Macro for assembler interface to COMMS LINK drivers
+;
+.macro    rs function
+          jsr rst_entry_point
+.byte     function
+.endm</p>
+
+<p>Before using this macro a check must be made that the COMMS
+LINK code has been booted as follows:
+
+</p><p class="program">          ldx       #opl_name           ; choose an OPL function unique to COMMS-LINK
+          os        dv$lkup             ; ask O/S if it's booted
+          bcs       not_booted          ;ok to call rs$ routines now
+
+opl_name: .ascic    "XFEOF"</p>
+
+<p>The following functions are available:
+
+</p><table summary="">
+<tbody><tr><th>Function No.</th><th>Function</th><th>Description</th></tr>
+<tr><td>0</td><td>rs$open</td><td>Open the COMMS LINK channel</td></tr>
+<tr><td>1</td><td>rs$close</td><td>Close the COMMS LINK channel</td></tr>
+<tr><td>2</td><td>rs$putchar</td><td>Put a character to the RS232 port</td></tr>
+<tr><td>3</td><td>rs$getchar</td><td>Get a character from the RS232 port</td></tr>
+<tr><td>4</td><td>rs$flush</td><td>Flush the receive buffer</td></tr>
+<tr><td>5</td><td>rs$setvars</td><td>Set the COMMS LINK variables up after a change</td></tr>
+<tr><td>6</td><td>rs$lprint</td><td>Print a string</td></tr>
+<tr><td>7</td><td>rs$linput</td><td>Input a string</td></tr>
+<tr><td>8</td><td>rs$licon</td><td>Link layer connect call</td></tr>
+<tr><td>9</td><td>rs$lidis</td><td>Link layer disconnect call</td></tr>
+<tr><td>10</td><td>rs$liput</td><td>Link layer put a frame call</td></tr>
+<tr><td>11</td><td>rs$liget</td><td>Link layer get a frame call</td></tr>
+</tbody></table>
+
+<p>Example to open the RS232 port for reading and writing
+
+</p><p class="program">clr       b               ; Open for reading and writing
+rs        rs$open
+bcs       error           ; Deal with error
+    ...                   ; Rest of code</p>
+
+<p>Functions:-<br>
+In general all functions indicate an error condition by
+returning with the carry flag set and the appropriate error
+code in the B register.
+
+</p><hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$open</th></tr>
+<tr><th valign="top">Function number:</th><td>0</td></tr>
+<tr><th valign="top">Input parameters:</th><td>B reg - Mode to open.</td></tr>
+<tr><th valign="top">Output values:</th><td>Carry set if error, error number in B</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Opens the RS232 channel and initialises the hardware, also
+sets various modes of operation for the port depending on the
+value passed in B.
+<br>Bits in B :
+<br>Bit 0 - Set if port in Tx only mode.
+<br>Bit 1 - Set to enable break key error inhibiting.
+<br>Bit 2 - Set if th Tx paused state is to be cleared.
+
+<p>If a pack access is made while RS232 is open this access
+will be delayed until any stray characters have been dealt
+with.  Any subsequent calls to rs_putchar or rs_getchar will
+switch the port on again. If a call to rs$open is made while
+the port is already open the call is ignored.
+</p></td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>All</td></tr>
+<tr><th valign="top">Errors:</th><td>Carry set, error number in b
+<br>ER_DV_NP - Device not present
+<br>ER_GN_BL - Battery too low</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$close</th></tr>
+<tr><th valign="top">Function number:</th><td>1</td></tr>
+<tr><th valign="top">Input parameters:</th><td>B reg mode to close see below</td></tr>
+<tr><th valign="top">Output parameters:</th><td>Carry set if can not close port because host is busy</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Closes the RS232 port, bits in B:
+<br>Bit 0 CLEAR port closed and is turned off later by pack access or key scan
+<br>Bit 0 SET port closed and turned off
+<br>Bit 1 CLEAR host paused state is ignored
+<br>Bit 1 SET port fails to close if the host is busy (paused by an XOFF)
+</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>All</td></tr>
+<tr><th valign="top">Errors:</th><td>Carry set if failed to close due to host busy</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$putchar</th></tr>
+<tr><th valign="top">Function number:</th><td>2</td></tr>
+<tr><th valign="top">Input parameters:</th><td>A register - Character to be put to buffer</td></tr>
+<tr><th valign="top">Output parameters:</th><td>Carry set if error or busy, B clear or error number.</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Transmits the passed character.  Returns with the carry set
+if an error or the port was busy, else the carry is clear. B
+is clear if no error.
+</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>B,CCR</td></tr>
+<tr><th valign="top">Errors:</th><td>Carry set error number in B
+<br>ER_DV_CA - Invalid device call - Port not open
+<br>ER_RT_BK - Break Key
+<br>ER_GN_BL - Battery too low</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$getchar</th></tr>
+<tr><th valign="top">Function number:</th><td>3</td></tr>
+<tr><th valign="top">Input parameters:</th><td>None</td></tr>
+<tr><th valign="top">Output parameters:</th><td>A register - Next character from receive buffer
+<br>Carry set if error or busy, B clear or error number.</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Gets the next character from the receive buffer.  Returns
+with carry set if error or no characters in the buffer, else
+the next character from the buffer in the A register B is
+clear.</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>A,B,CCR</td></tr>
+<tr><th valign="top">Errors:</th><td>Carry set error number in B
+<br>ER_DV_CA - Invalid device call - Port not open
+<br>ER_GN_RF - Device read fail - Parity or overrun
+<br>ER_RT_BK - Break Key
+<br>ER_GN_BL - Battery too low</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$flush</th></tr>
+<tr><th valign="top">Function number:</th><td>4</td></tr>
+<tr><th valign="top">Input parameters:</th><td>None</td></tr>
+<tr><th valign="top">Output parameters:</th><td>None</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Flushes the receive buffer.</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>CCR</td></tr>
+<tr><th valign="top">Errors:</th><td>None</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$setvars</th></tr>
+<tr><th valign="top">Function number:</th><td>5</td></tr>
+<tr><th valign="top">Input parameters:</th><td>None</td></tr>
+<tr><th valign="top">Output parameters:</th><td>None</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Sets the derived COMMS LINK variables after a change to the
+setable COMMS LINK variables.</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>All</td></tr>
+<tr><th valign="top">Errors:</th><td>None</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$lprint</th></tr>
+<tr><th valign="top">Function number:</th><td>6</td></tr>
+<tr><th valign="top">Input parameters:</th><td>X register - Pointer to text to print
+<br>B register - Length of string to print</td></tr>
+<tr><th valign="top">Output parameters:</th><td>B register - Error code if any</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Opens the RS232 port for output only, then writes the passed
+string to the port applying all the translates, timeouts etc
+specified.</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>All</td></tr>
+<tr><th valign="top">Errors:</th><td>
+ER_GN_BL - Battery too low
+<br>ER_GN_WF - Device write fail (Timeout)
+<br>ER_RT_BK - Break Key
+<br>ER_DV_NP - Device not present</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$linput</th></tr>
+<tr><th valign="top">Function number:</th><td>7</td></tr>
+<tr><th valign="top">Input parameters:</th><td>A register - Timeout in seconds (0=no timeout)
+<br>B register - Number of characters to receive
+<br>X register - Address of buffer to place characters</td></tr>
+<tr><th valign="top">Output parameters:</th><td>B register - Error code if any
+<br>A register - Number of characters received</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Opens the RS232 port for output and input and then reads the
+passed number of bytes into the passed buffer applying all
+the translates, timeouts etc specified.</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>All</td></tr>
+<tr><th valign="top">Errors:</th><td>
+ER_GN_BL - Battery too low
+<br>ER_GN_RF - Device read fail (Timeout)
+<br>ER_RT_BK - Break Key
+<br>ER_DV_NP - Device not present</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$licon</th></tr>
+<tr><th valign="top">Function number:</th><td>8</td></tr>
+<tr><th valign="top">Input parameters:</th><td>None</td></tr>
+<tr><th valign="top">Output parameters:</th><td>B register - Error code if any</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Attempts to establish a logical link with the correspondent
+link entity.  Wait for a suitable acknowledgment.</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>All</td></tr>
+<tr><th valign="top">Errors:</th><td>
+ER_RT_F0 - a link already exists (local error)
+<br>ER_GN_RF - timeout trying to get a connection
+<br>Any errors that rs$open can return</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$lidis</th></tr>
+<tr><th valign="top">Function number:</th><td>9</td></tr>
+<tr><th valign="top">Input parameters:</th><td>None</td></tr>
+<tr><th valign="top">Output parameters:</th><td>B register - Error code if any</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Disconnect the logical link with the correspondent link
+layer.  Harmless if the link is already disconnected.</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>All</td></tr>
+<tr><th valign="top">Errors:</th><td>
+ER_RT_FC - no link in existence
+<br>ER_GN_BL - Battery too low</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$liput</th></tr>
+<tr><th valign="top">Function number:</th><td>10</td></tr>
+<tr><th valign="top">Input parameters:</th><td>D register - Length of buffer to send
+<br>X register - Address of buffer to send</td></tr>
+<tr><th valign="top">Output parameters:</th><td>B register - Error code if any</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Send data in buf to the correspondent. The data length must
+be &gt;=0 and &lt;=MAXILEN.  Waits for a suitable acknowledgment.
+(MAXILEN currently 260)</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>All</td></tr>
+<tr><th valign="top">Errors:</th><td>
+ER_RT_FC - a link does not exist (local error)
+<br>ER_GN_RF - a re-transmission threshold expired
+<br>ER_LX_ST - len exceeds MAXILEN (no data transferred)
+<br>A server disconnection reason code. E.g. "no disk space"
+<br>ER_GN_BL - Battery too low</td></tr>
+</tbody></table>
+
+<hr>
+
+<table summary="">
+<tbody><tr><th valign="top">Function name:</th><th>rs$liget</th></tr>
+<tr><th valign="top">Function number:</th><td>11</td></tr>
+<tr><th valign="top">Input parameters:</th><td>D register - Number of bytes to get
+<br>X register - Address of buffer to put bytes</td></tr>
+<tr><th valign="top">Output parameters:</th><td>B register - Error code if any
+<br>D register - Number of bytes placed in buffer if OK</td></tr>
+
+<tr><th valign="top">Description:-</th><td>
+Wait for a frame to arrive from the physical layer. Returns
+number of bytes placed in buf if all ok.</td></tr>
+
+<tr><th valign="top">Registers corrupted:</th><td>All</td></tr>
+<tr><th valign="top">Errors:</th><td>
+<br>ER_RT_FC - a link does not exist (local error)
+<br>ER_GN_RF - a timer expired
+<br>ER_LX_ST - data length exceeds len - 1st len bytes in buf
+<br>A file server disconnection reason code. E.g. drive door open
+<br>ER_GN_BL - Battery too low</td></tr>
+</tbody></table>
+
+<div class="nav"><ul>
+<li><a href="https://www.jaapsch.net/index.htm">Home</a></li>
+</ul></div>
+
+
+
+</body></html>

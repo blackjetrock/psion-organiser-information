@@ -1,0 +1,1001 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0071)http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm -->
+<html><!-- #BeginTemplate "/TEMPLATES/TechRef.dwt" --><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<!-- #BeginEditable "doctitle" -->
+<title>CommsLink - Organiser II Technical Reference</title>
+<!-- global styles -->
+<link rel="stylesheet" href="./CommsLink - Organiser II Technical Reference_files/techref.css" type="text/css">
+<link rel="stylesheet" href="./CommsLink - Organiser II Technical Reference_files/menu.css" type="text/css">
+<!-- local styles -->
+<style type="text/css"><!--
+
+--></style>
+<!-- #EndEditable -->
+</head>
+
+<body bgcolor="#FFFFFF">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <!-- LOGO -->
+    <td width="*" valign="top"><img src="./CommsLink - Organiser II Technical Reference_files/logo.gif" title="The PSION Organiser II Homepage"></td>
+    <!-- MENU -->
+    <td width="120" valign="top" align="right" rowspan="2">
+      <table width="120" border="0" cellspacing="0" cellpadding="0">
+<tbody><tr><td class="mTop">&nbsp;</td></tr>
+<tr><td class="mButton"><a href="http://www.retroisle.com/psion/organiser2/index.htm">Home</a></td></tr>
+<tr><td class="mCurrentButton">Technical Reference</td></tr>
+<!-- #BeginEditable "Menu" -->
+<tr><td class="mEntry"><a href="http://www.retroisle.com/psion/organiser2/OriginalDocs/index.htm">Introduction</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/sysver.htm">System<br>Versions</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/os.htm">Operating<br>System</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/memory.htm">Memory Usage</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/files.htm">Filing System</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/timing.htm">System Timing</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/sysboard.htm">System Board</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/powerboard.htm">Power Supply Board</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/display.htm">Display</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/keyboard.htm">Keyboard</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/slots.htm">Interface Slots</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/packs.htm">Packs</a></td></tr>
+ <tr><td class="mSubEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/packs.htm">General</a></td></tr>
+ <tr><td class="mSubEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/flashpack.htm">Flashpacks</a></td></tr>
+ <tr><td class="mSubEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/packaccess.htm">Low Level<br>Access</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/interfacing.htm">External<br>Interfacing</a></td></tr>
+<tr><td class="mCurrentEntry">Comms Link</td></tr>
+ <tr><td class="mSubEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/clproto.htm">Psion Link<br>Protocol</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/utilservices.htm">Utility System<br>Services</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/builtin.htm">Built-in<br>Applications</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/password.htm">LZ Passwords</a></td></tr>
+<tr><td class="mEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/proglang.htm">Programming<br>Language</a></td></tr>
+ <tr><td class="mSubEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/proglang.htm">General</a></td></tr>
+ <tr><td class="mSubEntry"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/qcode.htm">Q-Code</a></td></tr>
+<tr><td class="mEntryLast"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/tableinter.htm">Table<br>Interpreter</a></td></tr>
+<!-- #EndEditable -->
+<tr><td class="mButton"><a href="http://www.retroisle.com/psion/organiser2/mcosintr.htm">System Services</a></td></tr>
+<tr><td class="mBottom">&nbsp;</td></tr>
+      </tbody></table>
+
+
+  </td></tr><tr>
+    <td class="textBody"> <!-- #BeginEditable "BODY" -->
+      <h1>Technical Reference Manual</h1>
+      <h2>COMMS LINK</h2>
+      <table width="100%" border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td width="50%" valign="top">
+            <p><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl1">INTRODUCTION</a></p>
+            <p><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl1a"> ALTERED SYSTEM SERVICES</a></p>
+            <p><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl2"> MACHINE CODE INTERFACE</a></p>
+            <ul>
+              <li><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl3"> VARIABLES</a></li>
+              <li><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl4"> CALLS TO THE DRIVER</a></li>
+              <li><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#clfunc">DRIVER FUNCTIONS</a></li>
+            </ul>
+            <p><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl5"> </a></p>
+            </td>
+          <td valign="top">
+            <p><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl5">RS232 CONTROL SIGNALS</a></p>
+            <p><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl4a"> PROGRAMMING</a></p>
+            <ul>
+              <li><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl4a"> CONSIDERATIONS</a></li>
+              <li><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl6"> EXAMPLES</a></li>
+            </ul>
+            <p><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#funclist">FUNCTION REFERENCE</a></p>
+          </td>
+        </tr>
+      </tbody></table>
+      <p>&nbsp;</p>
+      <h3><a name="cl1"></a>INTRODUCTION</h3>
+      <p></p>
+      <p>COMMS LINK driver code is interrupt driven and handles XON/XOFF and hardware
+        handshaking at the lowest level. It also parity checks all incoming data
+        if parity is enabled.</p>
+      <p>As all serial I/O is interrupt driven, interrupts CANNOT be disabled
+        (as with the keyboard). All calls to the operating system via the SWI
+        instruction are intercepted by the driver code once the port has been
+        opened, to make data pack access transparent (and possible!) while the
+        port is open. It also ensures that the port is active and not affected
+        by various power saving techniques in the operating system while it is
+        open.</p>
+      <h3><a name="cl1a"></a> ALTERED SYSTEM SERVICES</h3>
+      <p>The function of the following operating system services are altered when
+        the port is opened; PK$SETP, PK$PKOF, BZ$TONE, BZ$ALRM and BZ$BELL. As
+        all SWI's and interrupts are intercepted directly, and the old handlers
+        are not chained to, any other application that re-vectors the same services
+        will not function correctly while the port is open. The old handlers are
+        saved only when the comms pack is booted during the install code but are
+        restored every time the port is closed. Any application booted in after
+        the comms pack, which re-vectors any service used by the comms pack, will
+        not function correctly even when the port has been closed as the original
+        handler will be restored.</p>
+      <ul>
+        <li>PK$SETP - This function will first wait for the correct time to elapse
+          from the last character being sent and then switch off the port. From
+          this point the port will no longer be able to receive characters. The
+          operating system function will then select the pack in the normal way,
+          and the next call made to a COMMS LINK service will switch the port
+          on again.</li>
+        <li>PK$PKOF - This function will do nothing while the port is open.</li>
+        <li>BZ$TONE, BZ$ALRM, BZ$BELL - These three functions will all just do
+          a beep regardless of any parameters passed while the port is open because
+          interrupts cannot be disabled.</li>
+      </ul>
+      <h3><a name="cl2"></a> MACHINE CODE INTERFACE</h3>
+      <p>The interface to the COMMS LINK driver code is via a block of fixed address
+        memory of 40 bytes long starting at dvt_spar ($214F). This memory is divided
+        into two areas: a table of variables which set various I/O parameters
+        and an entry point for calls to the driver code. All these variables and
+        a macro for calling the driver code via this entry point are defined below.</p>
+      <h4><a name="cl3"></a> VARIABLES</h4>
+      <p>The following variables can be set set to control the function of the
+        COMMS LINK driver code. However, these variables are also set by the SETUP
+        option in the COMMS menu and by the LSET OPL function, so generally their
+        values must be preserved.</p>
+      <p>After any of these variables have been altered a call to <a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$setvars">rs$setvars</a>
+        must be made to set up various derived variables. </p>
+      <p>None of these variables should be altered while the port is open.</p>
+      <h6>SINGLE BYTE VARIABLES</h6>
+      <p></p>
+      <table border="1" cellspacing="0" cellpadding="3">
+        <tbody><tr>
+          <td>Address</td>
+          <td>Name</td>
+          <td colspan="2">Range (default values bold)</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>$2150</td>
+          <td>rsb_baud</td>
+          <td align="center">0-9</td>
+          <td>50,75,110,150,300,600,<br>
+            1200,2400,4800,<b>9600</b></td>
+          <td>Baud rate<br>
+            (transfer speed)</td>
+        </tr>
+        <tr>
+          <td>$2151</td>
+          <td>rsb_parity</td>
+          <td align="center">0-4</td>
+          <td> <b>NONE</b>, ODD, EVEN,<br>
+            MARK, SPACE</td>
+          <td rowspan="3">Data, Parity, Stop Bit settings: <br>
+            transfer frame setup</td>
+        </tr>
+        <tr>
+          <td>$2152</td>
+          <td>rsb_bits</td>
+          <td align="center">0-1</td>
+          <td> 0 - 7 BIT DATA<br>
+            1 - <b>8 BIT DATA</b></td>
+        </tr>
+        <tr>
+          <td>$2153</td>
+          <td>rsb_stop</td>
+          <td align="center">0-1</td>
+          <td> 0 - <b>1 STOP BIT</b><br>
+            1 - 2 STOP BITS</td>
+        </tr>
+        <tr>
+          <td>$2154</td>
+          <td>rsb_hand</td>
+          <td align="center">0-7</td>
+          <td>NONE,<b>XON</b>,RTS,XON+RTS,<br>
+            DTR,DTR+XON,DTR+RTS,ALL</td>
+          <td>Handshake mode</td>
+        </tr>
+        <tr>
+          <td>$2155</td>
+          <td>rsb_proto</td>
+          <td align="center">0-2</td>
+          <td><b>NONE</b>, XMODEM, PSION</td>
+          <td>File transfer protocol<br>
+            (off by default)</td>
+        </tr>
+        <tr>
+          <td>$2156</td>
+          <td>rsb_echo</td>
+          <td align="center">0-1</td>
+          <td>LOCAL, <b>HOST</b> <br>
+          </td>
+          <td>Echo<br>
+            (Terminal emulation only)</td>
+        </tr>
+        <tr>
+          <td>$2157</td>
+          <td>rsb_width</td>
+          <td align="center">0-250</td>
+          <td> <b>NONE</b>,<br>
+            1-250</td>
+          <td> buffer width<br>
+            (forced line length)</td>
+        </tr>
+        <tr>
+          <td>$2158</td>
+          <td>rsb_timout</td>
+          <td align="center">0-255</td>
+          <td><b>NONE</b>,<br>
+            1-255 seconds</td>
+          <td>LPRINT timeout</td>
+        </tr>
+      </tbody></table>
+      <h6>3 BYTE VARIABLES:</h6>
+      <p>All contain a length byte (0-2) and two bytes of data</p>
+      <table cellspacing="0" border="1" cellpadding="3">
+        <tbody><tr>
+          <td>Address</td>
+          <td>Name</td>
+          <td align="center">default</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>$2159</td>
+          <td>rst_reol</td>
+          <td align="center">13,10<br>
+            &lt;CR&gt;&lt;LF&gt; </td>
+          <td>Receive End Of Line character(s)</td>
+        </tr>
+        <tr>
+          <td>$215C</td>
+          <td>rst_reof</td>
+          <td align="center">26<br>
+            &lt;SUB&gt; </td>
+          <td>Receive End Of File character(s)</td>
+        </tr>
+        <tr>
+          <td>$215F</td>
+          <td>rst_rtrn</td>
+          <td align="center">empty</td>
+          <td>Receive Translate character(s):<br>
+            1 - remove, 2 - replace first by second</td>
+        </tr>
+        <tr>
+          <td>$2162</td>
+          <td>rst_teol</td>
+          <td align="center"> 13,10<br>
+            &lt;CR&gt;&lt;LF&gt;</td>
+          <td>Transmit End Of Line character(s)</td>
+        </tr>
+        <tr>
+          <td>$2165</td>
+          <td>rst_teof</td>
+          <td align="center">26<br>
+            &lt;SUB&gt;</td>
+          <td>Transmit End Of Files character(s)</td>
+        </tr>
+        <tr>
+          <td>$2168</td>
+          <td>rst_ttrn</td>
+          <td align="center">empty</td>
+          <td>Transmit Translate characters:<br>
+            1 - remove, 2 - replace first by second</td>
+        </tr>
+      </tbody></table>
+      <h6>SYSTEM VARIABLES</h6>
+      <p>It is strongly suggested to leave these unchanged.</p>
+      <table border="1" cellspacing="0" cellpadding="3">
+        <tbody><tr>
+          <td>Address</td>
+          <td>Name</td>
+          <td align="center">Range</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>$216B</td>
+          <td>rsb_off_del</td>
+          <td align="center">1-255<br>
+            default=3</td>
+          <td>Time to off delay in characters </td>
+        </tr>
+        <tr>
+          <td>$216C</td>
+          <td>rsb_xoff_del</td>
+          <td align="center">1-255<br>
+            default=7</td>
+          <td>Time to off delay with XON/XOFF </td>
+        </tr>
+        <tr>
+          <td>$216D</td>
+          <td>rsb_tcon_val</td>
+          <td align="center">0-255</td>
+          <td>Time constant value for timer 2 baud rate generation</td>
+        </tr>
+        <tr>
+          <td>$216E</td>
+          <td>rsb_off_ticks</td>
+          <td align="center">0-255</td>
+          <td>No. of ticks for baud rate dependent Tx off delay</td>
+        </tr>
+        <tr>
+          <td>$216F</td>
+          <td>rsw_off_tcon</td>
+          <td align="center">0-$FFFF</td>
+          <td>Time constant for single tick TX off delay (word)</td>
+        </tr>
+        <tr>
+          <td>$2171</td>
+          <td>rsb_sec_timer</td>
+          <td align="center">0-255</td>
+          <td>General purpose decrement to zero second timer (decremented once
+            every second until zero)</td>
+        </tr>
+        <tr>
+          <td>$2172</td>
+          <td colspan="3">RESERVED WORD</td>
+        </tr>
+        <tr>
+          <td>$2174</td>
+          <td>rst_entry_point</td>
+          <td>&nbsp;</td>
+          <td>Entry point for assembler interface, contains a jump instruction
+            to the driver (3 bytes).</td>
+        </tr>
+      </tbody></table>
+      <p>The general purpose timer rsb_sec_timer is used by the higher level functions
+        such as LPRINT to implement time outs so be warned!</p>
+      <h4><a name="cl4"></a> CALLS TO THE DRIVER</h4>
+      <p>All calls to the COMMS LINK driver code are made via the macro "RS" which
+        is defined below:</p>
+      <pre class="codeExample">    ;
+    ; RS - Macro for assembler interface to COMMS LINK drivers
+    ;
+.macro    RS  function
+          jsr rst_entry_point
+.byte     function
+.endm</pre>
+      <p>Before using this macro a check must be made that the COMMS LINK code
+        has been booted as follows:</p>
+      <pre class="codeExample">          ldx  #opl_name           ; choose an OPL function unique to COMMS-LINK
+          os   dv$lkup             ; ask O/S if it's booted
+          bcs  not_booted          ;ok to call RS$ routines now
+
+opl_name: .ascic"XFEOF"</pre>
+      <h4><a name="clfunc"></a> DRIVER FUNCTIONS</h4>
+      <p>The following functions are available:</p>
+      <table>
+        <tbody><tr>
+          <td align="center" width="10">&nbsp;</td>
+          <td width="30">0</td>
+          <td width="85"><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$open">RS$open</a></td>
+          <td>Open the COMMS LINK channel</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>1</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$close">RS$close</a></td>
+          <td>Close the COMMS LINK channel</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>2</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$putchar">RS$putchar</a></td>
+          <td>Put a character to the RS232 port</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>3</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$getchar">RS$getchar</a></td>
+          <td>Get a character from the RS232 port</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>4</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$flush">RS$flush</a></td>
+          <td>Flush the receive buffer</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>5</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$setvars">RS$setvars</a></td>
+          <td>Set the COMMS LINK variables up after a change</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>6</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$lprint">RS$lprint</a></td>
+          <td>Print a string</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>7</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$linput">RS$linput</a></td>
+          <td>Input a string</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>8</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$licon">RS$licon</a></td>
+          <td>Link layer connect call</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>9</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$lidis">RS$lidis</a></td>
+          <td>Link layer disconnect call</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>10</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$liput">RS$liput</a></td>
+          <td>Link layer put a frame call</td>
+        </tr>
+        <tr>
+          <td align="center">&nbsp;</td>
+          <td>11</td>
+          <td><a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#rs$liget">RS$liget</a></td>
+          <td>Link layer get a frame call</td>
+        </tr>
+      </tbody></table>
+      <p>Example to open the RS232 port for reading and writing:</p>
+      <pre class="codeExample">        clrb                 ; Open for reading and writing
+        RS   RS$open
+        bcs  error           ; Deal with error
+        ...                  ; Rest of code</pre>
+      <p>In general all functions indicate an error condition by returning with
+        the carry flag set and the appropriate error code in the B register.</p>
+      <h3><a name="cl5"></a> RS232 CONTROL SIGNALS</h3>
+      <p>The COMMSLINK hardware provides the following RS232 control signals on
+        the port POB_PORT2 (address $03).</p>
+      <p>All bits are readable, writing to input bits is to be avoided.</p>
+      <table cellpadding="3" cellspacing="0" border="1">
+        <tbody><tr>
+          <td>Name</td>
+          <td>Top slot pin</td>
+          <td align="center">Direction</td>
+          <td>PORT2 bit no</td>
+          <td>Set if:</td>
+        </tr>
+        <tr>
+          <td>RTS</td>
+          <td align="center">5</td>
+          <td align="center">input</td>
+          <td align="center">2</td>
+          <td>correspondent busy</td>
+        </tr>
+        <tr>
+          <td>CTS</td>
+          <td align="center">6</td>
+          <td align="center">output</td>
+          <td align="center">0</td>
+          <td>organiser busy</td>
+        </tr>
+        <tr>
+          <td>DSR</td>
+          <td align="center">4</td>
+          <td align="center">input</td>
+          <td align="center">1</td>
+          <td>correspondent busy</td>
+        </tr>
+        <tr>
+          <td>DTR</td>
+          <td align="center">-</td>
+          <td>linked to DSR</td>
+          <td align="center">-</td>
+          <td>DSR set</td>
+        </tr>
+      </tbody></table>
+      <p>Note that DTR (normally an output) is merely linked to DSR and can not
+        be driven by a program.</p>
+      <h3><a name="cl4a"></a> PROGRAMMING</h3>
+      <h4>CONSIDERATIONS</h4>
+      <p>In between a call to RS$OPEN and a call to RS$CLOSE, programmers should
+        look out for the following operating system routines:</p>
+      <p>Routines which access packs:</p>
+      <ul>
+        <li>all FL$ routines</li>
+        <li>all PK$ routines except for PK$PKOF</li>
+        <li>DV$BOOT, DV$LOAD</li>
+        <li>any other routines which indirectly access packs, such as calls to
+          OPL, DV$VECT, TL$XXMD etc.</li>
+      </ul>
+      <p>These turn off the RS232 port, until the next call to COMMS LINK. This
+        is normally no problem, unless a program tries to access POB_PORT2 after
+        a call to one of the above routines but before another COMMS LINK call.
+        The RS232 port should then be turned on by calling RS$OPEN again, as follows:</p>
+      <p>Example: no problem here</p>
+      <pre class="codeExample">        os FL$OPEN
+        ...                     ; RS232 now off
+        jsr rst_entry_point
+        Byte RS$getchar        ; or similar COMMS LINK function
+        ...
+        tim #cts,POB_PORT2      ; test the CTS line</pre>
+      <p>Example: this is a BUG</p>
+      <pre class="codeExample">        Os PK$SETP
+        ...                     ; RS232 now off
+        Tim #CTS,POB_PORT2      ; test the CTS line</pre>
+      <p>Example: corrected version of above</p>
+      <pre class="codeExample">        Os PK$SETP              ; Re-open the RS232 port, to switch it on
+        ldab #opened_with       ; use value originally supplied to RS$OPEN
+        andb #^XFE              ; but with bit 0 clear to indicate that
+        jsr rst_entry_point     ; the handshaking state is not to be reset
+        Byte RS$open
+        ...
+        Tim #CTS,POB_PORT2      ; now OK to access port</pre>
+      <p>Other routines whose behavior is altered while the RS232 port open:</p>
+      <ul>
+        <li>PK$PKOF - has no effect </li>
+        <li>BZ$ routines - these all give a strange beep </li>
+        <li>KB$ routines do not switch the packs off to save power</li>
+      </ul>
+      <p class="urgent">Do not call BT$SWOF without first closing the RS232 port
+        with RS$CLOSE</p>
+      <p>The keyboard interrupt service routine is altered so that interrupts
+        remain enabled while the keyboard is being scanned. This gives RS232 interrupts
+        a higher priority than keyboard interrupts.</p>
+      <h4><a name="cl6"></a>PROGRAMMING EXAMPLES</h4>
+      <h5>Checking that COMMS LINK is installed </h5>
+      <p>First check that the COMMS LINK software has been loaded - i.e. COMMS
+        is in the top-level menu. If COMMS LINK is not installed, any program
+        which calls the machine code interface routines provided by COMMS LINK
+        will crash.</p>
+      <p>This check can be performed in OPL as follows:</p>
+      <pre class="codeExample">        commsin%:
+        rem return true if COMMS LINK installed
+        onerr iserr::
+        xfeof:          :rem try a harmless COMMS LINK function
+        iserr::
+        return err&lt;&gt;203 : rem not installed if "missing proc" error</pre>
+      <p>or in machine code:</p>
+      <pre class="codeExample">                bsr check_present
+                bcs not_present
+                bra is_present
+
+check_present:  bsr 1$          ; PC relative LDX #XFEOF
+                .ascic "XFEOF"  ; leading count byte string
+           1$:  pulx            ; PC = address of "XFEOF"
+                Os dv$lkup      ; if XFEOF not there, no COMMS LINK
+                rts</pre>
+      <h5>Opening and closing the RS232 port</h5>
+      <p>Before accessing the RS232 port, the program must first call the COMMS
+        LINK machine code interface routine RS$OPEN. This indicates that the RS232
+        port is now in use.</p>
+      <p>Example:</p>
+      <pre class="codeExample">                clrb            ; Open for reading and writing
+                jsr rst_entry_point
+                Byte RS$open
+                bcs error       ; Deal with error
+                ...             ; Now free to access the port</pre>
+      <p>RS$CLOSE should be called when the RS232 port is no longer needed.</p>
+      <pre class="codeExample">        ; bit masks for RS$close
+        turn_off_immed= 1       ; switch off immediately after close
+                                ; else leave port on
+        fail_busy= 2            ; fail with carry set if paused by XOFF
+                                ; else ignore XOFF state, and close immediately
+
+        ; Example where port not closed while XOFF handshake
+
+        close_type = fail_busy  ; dont close if busy handshaking,
+                                ; leave port switched on
+
+        wait_busy:      ldab #close_type
+                        jsr  rst_entry_point
+                        Byte RS$close
+                        bcs wait_busy   ; wait until XON
+
+        ; Straight close
+
+        close_type = 0  ; ignore XOFF state,
+                        ; leave port switched on
+
+                        ldab #close_type
+                        jsr rst_entry_point
+                        Byte RS$close
+</pre>
+      <h5>Using handshaking lines</h5>
+      <pre class="codeExample">        ; Bit masks
+                CTS= 1
+                dsr= 2
+                rts= 4
+        ;Set CTS to indicate ORGANISER II busy
+
+                oim #CTS,POB_PORT2
+
+
+        ;Clear CTS to indicate ORGANISER II ready for input
+
+                aim #CTS,POB_PORT2      ; not (1) = $FE
+
+
+        ;Wait on both RTS and DSR
+
+        wait:   Tim #rts!dsr,POB_PORT2
+                bne wait
+</pre>
+      <p>Example: OPL/Machine code for controlling the RTS line directly:<br>
+      </p>
+      <pre class="codeExample">        global rtshigh%(2),rtslow%(2),a%
+        rtshigh%(1)=$71fe
+        rtshigh%(2)=$0339
+        rtslow%(1)=$7201
+        rtslow%(2)=$0339
+
+        rem to assert (raise) the rts line
+        a%=usr%(addr(rtshigh%()),0)
+
+        rem to de-assert (lower) the rts line
+        a%=usr%(addr(rtslow%()),0)
+
+</pre>
+      <h3><a name="funclist"></a>FUNCTION REFERENCE</h3>
+      <p>All all function calls are made via the macro "RS", see <a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm#cl4">above</a>.</p>
+      <hr>
+      <h6><a name="rs$open"></a>RS$open</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td valign="top">Input parameters:</td>
+          <td> B register: Mode to open.
+            <ul>
+              <li>Bit 0 - Set if port in TX only mode. </li>
+              <li>Bit 1 - Set to enable break key error inhibiting. </li>
+              <li>Bit 2 - Set if the TX paused state is to be cleared. </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Output values:</td>
+          <td>Carry set if error, error number in B</td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>All</td>
+        </tr>
+      </tbody></table>
+      <p>Opens the RS232 channel and initialises the hardware, also sets various
+        modes of operation for the port depending on the value passed in B.</p>
+      <p>If a pack access is made while RS232 is open this access will be delayed
+        until any stray characters have been delt with. Any subsequent calls to
+        RS_putchar or RS_getchar will switch the port on again. If a call to RS$open
+        is made while the port is already open the call is ignored.</p>
+      <p>Errors:</p>
+      <ul>
+        <li>ER_DV_NP - Device not present</li>
+        <li>ER_GN_BL - Battery too low</li>
+      </ul>
+      <hr>
+      <h6><a name="rs$close"></a>RS$close</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td valign="top">Input parameters:</td>
+          <td> B register: Mode to close.
+            <ul>
+              <li>Bit 0 CLEAR port closed and is turned off later by pack access
+                or key scan</li>
+              <li>Bit 0 SET port closed and turned off</li>
+              <li>Bit 1 CLEAR host paused state is ignored</li>
+              <li>Bit 1 SET port fails to close if the host is busy (paused by
+                an XOFF)<br>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Output values:</td>
+          <td>Carry set if can not close port because host is busy</td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>All</td>
+        </tr>
+      </tbody></table>
+      <p>Closes the RS232 port. Carry is set if failed to close due to host busy</p>
+      <p>Errors: none</p>
+      <hr>
+      <h6><a name="rs$putchar"></a>RS$putchar</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Input parameters:</td>
+          <td>A register: Character to be put to buffer</td>
+        </tr>
+        <tr>
+          <td valign="top">Output values:</td>
+          <td> Carry set if error or busy<br>
+            B clear or error number </td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>B, CCR</td>
+        </tr>
+      </tbody></table>
+      <p>Transmits the passed character. Returns with the carry set if an error
+        or the port was busy, else the carry is clear. B is clear if no error.</p>
+      <p>Errors:</p>
+      <ul>
+        <li>ER_DV_CA - Invalid device call - Port not open</li>
+        <li>ER_RT_BK - Break Key</li>
+        <li>ER_GN_BL - Battery too low</li>
+      </ul>
+      <hr>
+      <h6><a name="rs$getchar"></a>RS$getchar</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Input parameters:</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td valign="top">Output values:</td>
+          <td> A register - Next character from receive buffer<br>
+            B clear or error number<br>
+            Carry set if error or busy<br>
+          </td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>A, B, CCR</td>
+        </tr>
+      </tbody></table>
+      <p>Gets the next character from the receive buffer. Returns with carry set
+        if error or no characters in the buffer, else the next character from
+        the buffer in the A register B is clear.</p>
+      <p>Errors:</p>
+      <ul>
+        <li>ER_DV_CA - Invalid device call - Port not open</li>
+        <li>ER_GN_RF - Device read fail - Parity or overrun</li>
+        <li>ER_RT_BK - Break Key</li>
+        <li>ER_GN_BL - Battery too low</li>
+      </ul>
+      <hr>
+      <h6><a name="rs$flush"></a>RS$flush</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Input parameters:</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Output values:</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>CCR</td>
+        </tr>
+      </tbody></table>
+      <p>Flushes the receive buffer.</p>
+      <p>Errors: none</p>
+      <hr>
+      <h6><a name="rs$setvars"></a>RS$setvars</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Input parameters:</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Output values:</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>All</td>
+        </tr>
+      </tbody></table>
+      <p>Sets the derived COMMS LINK variables after a change to the setable COMMS
+        LINK variables.</p>
+      <p>Errors: none</p>
+      <hr>
+      <h6><a name="rs$lprint"></a>RS$lprint</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td valign="top">Input parameters:</td>
+          <td> X register - Pointer to text to print<br>
+            B register - Length of string to print</td>
+        </tr>
+        <tr>
+          <td>Output values:</td>
+          <td>B register - Error code if any </td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>All</td>
+        </tr>
+      </tbody></table>
+      <p>Opens the RS232 port for output only, then writes the passed string to
+        the port applying all the translates, timeouts etc. specified.</p>
+      <p>Errors:</p>
+      <ul>
+        <li>ER_GN_BL - Battery too low</li>
+        <li>ER_GN_WF - Device write fail (Timeout)</li>
+        <li>ER_RT_BK - Break Key</li>
+        <li>ER_DV_NP - Device not present</li>
+      </ul>
+      <hr>
+      <h6><a name="rs$linput"></a>RS$linput</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>7</td>
+        </tr>
+        <tr>
+          <td valign="top">Input parameters:</td>
+          <td>A register - Timeout in seconds (0=no timeout)<br>
+            B register - Number of characters to receive <br>
+            X register - Address of buffer to place characters</td>
+        </tr>
+        <tr>
+          <td valign="top">Output values:</td>
+          <td>B register - Error code if any <br>
+            A register - Number of characters received </td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>All</td>
+        </tr>
+      </tbody></table>
+      <p>Opens the RS232 port for output and input and then reads the passed number
+        of bytes into the passed buffer applying all the translates, timeouts
+        etc. specified.</p>
+      <p>Errors:</p>
+      <ul>
+        <li>ER_GN_BL - Battery too low</li>
+        <li>ER_GN_RF - Device read fail (Timeout)</li>
+        <li>ER_RT_BK - Break Key</li>
+        <li>ER_DV_NP - Device not present</li>
+      </ul>
+      <hr>
+      <h6><a name="rs$licon"></a>RS$licon</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>Input parameters:</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Output values:</td>
+          <td>B register - Error code if any</td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>All</td>
+        </tr>
+      </tbody></table>
+      <p>Attempts to establish a logical link with the correspondent link entity.
+        Wait for a suitable acknowledgment.</p>
+      <p>Errors:</p>
+      <ul>
+        <li>ER_RT_F0 - a link already exists (local error)</li>
+        <li>ER_GN_RF - timeout trying to get a connection</li>
+        <li>ER_DV_NP - Device not present</li>
+        <li>ER_GN_BL - Battery too low</li>
+      </ul>
+      <hr>
+      <h6><a name="rs$lidis"></a>RS$lidis</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>9</td>
+        </tr>
+        <tr>
+          <td>Input parameters:</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Output values:</td>
+          <td>B register - Error code if any</td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>All</td>
+        </tr>
+      </tbody></table>
+      <p>Disconnect the logical link with the correspondent link layer. Harmless
+        if the link is already disconnected.</p>
+      <p>Errors:</p>
+      <ul>
+        <li>ER_RT_FC - no link in existence</li>
+        <li>ER_GN_BL - Battery too low</li>
+      </ul>
+      <hr>
+      <h6><a name="rs$liput"></a>RS$liput</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td valign="top">Input parameters:</td>
+          <td>D register - Length of buffer to send <br>
+            X register - Address of buffer to send </td>
+        </tr>
+        <tr>
+          <td>Output values:</td>
+          <td>B register - Error code if any</td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>All</td>
+        </tr>
+      </tbody></table>
+      <p>Send data in buffer to the correspondent. The data length must be &gt;=0
+        and &lt;=MAXILEN. Waits for a suitable acknowledgment. (MAXILEN currently
+        260)</p>
+      <p>Errors:</p>
+      <ul>
+        <li>ER_RT_FC - a link does not exist (local error)</li>
+        <li>ER_GN_RF - a re-transmission threshold expired</li>
+        <li>ER_LX_ST - len exceeds MAXILEN (no data transferred)</li>
+        <li>A server disconnection reason code, e.g. "no disk space"
+        </li><li>ER_GN_BL - Battery too low</li>
+      </ul>
+      <hr>
+      <h6><a name="rs$liget"></a>RS$liget</h6>
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tbody><tr>
+          <td>Function Number:</td>
+          <td>11</td>
+        </tr>
+        <tr>
+          <td valign="top">Input parameters:</td>
+          <td>D register - Number of bytes to get <br>
+            X register - Address of buffer to put bytes</td>
+        </tr>
+        <tr>
+          <td valign="top">Output values:</td>
+          <td>B register - Error code if any <br>
+            D register - Number of bytes placed in buffer if OK</td>
+        </tr>
+        <tr>
+          <td>Registers corrupted:</td>
+          <td>All</td>
+        </tr>
+      </tbody></table>
+      <p>Wait for a frame to arrive from the physical layer. Returns number of
+        bytes placed in buffer if all OK</p>
+      <p>Errors:</p>
+      <ul>
+        <li>ER_RT_FC - a link does not exist (local error)</li>
+        <li>ER_GN_RF - a timer expired</li>
+        <li>ER_LX_ST - data length exceeds Len (1st Len bytes in buffer)</li>
+        <li>A file server disconnection reason code, e.g. drive door open.</li>
+        <li>ER_GN_BL - Battery too low</li>
+      </ul>
+      <!-- #EndEditable -->
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;<br>
+      <!-- #BeginEditable "Bottom" -->
+      <table width="100%">
+        <tbody><tr>
+          <td> <a href="http://www.retroisle.com/psion/organiser2/OriginalDocs/index.htm"><img src="./CommsLink - Organiser II Technical Reference_files/first.gif" border="0" title="first"></a>
+            <a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/interfacing.htm"><img src="./CommsLink - Organiser II Technical Reference_files/prev.gif" border="0" title="previous"></a></td>
+          <td align="right">&nbsp; <a href="http://www.retroisle.com/others/psion/organiser2/OriginalDocs/clproto.htm"><img src="./CommsLink - Organiser II Technical Reference_files/next.gif" border="0" title="next"></a></td>
+          <td width="116"><img src="./CommsLink - Organiser II Technical Reference_files/totop.gif" width="32" height="27" onclick="window.scroll(0,0);" class="hand" title="top"></td>
+        </tr>
+      </tbody></table>
+      <!-- #EndEditable -->
+	  </td>
+  </tr>
+</tbody></table>
+
+
+
+
+</body><!-- #EndTemplate --></html>

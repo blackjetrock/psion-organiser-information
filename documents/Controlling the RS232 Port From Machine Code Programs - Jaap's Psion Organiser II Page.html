@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0040)https://www.jaapsch.net/psion/rsctrl.htm -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Controlling the RS232 Port From Machine Code Programs - Jaap's Psion Organiser II Page</title>
+<link rel="stylesheet" type="text/css" href="./Controlling the RS232 Port From Machine Code Programs - Jaap&#39;s Psion Organiser II Page_files/psion.css">
+<link rel="shortcut icon" href="https://www.jaapsch.net/psion/pics/favicon.ico">
+<style type="text/css">
+  table {
+    margin-left:30px;
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org", "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem", "position": 1,
+    "item": { "@id": "../index.htm", "name": "Home" }
+  },{
+    "@type": "ListItem", "position": 2,
+    "item": { "@id": "index.htm", "name": "Psion II" }
+  },{
+    "@type": "ListItem", "position": 3,
+    "item": { "@id": "rsctrl.htm", "name": "Controlling the RS232 Port" }
+  }]
+}
+</script>
+</head>
+<body>
+<div class="header"><h1>Jaap's Psion II Page</h1><a href="https://www.jaapsch.net/psion/index.htm" class="jpp"></a></div>
+<ol class="breadcrumb">
+  <li><a href="https://www.jaapsch.net/index.htm">Home</a> /</li>
+  <li><a href="https://www.jaapsch.net/psion/index.htm">Psion II</a> /</li>
+  <li>Controlling the RS232 Port</li>
+</ol>
+
+<h1>Controlling the RS232 Port From Machine Code Programs</h1>
+
+<hr>
+
+<p>
+This document should be read in conjunction with :
+</p><ul>
+<li><a href="https://www.jaapsch.net/psion/tech.htm">ORGANISER II Technical Reference Manual (Part No. 1009-0022)</a>
+</li><li><a href="https://www.jaapsch.net/psion/mancomms2.htm">COMMS LINK Manual (Part No. 6100-0071)</a>
+</li><li><a href="https://www.jaapsch.net/psion/ionotes.htm">COMMS LINK Machine Code Interface documentation (IONOTES.DOC)</a>
+</li></ul>
+
+<hr>
+<h2>Contents</h2>
+<p class="contents"><a href="https://www.jaapsch.net/psion/rsctrl.htm#c1">1. Checking that COMMS LINK is installed</a>
+<a href="https://www.jaapsch.net/psion/rsctrl.htm#c2">2. Opening and closing the RS232 port</a>
+<a href="https://www.jaapsch.net/psion/rsctrl.htm#c3">3. RS232 Control signals</a>
+<a href="https://www.jaapsch.net/psion/rsctrl.htm#c4">4. Examples using handshaking lines</a>
+<a href="https://www.jaapsch.net/psion/rsctrl.htm#c5">5. Programming considerations</a></p>
+
+<a id="c1"></a><h2>1. Checking that COMMS LINK is installed</h2>
+
+<p>
+First check that the COMMS LINK software has been loaded - i.e.
+COMMS is  in the top-level menu. If COMMS LINK is not
+installed, any program which calls the machine code interface
+routines provided by COMMS LINK will crash.
+
+</p><p>
+This check can be performed in OPL as follows :
+
+</p><p class="program">
+commsin%:
+rem return true if COMMS LINK installed
+onerr iserr::
+xfeof: :rem try a harmless COMMS LINK function
+iserr::
+return err&lt;&gt;203 : rem not installed if "missing proc" error</p>
+
+<p>
+or in machine code :
+
+</p><p class="program">     bsr check_present
+     bcs not_present
+     bra is_present
+
+check_present:
+     bsr 1$         ; PC relative
+     LDX #XFEOF
+     .ascic "XFEOF" ; leading count byte string
+1$:  pulx           ; PC = address of "XFEOF"
+     os dv$lkup     ; if XFEOF not there, no COMMS LINK
+     rts            ; see tech. ref. manual</p>
+
+<a id="c2"></a><h2>2. Opening and closing the RS232 port</h2>
+
+<p>
+Before accessing the RS232 port, the program must first call
+the COMMS LINK machine code interface routine RS$OPEN. This
+indicates that the RS232 port is now in use.
+
+</p><p>
+Example :
+
+</p><p class="program">clrb           ; Open for reading and writing
+jsr rst_entry_point
+.byte rs$open
+bcs error      ; Deal with error
+...            ; Now free to access the port</p>
+
+<p>
+RS$CLOSE should be called when the RS232 port is no longer
+needed.
+
+</p><p class="program">; bit masks for rs$close
+turn_off_immed= 1 ; switch off immediately after close, else leave port on
+fail_if_busy= 2   ; fail with carry set if paused by XOFF, else ignore XOFF state, and close immediately
+</p>
+
+<p>Example where port not closed while XOFF handshake:
+
+</p><p class="program">
+     close_type = fail_if_busy; don't close if busy handshaking, leave port switched on
+
+wait_busy:
+     ldab,#close_type
+     jsr rst_entry_point
+     .byte rs$close
+     bcs wait_busy; wait until XON</p>
+
+<p>Straight close:
+
+</p><p class="program">
+     close_type = 0; ignore XOFF state, leave port switched on
+
+     ldab,#close_type
+     jsr rst_entry_point
+     .byte rs$close</p>
+
+<a id="c3"></a><h2>3. RS232 Control signals</h2>
+
+<p>
+The COMMS LINK hardware provides the following RS232 control
+signals on the port POB_PORT2 (address $0003) :-
+
+</p><table summary="">
+<tbody><tr><th>Name</th><th>Top slot pin</th><th>Direction</th><th>PORT2 bit no</th><th>Set if:</th></tr>
+<tr><td>RTS</td><td>5</td><td>input</td><td>2</td><td>correspondent busy</td></tr>
+<tr><td>CTS</td><td>6</td><td>output</td><td>0</td><td>ORGANISER II busy</td></tr>
+<tr><td>DSR</td><td>4</td><td>input</td><td>1</td><td>correspondent busy</td></tr>
+<tr><td>DTR</td><td>-</td><td>linked to DSR</td><td>-</td><td>DSR set</td></tr>
+</tbody></table>
+
+<p>
+Note that DTR (normally an output) is merely linked to DSR
+and can not be driven by a program.
+
+</p><p>
+All bits are readable. See technical reference manual for
+details for POB_PORT2.
+
+<a id="c4"></a></p><h2>4. Examples using handshaking lines</h2>
+
+<p class="program">       ; Bit masks
+       cts= 1
+       dsr= 2
+       rts= 4
+
+       ;Set CTS to indicate ORGANISER II busy
+       oim #cts,POB_PORT2:</p>
+
+<p>Example:
+
+</p><p class="program">       ;Clear CTS to indicate ORGANISER II ready for input
+       aim #^C cts,POB_PORT2:      ; note (1) = $FE</p>
+
+<p>Example:
+
+</p><p class="program">       ;Wait on both RTS and DSR
+
+wait:  tim #rts!dsr,POB_PORT2:
+       bne wait
+
+</p><p>Example: OPL/Machine code for controlling the RTS line directly:
+
+</p><p class="program">global rtshigh%(2),rtslow%(2),a%
+rtshigh%(1)=$71fe
+rtshigh%(2)=$0339
+rtslow%(1)=$7201
+rtslow%(2)=$0339
+
+rem to assert (raise) the rts line
+a%=usr%(addr(rtshigh%()),0)
+
+rem to de-assert (lower) the rts line
+a%=usr%(addr(rtslow%()),0)</p>
+
+<a id="c5"></a><h2>5. Programming considerations</h2>
+
+<p>
+In between a call to RS$OPEN and a call to RS$CLOSE,
+programmers should look out for the following operating
+system routines :-
+
+</p><p>
+Routines which access packs :
+</p><ul>
+<li>all FL$ routines
+</li><li>all PK$ routines except for PK$PKOF
+</li><li>DV$BOOT, DV$LOAD
+</li><li>any other routines which indirectly access packs, such as calls to OPL, DV$VECT, TL$XXMD etc.
+</li></ul>
+
+<p>
+These turn off the RS232 port, until the next call to COMMS
+LINK. This is normally no problem, unless a program tries to
+access POB_PORT2 after a call to one of the above routines
+but before another COMMS LINK call. The RS232 port should
+then be turned on by calling RS$OPEN again, as follows :
+
+</p><p>
+Example : no problem here
+
+</p><p class="program">
+os FL$OPEN
+...; RS232 now off
+jsr rst_entry_point
+.byte rs$getchar; or similar COMMS LINK function
+...
+tim #cts,POB_PORT2; test the cts line</p>
+
+<p>Example: this is a BUG
+
+</p><p class="program">os PK$SETP
+...     ; RS232 now off
+tim #cts,POB_PORT2; test the cts line</p>
+
+<p>Example: corrected version of above
+
+</p><p class="program">os PK$SETP
+
+;Re-open the RS232 port, to switch it on
+
+ldab,#opened_with    ; use value originally supplied to RS$OPEN
+andb,#^XFE           ; but with bit 0 clear to indicate that
+jsr rst_entry_point  ; the handshaking state is not to be reset
+.byte rs$open
+...
+tim #cts,POB_PORT2   ; now ok to access port</p>
+
+<p>
+Other routines whose behaviour is altered while the RS232 port open:
+</p><ul>
+<li>PK$PKOF - has no effect
+</li><li>BZ$ routines - these all give a strange beep
+</li><li>KB$ routines do not switch the packs off to save power
+</li></ul>
+
+<p>DO NOT CALL :
+</p><ul>
+<li>BT$SWOF - without first closing the RS232 port with RS$CLOSE
+</li></ul>
+
+<p>
+The keyboard interrupt service routine is altered so that
+interrupts remain enabled while the keyboard is being
+scanned. This gives RS232 interrupts a higher priority than
+keyboard interrupts.
+
+</p><hr>
+
+<div class="nav"><ul>
+<li><a href="https://www.jaapsch.net/index.htm">Home</a></li>
+</ul></div>
+
+
+
+</body></html>
