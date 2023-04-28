@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0081)https://www.retroisle.com/others/psion/organiser2/OriginalDocs/org2techmanual.php -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Retro Isle - Psion Organiser II Original Documents</title>
+	<link media="all" href="./Retro Isle - Psion Organiser II Original Documents_files/Retro Isle.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="./Retro Isle - Psion Organiser II Original Documents_files/dropdowntabs.js">
+	/***********************************************
+	* Drop Down Tabs Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+	* This notice MUST stay intact for legal use
+	* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+	***********************************************/
+	</script>
+	
+	<!-- CSS for Drop Down Tabs Menu #1 -->
+	<link rel="stylesheet" type="text/css" href="./Retro Isle - Psion Organiser II Original Documents_files/ddcolortabs.css">
+	<link rel="stylesheet" type="text/css" href="./Retro Isle - Psion Organiser II Original Documents_files/slidingdoors.css">
+	<meta content="Retro Isle - Retro games spectrum commodore amstrad" name="description">
+	<meta name="keywords" content="Retro,Isle,retroisle,retro,games,sinclair,zx,spectrum,c16,commodore,plus4,pcw,amstrad,atari,acorn,apple,msx,psion,nc,vcs,xl,xe,lynx,jaguar,st,atom,electron,bbc,apple ][,camputers,coleco,colecovision,coleco adam,dragon, elan, enterprise, memotech, mtx, oric, atmos, organiser, tandy, trs, ti99, texas, 80s computers, 80&#39;s, 1980s, 8bit, 8-bit, computing, historic">
+	<meta content="MSHTML 6.00.6000.16481" name="GENERATOR">
+</head>
+<body>
+	
+
+
+
+
+<link rel="shortcut icon" href="https://www.retroisle.com/favicon.ico">
+<!--<script src="/snowstorm-min.js"></script>-->
+
+
+	<!-- ************************************************************************************************* -->
+	<!-- *      Top-right menu (Home, Login/Logout, Register, Contact Us, Store                          * -->
+	<!-- ************************************************************************************************* -->
+	<script type="text/javascript">
+		tabdropdown.init("bluemenu", 0)
+	</script>
+
+	<script type="text/javascript">
+		var offsetfromcursorX=12 //Customize x offset of tooltip
+		var offsetfromcursorY=10 //Customize y offset of tooltip
+		var offsetdivfrompointerX=10 //Customize x offset of tooltip DIV relative to pointer image
+		var offsetdivfrompointerY=14 //Customize y offset of tooltip DIV relative to pointer image. Tip: Set it to (height_of_pointer_image-1).
+		document.write('<div id="dhtmltooltip"></div>') //write out tooltip DIV
+		document.write('<img id="dhtmlpointer" src="/images/arrow2.gif">') //write out pointer image
+		var ie=document.all
+		var ns6=document.getElementById && !document.all
+		var enabletip=false
+		if (ie||ns6)
+			var tipobj=document.all? document.all["dhtmltooltip"] : document.getElementById? document.getElementById("dhtmltooltip") : ""
+			var pointerobj=document.all? document.all["dhtmlpointer"] : document.getElementById? document.getElementById("dhtmlpointer") : ""
+
+		function ietruebody(){
+			return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
+		}
+
+		function ddrivetip(thetext, thewidth, thecolor){
+			if (ns6||ie){
+				if (typeof thewidth!="undefined") tipobj.style.width=thewidth+"px"
+				if (typeof thecolor!="undefined" && thecolor!="") tipobj.style.backgroundColor=thecolor
+			tipobj.innerHTML=thetext
+			enabletip=true
+			return false
+			}
+		}
+
+		function positiontip(e){
+		if (enabletip){
+			var nondefaultpos=false
+			var curX=(ns6)?e.pageX : event.clientX+ietruebody().scrollLeft;
+			var curY=(ns6)?e.pageY : event.clientY+ietruebody().scrollTop;
+			//Find out how close the mouse is to the corner of the window
+			var winwidth=ie&&!window.opera? ietruebody().clientWidth : window.innerWidth-20
+			var winheight=ie&&!window.opera? ietruebody().clientHeight : window.innerHeight-20
+			var rightedge=ie&&!window.opera? winwidth-event.clientX-offsetfromcursorX : winwidth-e.clientX-offsetfromcursorX
+			var bottomedge=ie&&!window.opera? winheight-event.clientY-offsetfromcursorY : winheight-e.clientY-offsetfromcursorY
+			var leftedge=(offsetfromcursorX<0)? offsetfromcursorX*(-1) : -1000
+			//if the horizontal distance isn't enough to accomodate the width of the context menu
+			if (rightedge<tipobj.offsetWidth){
+			//move the horizontal position of the menu to the left by it's width
+			tipobj.style.left=curX-tipobj.offsetWidth+"px"
+			nondefaultpos=true
+		}
+		else if (curX<leftedge)
+			tipobj.style.left="5px"
+		else{
+			//position the horizontal position of the menu where the mouse is positioned
+			tipobj.style.left=curX+offsetfromcursorX-offsetdivfrompointerX+"px"
+			pointerobj.style.left=curX+offsetfromcursorX+"px"
+		}
+
+		//same concept with the vertical position
+		if (bottomedge<tipobj.offsetHeight){
+			tipobj.style.top=curY-tipobj.offsetHeight-offsetfromcursorY+"px"
+			nondefaultpos=true
+		}
+		else{
+			tipobj.style.top=curY+offsetfromcursorY+offsetdivfrompointerY+"px"
+			pointerobj.style.top=curY+offsetfromcursorY+"px"
+			}
+			tipobj.style.visibility="visible"
+			if (!nondefaultpos)
+				pointerobj.style.visibility="visible"
+				else
+				pointerobj.style.visibility="hidden"
+				}
+			}
+
+		function hideddrivetip(){
+			if (ns6||ie){
+				enabletip=false
+				tipobj.style.visibility="hidden"
+				pointerobj.style.visibility="hidden"
+				tipobj.style.left="-1000px"
+				tipobj.style.backgroundColor=''
+				tipobj.style.width=''
+				}
+			}
+
+		document.onmousemove=positiontip
+	</script><div id="dhtmltooltip"></div><img id="dhtmlpointer" src="./Retro Isle - Psion Organiser II Original Documents_files/arrow2.gif">
+
+	<div style="background-color:#000000">
+		<div id="slidemenu" class="slidetabsmenu">
+			<ul>
+			<li><a href="https://www.retroisle.com/store.php" title="Store"><span>Store</span></a></li>
+			<li><a href="https://www.retroisle.com/contactus.php" title="Contact Us"><span>Contact Us</span></a></li>
+								<li><a href="https://www.retroisle.com/register.php" title="Register"><span>Register</span></a></li>
+					<li><a href="https://www.retroisle.com/loginr.php" title="Login"><span>Login</span></a></li>
+					
+			<li><a href="http://www.retroisle.com/" title="Home"><span>Home</span></a></li>
+			</ul>
+
+<!--			<DIV ID="flyimage1" STYLE="position:absolute; left: -100px; ">
+				<IMG style="margin-top:-4px" width="20px" SRC="/images/nodes_fall_l.gif" id="flyimage1a"/>
+			</DIV>
+
+			<DIV ID="flyimage4" STYLE="position:absolute; left: -300px; top:-500px">
+				<IMG style="margin-top:-4px" width="40px" SRC="/images/skateordie45R.GIF" id="flyimage4a">
+			</DIV>-->
+		</div>
+		<br><br>
+	</div>
+
+	<!-- ************************************************************************************************* -->
+	<!-- *      Retro Isle logo, system menu (Amstrad, Sinclair, Commodore, etc), and Game Search box    * -->
+	<!-- ************************************************************************************************* -->
+	<div style="background-image:url(/images/dark-bg-light.jpg)">
+	<div id="layoutTable">
+	<table id="layoutTable" cellspacing="0" cellpadding="0">
+		<tbody>
+	  		<tr>
+				<td>
+					<div id="layoutTable" class="toprow">
+						<a href="https://www.retroisle.com/index.php"><img src="./Retro Isle - Psion Organiser II Original Documents_files/newlogo_black.png" width="460px;" height="97px"></a>
+						<div id="colortab" class="ddcolortabs">
+							<ul>
+								<li><a href="https://www.retroisle.com/general/amstrad.php" title="Amstrad" rel="amstradmenu"><span>Amstrad</span></a></li>
+								<li class=" selected default"><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/org2techmanual.php" title="Sinclair" rel="sinclairmenu"><span>Sinclair</span></a></li>
+								<li><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/org2techmanual.php" title="Commodore" rel="commodoremenu"><span>Commodore</span></a></li>
+								<li><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/org2techmanual.php" title="Atari" rel="atarimenu"><span>Atari</span></a></li>
+								<li><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/org2techmanual.php" title="Acorn" rel="acornmenu"><span>Acorn</span></a></li>
+								<li><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/org2techmanual.php" title="Nintendo" rel="nintendomenu"><span>Nintendo</span></a></li>
+								<li class=""><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/org2techmanual.php" title="Others" rel="othersmenu"><span>Others</span></a></li>
+							</ul>
+						</div>
+
+						<!--Amstrad drop down menu -->
+						<div id="amstradmenu" class="dropmenudiv_a" style="width: 150px;">
+							<a href="https://www.retroisle.com/amstrad/cpc/general.php">CPC464, 664 and 6128</a>
+							<a href="https://www.retroisle.com/amstrad/pcw/general.php">PCW-SERIES</a>
+							<a href="https://www.retroisle.com/amstrad/nc/general.php">NOTEPAD COMPUTERS</a>
+							<a href="https://www.retroisle.com/amstrad/pcs/general.php">PCS</a>						</div>
+						<!--Sinclair drop down menu -->
+						<div id="sinclairmenu" class="dropmenudiv_a" style="width: 150px;">
+							<a href="https://www.retroisle.com/sinclair/zxspectrum/general.php">ZX SPECTRUM</a>
+							<a href="https://www.retroisle.com/sinclair/zx81/general.php">ZX81</a>
+							<a href="https://www.retroisle.com/sinclair/zx80/general.php">ZX80</a>
+							<a href="https://www.retroisle.com/sinclair/z88/general.php">CAMBRIDGE Z88</a>
+							<a href="https://www.retroisle.com/sinclair/timexsinclair/general.php">TIMEX-SINCLAIRS</a>
+							<a href="https://www.retroisle.com/sinclair/ql/general.php">QL (QUANTUM LEAP)</a>						</div>
+						<!--Commodore drop down menu -->
+						<div id="commodoremenu" class="dropmenudiv_a" style="width: 150px;">
+							<a href="https://www.retroisle.com/commodore/c64128/general.php">C64 AND C128</a>
+							<a href="https://www.retroisle.com/commodore/vic20/general.php">VIC-20</a>
+							<a href="https://www.retroisle.com/commodore/c16plus4/general.php">C16 AND PLUS/4</a>
+							<a href="https://www.retroisle.com/commodore/amiga/general.php">AMIGA</a>
+							<a href="https://www.retroisle.com/commodore/pcs/general.php">PCS</a>						</div>
+						<!--Atari drop down menu -->
+						<div id="atarimenu" class="dropmenudiv_a" style="width: 150px;">
+							<a href="https://www.retroisle.com/atari/vcs/general.php">VCS (2600)</a>
+							<a href="https://www.retroisle.com/atari/5200/general.php">5200</a>
+							<a href="https://www.retroisle.com/atari/7800/general.php">7800</a>
+							<a href="https://www.retroisle.com/atari/400800/general.php">400 AND 800</a>
+							<a href="https://www.retroisle.com/atari/xlxe/general.php">XL AND XE RANGE</a>
+							<a href="https://www.retroisle.com/atari/lynx/general.php">LYNX</a>
+							<a href="https://www.retroisle.com/atari/jaguar/general.php">JAGUAR</a>
+							<a href="https://www.retroisle.com/atari/st/general.php">ST RANGE</a>						</div>
+						<!--Acorn drop down menu -->
+						<div id="acornmenu" class="dropmenudiv_a" style="width: 150px;">
+							<a href="https://www.retroisle.com/others/acornatom/general.php">ATOM</a>
+							<a href="https://www.retroisle.com/others/acornbbc/general.php">BBC MICRO</a>
+							<a href="https://www.retroisle.com/others/acornelectron/general.php">ELECTRON</a>			</div>
+						<!--Others drop down menu -->
+						<div id="nintendomenu" class="dropmenudiv_a" style="width: 150px;">
+							<a href="https://www.retroisle.com/others/nintendones/general.php">NES / FAMICOM</a>
+   							<a href="https://www.retroisle.com/others/nintendosnes/general.php">SNES / SUPER FAMICOM</a>
+							<a href="https://www.retroisle.com/others/nintendogameboy/general.php">GAME BOY</a>
+							<a href="https://www.retroisle.com/others/nintendods/general.php">DS</a>
+   							<a href="https://www.retroisle.com/others/nintendo64/general.php">NINTENDO 64</a>
+							<a href="https://www.retroisle.com/others/nintendogamecube/general.php">GAME CUBE</a>
+						</div>
+						<!--Others drop down menu -->
+						<div id="othersmenu" class="dropmenudiv_a" style="width: 150px; top: 150px; left: 470px; visibility: hidden;">
+							<a href="https://www.retroisle.com/others/apple2/general.php" style="border-top-width: 0px;">APPLE ][</a>
+							<a href="https://www.retroisle.com/others/camputerslynx/general.php">CAMPUTERS LYNX</a>
+							<a href="https://www.retroisle.com/others/dragon3264/general.php">DRAGON 32 AND 64</a>
+							<a href="https://www.retroisle.com/others/msx/general.php">MSX</a>
+							<a href="https://www.retroisle.com/others/psion/organiser2/general.php">PSION ORGANISER</a>
+							<a href="https://www.retroisle.com/others/psion/series3/general.php">PSION SERIES 3</a>
+							<a href="https://www.retroisle.com/others/segamegadrive/general.php">SEGA MEGADRIVE</a>
+							<a href="https://www.retroisle.com/others/segasaturn/general.php">SEGA SATURN</a>
+							<a href="https://www.retroisle.com/others/sonyplaystation/general.php">SONY PLAYSTATION</a>
+							<a href="https://www.retroisle.com/others/hp95lx/general.php">HP PALMTOPS</a>
+						</div>
+						<script type="text/javascript">
+							//SYNTAX: tabdropdown.init("menu_id", [integer OR "auto"])
+							tabdropdown.init("colortab", "auto")
+						</script>
+					  </div>
+ 				    </td>
+			  		<td width="30%">
+					<br>
+					<br>
+
+					<form action="https://www.retroisle.com/gamedetails.php" method="post"><input type="Text" maxlength="30" size="30" placeholder="Enter a game, author or publisher" value="" name="azsearchtext"><input type="submit" name="submit" value="Search"><input type="submit" name="random" value="?" title="Pick a game at random!"><br>
+					</form>
+
+								</td>
+					<td width="20%" style="margin-bottom:0px">
+						<img src="./Retro Isle - Psion Organiser II Original Documents_files/alien8.gif" align="absbottom" vspace="0">
+					</td>
+			</tr>
+		</tbody></table>
+
+	
+		<table width="100%">
+		  <tbody><tr><td background="./Retro Isle - Psion Organiser II Original Documents_files/blue-foot-bg.png">
+		  
+		  <!-- PAGE CONTENT STARTS HERE -->
+		  <br>	  
+		  <table width="100%">
+		  <tbody><tr>
+		  	<td width="20px" align="center" valign="top">
+			<a href="https://www.retroisle.com/others/psion/organiser2/general.php" title="General Information"><img src="./Retro Isle - Psion Organiser II Original Documents_files/Home.png"></a>
+			<br><br>
+			<a href="https://www.retroisle.com/others/psion/organiser2/articles.php" title="Articles"><img src="./Retro Isle - Psion Organiser II Original Documents_files/Articles.png"></a>
+			<br><br>
+			<a href="https://www.retroisle.com/others/psion/organiser2/Pictures/pictures.php" title="Pictures"><img src="./Retro Isle - Psion Organiser II Original Documents_files/Picture.png"></a>
+			<br><br>
+			<a href="https://www.retroisle.com/others/psion/organiser2/Pictures/brochures_adverts.php" title="Brochures &amp; Adverts"><img src="./Retro Isle - Psion Organiser II Original Documents_files/tv.png"></a>
+			<br><br>
+			<a href="https://www.retroisle.com/others/psion/organiser2/originaldocs.php" title="Original Documents"><img src="./Retro Isle - Psion Organiser II Original Documents_files/Notebook.png"></a>
+			<br><br>
+			<a href="https://www.retroisle.com/others/psion/organiser2/technical.php" title="Technical Articles"><img src="./Retro Isle - Psion Organiser II Original Documents_files/Technical.png"></a>
+			<br><br>
+			<a href="https://www.retroisle.com/others/psion/organiser2/emulators.php" title="Emulators"><img src="./Retro Isle - Psion Organiser II Original Documents_files/emulators.png"></a>
+			<br><br>
+			<a href="https://www.retroisle.com/others/psion/organiser2/software.php" title="Software"><img src="./Retro Isle - Psion Organiser II Original Documents_files/Download.png"></a>		
+			</td>
+			<td width="90%" valign="top">
+				<!-- white top bar -->
+      <div id="contentHeader">
+      <div id="contentHeaderLeft"></div>
+      <div id="contentHeaderMid"></div>
+      <div id="contentHeaderRight"></div></div>
+      <div id="contentFrame">
+     <div id="content" style="width:98%;min-height:430px">
+        <div class="header">
+      <div class="right"></div>
+      <div class="left"></div>
+      <h2>Psion Organiser II Technical Reference Manual <a href="https://www.retroisle.com/sinclair/zxspectrum/Articles/yourspectrum2_1986.php"></a></h2>
+      </div>
+	 
+      <h1>Technical Reference Manual</h1>
+      <h2>INTRODUCTION</h2>
+      <p>Behind the features described in the Operating Manuals lies the operating   system and hardware. </p>
+      <p>This document was compiled from various sources to give a complete   description of how the operating system and hardware work together. It covers   all base models - CM, XP, LZ - and their POS variants. The intended audience are   machine code programmers and hardware developers.</p>
+      <blockquote>
+        <p>If you are able to supply additional information, or for reporting   an error please mail to <a href="mailto:bgc@surfeu.at">Boris   Cornet</a>.</p>
+      </blockquote>
+      <h3><strong>TABLE OF CONTENTS</strong></h3>
+      <table cellspacing="0" cellpadding="2" width="100%" border="0">
+        <tbody>
+          <tr valign="top">
+            <td><p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/sysver.htm">SYSTEM VERSIONS</a></p>
+                <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/os.htm">OPERATING SYSTEM</a></p>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/memory.htm">MEMORY USAGE</a> </p>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/files.htm">FILING SYSTEM</a></p>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/timing.htm">SYSTEM TIMING</a></p>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/sysboard.htm">SYSTEM BOARD</a> </p>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/powerboard.htm">POWER SUPPLY BOARD</a> </p>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/display.htm">DISPLAY</a> </p></td>
+            <td><p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/keyboard.htm">KEYBOARD</a> </p>
+                <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/slots.htm">INTERFACE SLOTS</a></p>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/packs.htm">PACKS</a></p>
+              <ul>
+                  <li><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/packs.htm">GENERAL</a>
+                  </li><li><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/flashpack.htm">FLASHPACKS</a>
+                  </li><li><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/packaccess.htm">LOW LEVEL ACCESS</a> </li>
+              </ul>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/interfacing.htm">EXTERNAL INTERFACING</a></p>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/comms.htm">COMMS LINK</a></p>
+              <ul>
+                  <li><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/clproto.htm">PSION LINK PROTOCOL</a> </li>
+              </ul></td>
+            <td><p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/utilservices.htm">UTILITY SYSTEM SERVICES</a></p>
+                <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/builtin.htm">BUILT-IN APPLICATIONS</a></p>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/password.htm">LZ PASSWORDS</a></p>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/proglang.htm">PROGRAMMING LANGUAGE</a></p>
+              <ul>
+                  <li><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/proglang.htm">GENERAL</a>
+                  </li><li><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/qcode.htm">Q-CODE</a> </li>
+              </ul>
+              <p><a href="https://www.retroisle.com/others/psion/organiser2/OriginalDocs/tableinter.htm">TABLE INTERPRETER</a> </p></td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>SOURCES</h3>
+      <p>PSION ORGANISER II TECHNICAL MANUAL, RELEASE 1.2 (1986)</p>
+      <p>ORGANISER II MODEL LZ /LZ64 TECHNICAL MANUAL, VERSION 1.0 (1989)</p>
+      <p>FLASHPAKS (supplement to the Organiser II Technical Manual, 1991)</p>
+      <p>COMMS LINK Machine Code Interface documentation</p>
+      <p>CONTROLLING THE RS232 PORT FROM MACHINE CODE PROGRAMS</p>
+      <p>PSION ORGANISER II TRAINING MANUAL by Gregory Paul</p>
+      <p>THE PSION LINK PROTOCOL by Jaap Scherphuis</p>
+      <p>THE LZ PASSWORD SYSTEM by Jaap Scherphuis</p>
+      <p><a href="https://www.retroisle.com/psion/organiser2/mctutor.htm">MACHINE CODE TUTOR</a> by Jaap Scherphuis</p>
+      <p><a href="https://www.retroisle.com/psion/organiser2/lcdinfo.htm">LCD INFO</a> by Zac Schroff</p>
+      <p>some posts from org2.com's chat</p>
+      <!-- #EndEditable -->
+      <p align="left">&nbsp;</p>
+      </div></div></td></tr></tbody></table>
+
+
+</td></tr></tbody></table></div></div></body></html>

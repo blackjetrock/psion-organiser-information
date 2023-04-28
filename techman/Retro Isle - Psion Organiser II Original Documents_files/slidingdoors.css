@@ -1,0 +1,15 @@
+.slidetabsmenu{float:right;width:100%;font-size:12px;line-height:normal;border-bottom:1px solid gray;}
+* html .slidetabsmenu{margin-bottom:1em;}
+.slidetabsmenu ul{list-style-type:none;margin:0;padding:0;}
+.slidetabsmenu li{display:inline;margin:0;padding:0;}
+.slidetabsmenu a{float:right;background:url(media/slide-left.gif) no-repeat left top;margin:0;margin-right:5px;padding:0 0 0 9px;text-decoration:none;}
+.slidetabsmenu a span{float:right;display:block;background:url(media/slide-right.gif) no-repeat right top;padding:2px 13px 2px 4px;font-weight:bold;color:#3B3B3B;}
+.slidetabsmenu a span{float:none;}
+.slidetabsmenu a:hover span, .slidetabsmenu li.selected a span{color:black;}
+.slidetabsmenu a:hover, .slidetabsmenu li.selected a{background-position:0% -125px;}
+.slidetabsmenu a:hover span, .slidetabsmenu li.selected a span{background-position:100% -125px;}
+html>/**/body .IEonlybr{display:none;}
+.dropmenudiv_c{position:absolute;top:0;border:1px solid #918d8d;border-width:0 1px;font:normal 12px Verdana;line-height:18px;z-index:100;background-color:white;width:200px;visibility:hidden;}
+.dropmenudiv_c a{width:auto;display:block;text-indent:5px;border:0 solid #918d8d;border-bottom-width:1px;padding:2px 0;text-decoration:none;font-weight:bold;color:black;}
+* html .dropmenudiv_c a{width:100%;}
+.dropmenudiv_c a:hover{background-color:#eaeaea;}
