@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://www.jaapsch.net/psion/protocol.htm -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>The Psion Link Protocol - Jaap's Psion Organiser II Page</title>
+<link rel="stylesheet" type="text/css" href="./The Psion Link Protocol - Jaap&#39;s Psion Organiser II Page_files/psion.css">
+<link rel="shortcut icon" href="https://www.jaapsch.net/psion/pics/favicon.ico">
+<style type="text/css">
+  table {
+    margin-left:30px;
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org", "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem", "position": 1,
+    "item": { "@id": "../index.htm", "name": "Home" }
+  },{
+    "@type": "ListItem", "position": 2,
+    "item": { "@id": "index.htm", "name": "Psion II" }
+  },{
+    "@type": "ListItem", "position": 3,
+    "item": { "@id": "protocol.htm", "name": "Link Protocol" }
+  }]
+}
+</script>
+</head>
+<body>
+<div class="header"><h1>Jaap's Psion II Page</h1><a href="https://www.jaapsch.net/psion/index.htm" class="jpp"></a></div>
+<ol class="breadcrumb">
+  <li><a href="https://www.jaapsch.net/index.htm">Home</a> /</li>
+  <li><a href="https://www.jaapsch.net/psion/index.htm">Psion II</a> /</li>
+  <li>Link Protocol</li>
+</ol>
+
+<h1>The Psion Link Protocol</h1>
+
+<hr>
+
+<p>In this document I've tried to document in detail the way the Psion
+protocol works on the comms link of the Psion II Organiser. The information
+given here is the result of reverse engineering, so may be incomplete and not
+entirely correct, so if you find any thing that needs to be changed or added,
+let me know. All numbers are in hexadecimal unless stated otherwise.
+
+</p><ol type="1">
+<li><a href="https://www.jaapsch.net/psion/protocol.htm#linklayer">The Link Layer</a>
+</li><li><a href="https://www.jaapsch.net/psion/protocol.htm#linkproto">The Link Protocol</a>
+  <ol type="a">
+  <li><a href="https://www.jaapsch.net/psion/protocol.htm#startup">The start-up sequence</a>
+  </li><li><a href="https://www.jaapsch.net/psion/protocol.htm#sending">Sending data from the Psion</a>
+  </li><li><a href="https://www.jaapsch.net/psion/protocol.htm#receiving">Receiving data on the Psion</a>
+  </li><li><a href="https://www.jaapsch.net/psion/protocol.htm#disconnecting">Disconnecting</a>
+  </li></ol>
+</li><li><a href="https://www.jaapsch.net/psion/protocol.htm#higher">Higher layers</a>
+  <ol type="a">
+  <li><a href="https://www.jaapsch.net/psion/protocol.htm#file">The FILE overlay</a>
+  </li><li><a href="https://www.jaapsch.net/psion/protocol.htm#ftran">The FTRAN overlay</a>
+  </li><li><a href="https://www.jaapsch.net/psion/protocol.htm#boot">The BOOT overlay</a>
+  </li><li><a href="https://www.jaapsch.net/psion/protocol.htm#exit">The EXIT overlay</a>
+  </li><li><a href="https://www.jaapsch.net/psion/protocol.htm#plan">The PLAN and PLANM overlays</a>
+  </li></ol>
+</li></ol>
+
+<hr>
+
+<a id="linklayer"></a><h2>1. The Link Layer</h2>
+
+<p>In its simplest form data is sent over the link using the 'link layer', an
+error correcting protocol which uses data packets.
+Each packet has the following format (in hex):
+
+  16 10 02 CHAN TYPE DATA 10 03 CRC.
+
+</p><p>The first three bytes are always 16 10 02.
+
+</p><p>The next byte, CHAN, is the channel number (?). It must always equal 01.
+It is compared to the value stored at $2173, which is set to 01 when the
+comms link is loaded and not changed afterwards. It may be that some
+other communications devices use a different channel number.
+
+</p><p>The next byte, TYPE, contains the type of packet in the top 5 bits, and
+also a sequence number in the bottom 3 bits. The sequence number is a
+number that each data packet has to make sure that they are not mixed up.
+Since the sequence number increases with each new data packet, missing
+packets can be detected.
+
+</p><p>There are 4 types of packet:
+</p><table border="0" summary="">
+  <tbody><tr><td valign="top">type=0:</td><td>ACKNOWLEDGE. Signals proper reception of a data packet. The
+            sequence number of the acknowledge is the same as that of the
+            data packet received. If a packet is received with the wrong
+            sequence number, an acknowledge is sent of the last correct
+            data packet, so this is also used as a request for the next
+            packet. Contains no data.</td></tr>
+  <tr><td valign="top">type=1:</td><td>DISCONNECT. Signal that communication is to end. When sent to
+            the Psion, the data should contain the error number. If the
+            Psion sends one then it has no data. The sequence number is 0.</td></tr>
+  <tr><td valign="top">type=2:</td><td>LINK REQUEST. Requests a connection. Used at the start of a
+            session to test two-way communication. Sequence number is 0 and
+            it contains no data.</td></tr>
+  <tr><td valign="top">type=3:</td><td>DATA. A data packet. The sequence number is one more than that
+            of the previous data packet (modulo 8) or 1 if it is the first
+            data packet of the session.</td></tr>
+</tbody></table>
+
+<p>Since there are only  4 types, only bits 3 and 4 of the TYPE byte are
+used to store the packet type and bits 0, 1 and 2 will always be zero.
+
+</p><p>The bytes 10 03 follow the data to signal the end of the packet.
+
+</p><p>The CRC is a 16-bit checksum for all the bytes between the header 16 10 02
+and the footer 10 03. See below.
+
+</p><p>To make sure that sending the bytes 10 03 in the data will not prematurely
+end the packet, an escape mechanism is used. Every 10 byte in the data (or
+chan/type bytes) will be sent twice over the link. The receiving end then
+replaces each 10 10 by a single 10, and will not end the packet if it is
+followed by a 03. The extra 10 is not used in generating the CRC however.
+
+</p><p>The maximum length of the data is 0100h bytes. Repeated 10 bytes are not
+included in this count.
+
+</p><p>The 16-bit CRC checksum used by the Psion protocol is the CCITT checksum
+(GenCRC) with generating polynomial x^16+x^12+x^5+1 (i.e. 10241h). It can
+be computed by knowing the following values:
+<br>CRC(01)=C1C0
+<br>CRC(02)=81C1
+<br>CRC(04)=01C3
+<br>CRC(08)=01C6
+<br>CRC(10)=01CC
+<br>CRC(20)=01D8
+<br>CRC(40)=01F0
+<br>CRC(80)=01A0
+
+</p><p>The CRC of any single byte can be computed by EOR-ing (exclusive OR) the
+values above together for each set bit in the byte. It is probably faster to
+pre-calculate an array for all byte values first.
+To get the CRC of a sequence of bytes, it can be done iteratively, by starting
+with the CRC of the first byte, and adjusting it each time the next byte is
+included. If xxyy is the CRC for a sequence of one or more bytes, then the CRC
+of that sequence followed by a byte bb will be CRC(bb eor xx) eor (yy00).
+
+</p><p>For example, let's calculate CRC(01 10):
+
+</p><table summary="0" border="0">
+<tbody><tr><td>CRC(01) </td><td>= C1C0</td></tr>
+<tr><td>CRC(01 10) </td><td>= CRC(10 eor C1) eor C000</td></tr>
+<tr><td></td><td>= CRC(D1) eor C000</td></tr>
+<tr><td></td><td>= CRC(80) eor CRC(40) eor CRC(10) eor CRC(01) eor C000</td></tr>
+<tr><td></td><td>= 01A0 eor 01F0 eor 01CC eor C1C0 eor C000</td></tr>
+<tr><td></td><td>= 005C</td></tr>
+</tbody></table>
+
+
+<a id="linkproto"></a><h2>2. The Link Protocol</h2>
+
+
+<a id="startup"></a><h3>2a. The start-up sequence</h3>
+
+<p>When CL is running on the PC, it continuously sends out Link Request
+packets. When the Psion is ready to start communicating it first starts
+up a link session in the following manner:
+</p><ol type="1">
+<li>The Psion waits to receive a Link Request. It times out if none are received.
+</li><li>It sends a Link Request in reply.
+</li><li>It waits to receive an Acknowledgment (seq.nr. 0). It times out if none.
+</li></ol>
+<p>After that the link is considered to be active and working, and the sequence
+numbers are reset to 1.
+
+</p><p>Specifically, the packets involved are:</p>
+
+<table summary="0" border="0">
+<tbody><tr><td>Receive Link Request:</td><td>16 10 02 01 10 10 10 03 00 5C</td></tr>
+<tr><td>Send Link Request:</td><td>16 10 02 01 10 10 10 03 00 5C</td></tr>
+<tr><td>Recieve Acknowledgement: </td><td>16 10 02 01 00 10 03 01 90</td></tr>
+</tbody></table>
+
+<p>If in step 3 a disconnect request is received, it should contain an error
+byte as data. Receiving a data packet will cause the Psion to return a
+data acknowledgement, and then it also considers the link to be active.
+
+</p><p>The start-up sequence above is performed before every data transfer. It can
+also be called specifically by using the XLCON: command, or calling rs$licon
+in machine code.
+
+
+<a id="sending"></a></p><h3>2b. Sending data from the Psion</h3>
+
+<p>When sending a sequence of data packets, each packet is numbered
+1,2,..,6,7,0,1,... etc. After each packet is sent, a reply is expected.
+What happens next depends on the type of reply:
+</p><ul>
+  <li>An acknowledgement with the correct sequence number:
+    <br>The packet has been successfully sent, so now further packets can be
+    sent if necessary.
+  </li><li>An acknowledgement with the wrong sequence number, or
+  </li><li>A packet with an incorrect CRC, or
+  </li><li>A data packet:
+    <br>The same data packet will be re-sent. If this happens too often, a 'Device Read' error occurs.
+  </li><li>A link request:
+    <br>A 'Device read' error occurs.
+  </li><li>A disconnect packet:
+    <br>The error in the packet is raised.
+</li></ul>
+
+<p>A single packet can be sent using the XLPUT:(a$) command, or rs$liput in
+machine code.
+
+
+<a id="receiving"></a></p><h3>2c. Receiving data on the Psion</h3>
+
+<p>
+When receiving a sequence of data packets, each packet should numbered
+1,2,..,6,7,0,1,... etc. After each packet is received, a reply is expected.
+When the Psion is waiting for a data packet, what happens depends on the
+type of packet it receives:
+</p><ul>
+  <li>A data packet with the correct sequence number:
+    <br>An acknowledgement is sent for this packet. The data is stored.
+  </li><li>A data packet with the wrong sequence number, or
+  </li><li>A packet with an incorrect CRC, or too long:
+    <br>An acknowledgement is sent with the previous sequence number, i.e. the sequence number of the last received packet.
+  </li><li>A link request, or
+  </li><li>A disconnect packet:
+    <br>The error in the packet is raised.
+  </li><li>An acknowledgement:
+    <br>It is simply ignored.
+</li></ul>
+
+<p>A single packet can be received using the XLGET$: command, or rs$liput in
+machine code.
+
+</p><p>Note that the sequence numbers used when receiving packets are independent
+from those used when sending packets.
+
+
+<a id="disconnecting"></a></p><h3>2d. Disconnecting</h3>
+
+<p>When the link session is finished, the link should be deactivated. This is
+done by calling the XLDIS: command, or rs$lidis in machine code. This will
+send a disconnect packet, and close the link session. The disconnect packet
+has no data when sent from the Psion, but those sent by CL will contain a
+single byte which is the error number.
+
+
+
+<a id="higher"></a></p><h2>3. Higher layers</h2>
+
+<p>The link layer is simply an error correcting protocol for sending small
+snippets of data. Built on top of this is a protocol for sending and
+receiving files, file access commands etc.
+
+</p><p>The Psion Series 3 and 5 first have an NCP protocol layer above the link
+layer. NCP is a method of sending data over different channels. This is
+not implemented on the series II, though there seems to be a simple
+channel byte in every packet which is not used at all.
+
+</p><p>The file protocol layer generally works like this:
+</p><ol type="1">
+  <li>The start-up sequence is performed first.
+  </li><li>The Psion sends a word like 'FTRAN' in a data packet (which is
+      acknowledged in the link layer as usual).
+  </li><li>The CL program loads the FTRAN overlay, the program in S_FTRAN.EXE
+  </li><li>The PC sends back an empty data packet as reply (which is again
+      acknowledged in the link layer as usual).
+  </li><li>The Psion sends a command to the FTRAN program in a data packet (+ack).
+  </li><li>The PC sends data packet back in reply (+ack).
+  </li><li>Repeat 5 and 6 till everything accomplished.
+  </li><li>The Psion sends a disconnect packet, and CL removes its overlay.
+</li></ol>
+
+
+<p>If CL encounters an error, it sends a disconnect packet containing the
+error number to be raised. The new error numbers are:
+<br>190  Bad parameter
+<br>189  Remote file not found
+<br>188  Server error
+<br>187  Remote file exists
+<br>186  Disk full
+<br>185  Record too long
+
+</p><p>It now remains to be explained what overlays there are, what commands they
+accept and what data they return.
+
+
+
+<a id="file"></a></p><h3>3a. The FILE overlay</h3>
+
+<p>This overlay handles all remote file access (i.e. XFOPEN, XFCLOSE etc).
+There are five types of data packet that the Psion sends to CL/FILE. The
+data packet starts with a byte between 00 and 04 to indicate its type:
+
+</p><table summary="0" border="0">
+<tbody><tr><td valign="top">XFOPEN: </td><td valign="top">00&nbsp;mode&nbsp;type&nbsp;name</td><td valign="top">
+                  Opens a remote file where mode/type are bytes and name is a
+                  string, exactly the same parameters as the XFOPEN command.</td></tr>
+<tr><td valign="top">XFCLOSE:</td><td valign="top">01</td><td valign="top">
+                  Closes current remote file if any.</td></tr>
+<tr><td valign="top">XFPUT:  </td><td valign="top">02&nbsp;datastring</td><td valign="top">
+                  Puts the data at the current file position.</td></tr>
+<tr><td valign="top">XFGET$: </td><td valign="top">03&nbsp;length</td><td valign="top">
+                  Gets (at most) length bytes from the current file position
+                  which are returned in the reply data packet from CL/FILE.</td></tr>
+<tr><td valign="top">XFPOS:  </td><td valign="top">04&nbsp;mode&nbsp;position</td><td valign="top">
+                  Changes the current file position. Mode is a byte but position
+                  is a string representation of the file position. The
+                  reply data packet contains a string representation of the
+                  new file position.</td></tr>
+</tbody></table>
+
+<p>The file types used in XFOPEN are:
+</p><table summary="0" border="0">
+<tbody><tr><td valign="top">00</td><td valign="top">Binary</td><td valign="top">A random access binary file.</td></tr>
+<tr><td valign="top">01</td><td valign="top">Ascii</td><td valign="top">An sequential ascii file. Any data sent by XFPUT will be appended
+                   to the file, and automatically terminated by a CR/LF linebreak even
+                   though this is not sent.</td></tr>
+<tr><td valign="top">02</td><td valign="top">Directory</td><td valign="top">A directory file. This is a read-only sequential ascii file,
+                   containing all the file names matching the dos pathname given
+                   (which may contain wild cards * and +).</td></tr>
+</tbody></table>
+
+<p>The file modes used in XFOPEN are:
+</p><table summary="0" border="0">
+<tbody><tr><td valign="top">00</td><td valign="top">Read only</td><td valign="top">An existing file is opened for reading. An error 189 (remote
+                        file not found) is sent if it does not exist.</td></tr>
+<tr><td valign="top">01</td><td valign="top">Create/Replace</td><td valign="top">Any existing file of the same name is removed, and a new file
+                        is opened for writing.</td></tr>
+<tr><td valign="top">02</td><td valign="top">Replace</td><td valign="top">An existing file is opened and cleared for writing. An error
+                        189 (remote file not found) is sent if it does not exist.</td></tr>
+<tr><td valign="top">03</td><td valign="top">Create</td><td valign="top">An new file is opened for writing. An error 187 (remote file
+                        exists) is sent if it already exists.</td></tr>
+<tr><td valign="top">04</td><td valign="top">Update</td><td valign="top">An existing file is opened for writing (appending if ascii),
+                        but not cleared.  An 189 (remote file not found) if it does
+                        not exist.</td></tr>
+</tbody></table>
+
+<p>Note that the initial file position is always at the beginning of the file, except
+for sequential ascii files in Update mode which are opened at the end of the file
+so that any new data is appended.
+
+</p><p>Using an illegal filemode or filetype will return an error 190 (bad parameter).
+Using XFPUT in read-only mode (00) will return an error 188 (server error).
+Using XFPOS on a non-binary file will return an error.
+Opening a directory file in any mode other than read-only will return an
+error.
+
+
+</p><p>For example, suppose we run the following short program:
+</p><p class="program">TEST:
+XFOPEN:("HOMER.TXT",1,1)
+XFPUT$:("Doh"+CHR$(33))
+XFCLOSE:</p>
+
+<p>then the following list is the complete exchange between the Psion and the
+PC, assuming no errors occur and no packets are re-sent:
+
+</p><table summary="0" border="0">
+<tbody><tr><td valign="top" colspan="4">Start link layer session:</td></tr>
+<tr><td width="20"></td><td valign="top">PC:</td><td valign="top">Link Request:</td><td valign="top"><span class="code">16 10 02 01 10(10)10 03 00 5C</span></td></tr>
+<tr><td></td><td valign="top">Ps:</td><td valign="top">Link Request:</td><td valign="top"><span class="code">16 10 02 01 10(10)10 03 00 5C</span></td></tr>
+<tr><td></td><td valign="top">PC:</td><td valign="top">Acknowledge: </td><td valign="top"><span class="code">16 10 02 01 00 10 03 01 90</span></td></tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr><td valign="top" colspan="4">Then the FILE overlay is loaded:</td></tr>
+<tr><td></td><td valign="top">Ps:</td><td valign="top">FILE overlay:</td><td valign="top"><span class="code">16 10 02 01 19 46 49 4C 45 10 03 2D BE
+                F  I  L  E</span></td></tr>
+<tr><td></td><td valign="top">PC:</td><td valign="top">Acknowledge: </td><td valign="top"><span class="code">16 10 02 01 01 10 03 C0 50</span></td></tr>
+<tr><td valign="top" colspan="4">Reply:</td></tr>
+<tr><td></td><td valign="top">PC:</td><td valign="top">No Data:     </td><td valign="top"><span class="code">16 10 02 01 19 10 03 C0 5A</span></td></tr>
+<tr><td></td><td valign="top">Ps:</td><td valign="top">Acknowledge: </td><td valign="top"><span class="code">16 10 02 01 01 10 03 C0 50</span></td></tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr><td valign="top" colspan="4">File is opened:</td></tr>
+<tr><td></td><td valign="top">Ps:</td><td valign="top">Open command:</td><td valign="top"><span class="code">16 10 02 01 1A 00 01 01 48 4F 4D 45 52 2E 54 58 54 10 03 39 8B
+                         H  O  M  E  R  .  T  X  T</span></td></tr>
+<tr><td></td><td valign="top">PC:</td><td valign="top">Acknowledge: </td><td valign="top"><span class="code">16 10 02 01 02 10 03 80 51</span></td></tr>
+<tr><td valign="top" colspan="4">Reply:</td></tr>
+<tr><td></td><td valign="top">PC:</td><td valign="top">No Data:     </td><td valign="top"><span class="code">16 10 02 01 1A 10 03 80 5B</span></td></tr>
+<tr><td></td><td valign="top">Ps:</td><td valign="top">Acknowledge: </td><td valign="top"><span class="code">16 10 02 01 02 10 03 80 51</span></td></tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr><td valign="top" colspan="4">Send data:</td></tr>
+<tr><td></td><td valign="top">Ps:</td><td valign="top">Data Doh!:   </td><td valign="top"><span class="code">16 10 02 01 1B 02 44 6F 68 21 10 03 A1 DE
+                   D  o  h  !</span></td></tr>
+<tr><td></td><td valign="top">PC:</td><td valign="top">Acknowledge: </td><td valign="top"><span class="code">16 10 02 01 03 10 03 41 91</span></td></tr>
+<tr><td valign="top" colspan="4">Reply:</td></tr>
+<tr><td></td><td valign="top">PC:</td><td valign="top">No Data:     </td><td valign="top"><span class="code">16 10 02 01 1B 10 03 41 9B</span></td></tr>
+<tr><td></td><td valign="top">Ps:</td><td valign="top">Acknowledge: </td><td valign="top"><span class="code">16 10 02 01 03 10 03 41 91</span></td></tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr><td valign="top" colspan="4">Close file:</td></tr>
+<tr><td></td><td valign="top">Ps:</td><td valign="top">End packet:  </td><td valign="top"><span class="code">16 10 02 01 1C 01 10 03 98 C0</span></td></tr>
+<tr><td></td><td valign="top">PC:</td><td valign="top">Acknowledge: </td><td valign="top"><span class="code">16 10 02 01 04 10 03 00 53</span></td></tr>
+<tr><td valign="top" colspan="4">Reply:</td></tr>
+<tr><td></td><td valign="top">PC:</td><td valign="top">No Data:     </td><td valign="top"><span class="code">16 10 02 01 1C 10 03 00 59</span></td></tr>
+<tr><td></td><td valign="top">Ps:</td><td valign="top">Acknowledge: </td><td valign="top"><span class="code">16 10 02 01 04 10 03 00 53</span></td></tr>
+<tr><td colspan="4">&nbsp;</td></tr>
+<tr><td valign="top" colspan="4">End link layer session:</td></tr>
+<tr><td></td><td valign="top">Ps:</td><td valign="top">disconnect:  </td><td valign="top"><span class="code">16 10 02 01 08 10 03 00 56</span></td></tr>
+</tbody></table>
+
+<p>The file HOMER.TXT will contain only the text "Doh!" followed by the CR/LF
+line break.
+
+
+
+<a id="ftran"></a></p><h3>3b. The FTRAN overlay</h3>
+
+<p>This is the most commonly used one. It handles all standard file transfer.
+There are four types of data packet that the Psion sends to FTRAN. The
+data packet starts with a byte between 00 and 03 to indicate its type:
+
+</p><table summary="0" border="0">
+<tbody><tr><td valign="top">Open:     </td><td valign="top">00&nbsp;mode&nbsp;filetype&nbsp;filename</td><td valign="top">
+                  Tells FTRAN to open a remote file. Note that the mode
+                  is similar to those used by the FILE overlay. The
+                  filetype is 00 for ODB files, 01 for OPL files, 02-0F
+                  for block files.</td></tr>
+<tr><td valign="top">Close:    </td><td valign="top">01</td><td valign="top">
+                  Closes the current file (if any) and exits the FTRAN
+                  overlay.</td></tr>
+<tr><td valign="top">putdata:  </td><td valign="top">02&nbsp;datastring</td><td valign="top">
+                  Passes data to FTRAN for saving on disk.</td></tr>
+<tr><td valign="top">getdata:  </td><td valign="top">03&nbsp;length</td><td valign="top">
+                  Gets (at most) length bytes from the current file
+                  position which are returned in the reply data packet
+                  from CL/FILE. The length requested is usually FE.</td></tr>
+</tbody></table>
+
+<p>The file modes are the same as with the FILE overlay, except that modes 02
+and 03 are not allowed:
+</p><table summary="0" border="0">
+<tbody><tr><td valign="top">00</td><td valign="top">Read only</td><td valign="top">An existing file is opened for reading. An error 189
+                        is sent if it does not exist.</td></tr>
+<tr><td valign="top">01</td><td valign="top">Create/Replace</td><td valign="top">Any existing file of the same name is removed, and
+                        a new file is opened for writing.</td></tr>
+<tr><td valign="top">04</td><td valign="top">Update</td><td valign="top">An existing file is opened for writing (appending if
+                        ODB/OPL), but not cleared. An 189 error is sent if
+                        it does not exist. Note that this file mode is
+                        generally only used to test whether a file exists, not
+                        for writing/appending to a file.</td></tr>
+</tbody></table>
+
+<p>Using an illegal filemode (incl. 02 or 03) or filetype will return an error 190
+(bad parameter). Sending data in reading mode (00), or requesting data in write
+mode (01-04) will return an 190 (Bad Parameter) error.
+
+</p><p>When a file is opened for reading (mode 00) then FTRAN often returns info
+about the file so that the Psion can prepare memory space for it.
+
+</p><p>When sending/receiving ODB files, each record is sent in a seperate packet.
+No info is returned after an ODB file is opened for reading.
+
+</p><p>When sending/receiving block files, the data is split into seperate packets,
+generally about FE bytes long. The info returned when opening the file for
+reading is the length of the block in the file, followed by the Psion file
+type (between 82 and 8F).
+
+</p><p>When sending/receiving OPL files, the data is split into seperate packets
+just like block files. The line ends are indicated by a zero byte, and it
+is FTRAN that translates them to/from CR/LF when writing to disk.
+The info returned after the recv command is as follows:
+<br>   blocklength, 81h, 0000, OPLlength
+<br>OPLlength is the total length of the OPL in bytes when all CR/LF linebreaks
+are changed to a zero byte. Note that the final line of OPL must also end in
+00 even if the ascii file does not end in a CR/LF.
+The blocklength always equals 4+OPLlength.
+When the procedure file is constructed on a pack, the length is blocklength
+given above. The organiser then writes 0000, OPLlength. This signifies that
+the length of the object code block is 0, and that the OPL part has length
+OPLlength. If these lengths are incorrect, the pack will be corrupted.
+
+
+
+<a id="boot"></a></p><h3>3c. The BOOT overlay</h3>
+
+<p>This overlay handles the loading of BOOT code, and the XMLOAD: command.
+After the BOOT overlay is loaded, it expects to be sent a data packet
+containing the name of the boot file to load. The reply packet contains
+the length of the code.
+
+</p><p>The Psion then sends a packet containing the address to load the code.
+In reply the first data packet contains the first part of the code, ready
+to be stored in memory. When the Psion next sends a packet containing just
+a zero byte, the next code packet is sent. This is repeated as often as
+necessary.
+
+</p><p>When the end of the code has been reached, a disconnect packet with a
+zero error is returned by CL/BOOT.
+
+</p><p>Note that fixing up the relocatable addresses in the code is done by CL/BOOT.
+
+</p><p>Instead of using the BOOT option in the menu, the XMLOAD: command can be
+used. XMLOAD:(addr%,len%,name$) loads the boot code from remote file name$
+to address addr%, but rejects it if the code exceeds length len%.
+
+
+
+<a id="exit"></a></p><h3>3d. The EXIT overlay</h3>
+
+<p>This overlay exits the CL program completely (by stuffing q and y in the
+keyboard buffer of the PC). It has no other functions. It can therefore
+be used by using the following sequence of commands:
+</p><p class="program">XLCON:
+XLPUT:("EXIT")
+XLDIS:</p>
+
+
+
+<a id="plan"></a><h3>3e. The PLAN and PLANM overlays</h3>
+
+<p>These overlays are used by the spreadsheet program. When you choose the
+FILE/IMPORT or FILE/EXPORT menu options, the Psion requests the PLANM
+overlay which returns the file type menu, and the Psion disconnects again.
+The file type menu returned is 19h bytes long and is as follows:
+</p><p class="program">03 "WKS" 0001
+03 "WK1" 0002
+03 "WR1" 0003
+03 "DIF" 0004
+00</p>
+<p>It is in the correct format for the MN$DISP (SWI 50h) system service.
+
+</p><p>The PLAN overlay handles the transfer and conversion of the spreadsheet
+files. To export a file, the Psion first sends it a packet of which the
+first byte is between 81h and 84h depending on the file type chosen, and
+the rest contains the file name. The spreadsheet data follows; first a
+packet containing the dimensions of the sheet, then a packet for each
+non-empty cell, and finally a packet containing just FE. The reply that
+PLAN gives each time is a packet containing 00, except that the FE is
+answered with FE 00.
+
+</p><p>A cell is stored in this format:
+</p><table summary="0" border="0">
+<tbody><tr><td valign="top">Column:</td><td valign="top">Byte containing column of cell (0 is column A)</td></tr>
+<tr><td valign="top">Row:   </td><td valign="top">Byte containing row of cell (0 is row 1)</td></tr>
+<tr><td valign="top">Type:  </td><td valign="top">Contains 22h (=") if cell contains text<br>
+            Contains 87h if cell contains a number or formula</td></tr>
+<tr><td valign="top">Contents: </td><td valign="top">Ascii string with contents of cell.</td></tr>
+</tbody></table>
+
+<p>If a cell contains a formula and its result then one packet contains the
+formula, and the cell is resent in the next packet but this time containing
+just the value.
+For example, here are the packets sent to PLAN to export a simple sheet (only the packet data is shown):
+</p><table summary="0" border="0">
+<tbody><tr><td valign="top"><span class="code">84 54 45 53 54             </span></td><td valign="top">Export TEST in DIF format.</td></tr>
+<tr><td valign="top"><span class="code">02 04                      </span></td><td valign="top">Columns A-B, Rows 1-4 used.</td></tr>
+<tr><td valign="top"><span class="code">01 00 22 43 4F 4C 31       </span></td><td valign="top">B1, contains "COL1"</td></tr>
+<tr><td valign="top"><span class="code">00 01 22 52 4F 57 31       </span></td><td valign="top">A2, contains "ROW1"</td></tr>
+<tr><td valign="top"><span class="code">01 01 87 31                </span></td><td valign="top">B2, contains 1</td></tr>
+<tr><td valign="top"><span class="code">00 02 22 52 4F 57 32       </span></td><td valign="top">A3, contains "ROW2"</td></tr>
+<tr><td valign="top"><span class="code">01 02 87 35                </span></td><td valign="top">B3, contains 5</td></tr>
+<tr><td valign="top"><span class="code">01 03 87 3D 42 32 2B 42 33 </span></td><td valign="top">B4, contains =B2+B3 (formula)</td></tr>
+<tr><td valign="top"><span class="code">01 03 87 36                </span></td><td valign="top">B4, contains 6 (value)</td></tr>
+<tr><td valign="top"><span class="code">FE                         </span></td><td valign="top">End of sheet</td></tr>
+</tbody></table>
+
+<p>Import is very similar. First the Psion sends CL/PLAN a packet of which the
+first byte is between 01 and 04 depending on the file type chosen, and
+the rest contains the file name. It just returns 00. Then the Psion sends
+a 00 and PLAN returns the first non-empty cell, in the same format as
+before. This is repeated until PLAN sends FE00, signifying the end of the
+sheet.
+
+</p><div class="nav"><ul>
+<li><a href="https://www.jaapsch.net/index.htm">Home</a></li>
+</ul></div>
+
+
+
+</body></html>
