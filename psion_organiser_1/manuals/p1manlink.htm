@@ -1,0 +1,1835 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>The Psion Organiser 1 Link-Up Pack Manual - Jaap's Psion Organiser II Page</title>
+<link rel="stylesheet" type="text/css" href="psion.css">
+<link rel="shortcut icon" href="pics/favicon.ico">
+<style type="text/css">
+  .boxtable { border-collapse: collapse; }
+  .bl { border-left: 1px solid black; }
+  .br { border-right: 1px solid black; }
+  .bu { border-top: 1px solid black; }
+  .bd { border-bottom: 1px solid black; }
+  .ta { text-align: center }
+  .hooku {
+     background-image: url(pics/p1manlink/hooku.gif);
+     background-repeat: no-repeat;
+     background-position: 50% 0%;
+  }
+  .hookd {
+     background-image: url(pics/p1manlink/hookd.gif);
+     background-repeat: no-repeat;
+     background-position: 50% 100%;
+  }
+  .hooku2 {
+     background-image: url(pics/p1manlink/hooku2.gif);
+     background-repeat: no-repeat;
+     background-position: 50% 0%;
+  }
+  .hookd2 {
+     background-image: url(pics/p1manlink/hookd2.gif);
+     background-repeat: no-repeat;
+     background-position: 50% 100%;
+  }
+  .swap1 {
+     background-image: url(pics/p1manlink/swap1.gif);
+     background-repeat: no-repeat;
+     background-position: 50% 50%;
+  }
+  .swap2 {
+     background-image: url(pics/p1manlink/swap2.gif);
+     background-repeat: no-repeat;
+     background-position: 50% 50%;
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org", "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem", "position": 1,
+    "item": { "@id": "../index.htm", "name": "Home" }
+  },{
+    "@type": "ListItem", "position": 2,
+    "item": { "@id": "index.htm", "name": "Psion II" }
+  },{
+    "@type": "ListItem", "position": 3,
+    "item": { "@id": "p1manlink.htm", "name": "Link-Up Pack Manual" }
+  }]
+}
+</script>
+</head>
+<body>
+<div class=header><h1>Jaap's Psion II Page</h1><a href="index.htm" class=jpp></a></div>
+<ol class="breadcrumb">
+  <li><a href="../index.htm">Home</a> /</li>
+  <li><a href="index.htm">Psion II</a> /</li>
+  <li>Link-Up Pack Manual</li>
+</ol>
+
+<h1>Psion Organiser Series 1:<br>THE ORGANISER LINK-UP PACK</h1>
+
+<hr>
+
+<p>
+The Psion Organiser and the plug-in Program
+Packs and Datapaks form a sophisticated pocket
+computer system containing digital electronic
+components. They have been designed for ease of
+use, but to ensure that you make the most of their
+capabilities we suggest that you read this booklet,
+in conjunction with your basic Organiser
+handbook.
+
+<p>
+To avoid any possible damage your Organiser,
+Program Packs and Datapaks should not be
+exposed to extremes of temperature or humidity.
+Do not subject them to hard knocks or excessive
+force, nor immerse in liquids or use volatile fluids
+when cleaning the case.
+
+<p>&copy; PSION PROCESSORS LTD 1984
+<br>DESIGN REGISTRATION APPLICATIONS
+<br>NOS. 1019736 AND 1019737
+<br>PATENT APPLICATION NO. 8412628
+
+<hr>
+
+
+<h2>CONTENTS</h2>
+
+<p class=contents>
+1. <a href="#c1">INTRODUCTION</a>
+2. <a href="#c2">TWO PACKS</a>
+     <small>Connector pack, software pack</small>
+3. <a href="#c3">CONNECTING THE ORGANISER</a>
+     <small>RS232 Interface</small>
+4. <a href="#c4">INSTALLING THE SOFTWARE</a>
+5. <a href="#c5">USING 'SETUP'</a>
+     <small>Baud rate, parity, data bits, handshaking, EOL, EOF, translation</small>
+6. <a href="#c6">SENDING AND RECEIVING DATA</a>
+     <small>'SENDL', 'SENDF', 'SENDP', 'RECL', 'RECF'</small>
+7. <a href="#c7">EXAMPLES</a>
+     <small>IMP PC, ACT Apricot, Sinclair QL, BBC Model B, Epson FX 80</small>
+8. <a href="#c8">PSION AFTER SALES SUPPORT</a>
+
+APPENDICES
+A. <a href="#cA">ASCII Character Set</a>
+B. <a href="#cB">ORGCOMM.BAS</a>
+C. <a href="#cC">DTE and DCE wiring</a>
+</p>
+
+<hr>
+
+<a name="c1"></a><h2>1<br>INTRODUCTION</h2>
+
+<p>
+The Psion Organiser Link-Up pack connects your
+Organiser to the rest of the world.
+
+<p>
+It has been designed to communicate with
+equipment which has communication software
+and an RS232 or RS423 port.
+<br>It enables you to:
+<ul>
+<li>send records and files from your datapaks to other computers
+<li>print out records and programs from datapaks
+<li>receive and store information from other computers
+</ul>
+
+<p>
+You can use the Organiser to collect and carry
+information wherever you travel yet still share a
+central database.
+
+<hr>
+
+<a name="c2"></a><h2>2<br>TWO PACKS</h2>
+
+<p>
+Link-Up consists of two units:
+<br>&nbsp;&nbsp;&nbsp;the <b>Connector pack</b>
+<br>&nbsp;&nbsp;&nbsp;and the <b>Software pack</b>.
+
+<p>
+The Connector pack looks like a datapak with a
+multi-coloured ribbon lead emerging from it. As
+you would expect, it is used to physically connect
+the Organiser to another device. This pack must be
+in place whenever data transfer takes place.
+
+<p>
+The Software pack looks like an ordinary
+datapak. It contains the programs needed to
+control the flow of data to and from your Organiser.
+Once these programs have been loaded, the
+Software pack does not have to be in the
+Organiser for data communication to take place.
+
+<p>
+You may wish to use the Link-Up pack to
+communicate with another computer or a printer.
+For simplicity's sake, let us call the machine you
+wish to communicate with the <b>target</b>.
+<br>Information can travel from your Organiser to
+the target, or from the target to the Organiser.
+
+<p>
+There are three operations which you must
+perform before communication between your
+Organiser and the <b>target</b> can take place.
+
+<table class=indent summary="">
+<tr><td>Step&nbsp;1.</td>
+<td>The Organiser must be
+physically connected to its target.
+The <b>Connector pack</b> must be
+slotted into the Organiser and the
+RS232 interface cable must be
+plugged into the target. Chapter
+Three explains how to connect the
+RS232 interface.</td></tr>
+
+<tr><td>Step&nbsp;2.</td>
+<td>The <b>Software pack</b> must be
+fitted and the communications
+software read into the Organiser.
+Chapter Four describes how to load
+and unload these programs.</td></tr>
+
+<tr><td>Step&nbsp;3.</td>
+<td>The Organiser and target must
+be set up with compatible values of
+certain essential <b>transmission
+parameters</b>. Chapter Five describes
+what these parameters are, and how
+to match those on your Organiser
+link-up pack with those of your target
+device.</td></tr>
+</table>
+
+<p>
+After these operations have been performed, you
+are ready to send and receive data with the
+commands described in Chapter 6.
+
+<p>
+Chapter 7 is devoted to a series of examples
+which show all these steps.
+
+<p>
+When the link-up pack is first used it can take
+some time to match the communication needs of
+your target computer to those of the Organiser.
+The link-up software is designed to let you store
+the settings you need so that they can be
+automatically loaded the next time you want
+communication to take place.
+
+<hr>
+
+<a name="c3"></a><h2>3<br>Connecting the Organiser to the Target</h2>
+
+<p>
+The <b>Connector pack</b> can be fitted to either solid
+state drive of your Organiser. The socket at the
+other end of the Connector pack cable is designed
+to connect to equipment using the RS232C and
+RS423 communications standards. The rest of this
+chapter shows you how to make sure that the
+wiring of your target device is compatible with the
+Connector pack socket.
+
+
+
+<h3>Standards in the microcomputer industry</h3>
+
+<p>
+Part of the fascination of the microcomputer
+industry is that it was started and has been fuelled
+mainly by the invention and industry of talented
+individuals. The disadvantage of this is that
+talented individuals can rarely agree on a
+standard. So it is with the RS232 interface. There
+are differences even between connectors which
+are supposed to be standard. This chapter
+describes the wiring of the connector supplied
+with the Link-Up pack, using as little jargon as
+possible. Read through this chapter carefully and
+compare the wiring of the Link-Up pack with that of
+your target device.
+
+<h3>Plugs and sockets</h3>
+
+<p>
+The Connector pack cable is terminated with a 25
+way 'D' type socket. (It has been wired so that it
+will connect directly into an IBM PC.) The socket
+has receptacle contacts and must be connected to
+a plug, with pin contacts. Figure 3.1 illustrates both
+connectors.
+
+<div align=center>
+<img src="pics/p1manlink/plug.gif" width=541 height=142 alt="Plug">
+<br>PLUG
+</div>
+
+<p>&nbsp;
+
+<div align=center>
+<img src="pics/p1manlink/socket.gif" width=541 height=142 alt="Socket">
+<br>SOCKET
+</div>
+
+<p>
+<b>Plug and Socket</b>
+<br>Figure 3.1
+
+
+
+<h3>Connecting Up</h3>
+
+<p>
+The wiring of the Connector pack socket is shown
+in figures 3.2 and 3.3. Figure 3.2 is a table,
+showing the functions and positions of the socket
+contacts. Figure 3.3 is a diagram of the socket,
+with each contact labelled. The wiring pattern of
+the socket is known as its pinout.</p>
+
+<table class=boxtable summary="">
+<tr>
+  <td class="bu bd bl">PIN</td>
+  <td class="bu bd bl">NAME</td>
+  <td class="bu bd"></td>
+  <td class="bu bd">FUNCTION</td>
+  <td class="bu bd bl">SIGNAL DIRECTION</td>
+  <td class="bu bd bl br">COLOUR</td>
+</tr>
+  <tr><td class="bl">2 </td><td class="bl">TxD</td><td>-</td><td>TRANSMITTED DATA   </td><td class="bl">INPUT TO ORGANISER</td><td class="bl br">BLUE</td></tr>
+  <tr><td class="bl">3 </td><td class="bl">RxD</td><td>-</td><td>RECEIVED DATA      </td><td class="bl">OUTPUT TO TARGET  </td><td class="bl br">RED</td></tr>
+  <tr><td class="bl">4 </td><td class="bl">RTS</td><td>-</td><td>READY TO SEND      </td><td class="bl">INPUT TO ORGANISER</td><td class="bl br">GREEN</td></tr>
+  <tr><td class="bl">5 </td><td class="bl">CTS</td><td>-</td><td>CLEAR TO SEND      </td><td class="bl">OUTPUT TO TARGET  </td><td class="bl br">BROWN</td></tr>
+  <tr><td class="bl">6 </td><td class="bl">DSR</td><td class="hooku">&nbsp;</td><td>DATA SET READY     </td><td class="bl">                  </td><td class="bl br">-</td></tr>
+  <tr><td class="bl">20</td><td class="bl">DTR</td><td class="hookd">&nbsp;</td><td>DATA TERMINAL READY</td><td class="bl">                  </td><td class="bl br">-</td></tr>
+  <tr><td class="bl bd">7 </td><td class="bl bd">GND</td><td class="bd">-</td><td class="bd">SIGNAL GROUND      </td><td class="bl bd">                  </td><td class="bl br bd">YELLOW</td></tr>
+</table>
+
+<p>
+<b>Link-Up Pack pinout</b> Figure 3.2
+
+<div align=center>
+<img src="pics/p1manlink/pinout.gif" width=449 height=156 alt="Pinout diagram">
+</div>
+
+<p>
+<b>Link-Up Pack pinout diagram</b> Figure 3.3
+
+<p>
+To connect up the Organiser to the target
+equipment you must check that the pinout of the
+target RS232 connector matches that of the Link-
+Up socket pinout.
+
+<p>
+If the wiring is compatible then there is no
+problem &mdash; simply plug the link-up pack in and
+proceed to use the 'SETUP' command.
+
+<p>
+If the wiring is different or the target connector
+does not fit the Link-Up pack connector, you will
+have to make up an interconnection cable to go
+between the Link-Up socket and your equipment.
+(Your dealer may be able to supply one). If you buy
+an interconnection cable, make sure that it ends
+with a 'D' type plug, as shown in figure 3.1.
+
+<h3>The pin settings</h3>
+
+<p>
+Although there are 25 contacts on the D type
+socket, only five are needed for the Link-Up pack.
+Two are used for data, two for control signals and
+one is signal ground.
+
+<p>
+Data travels from the target to the Organiser on
+the TxD line, and from the Organiser to the target
+on the RxD line.
+
+<p>
+The direction in which your target expects data
+to travel depends upon whether it is wired as Data
+Communication Equipment (DCE) or Data Terminal
+Equipment. A signal which is output for a DCE will
+be input for a DTE.
+
+<p>
+The Link-Up pack connector is wired as a Data
+Communication Equipment (DCE) interface.
+Diagrams showing how to connect it to both DTE
+and DCE are in Appendix C.
+
+<h3>TxD and RxD</h3>
+
+<p>
+TxD is for serial data transmitted to the Organiser
+from the target. RXD is data received from the
+Organiser. These will normally be used, though for
+some printers, RxD only need be connected.
+
+<h3>RTS and CTS</h3>
+
+<p>
+The signals on these lines control when data is
+sent on the TxD and RxD lines. This control is
+known as handshaking, and is described in
+chapter 5. The Link-Up pack only uses them if the
+RTS/CTS protocol is selected.
+
+<p>
+The signal from the Organiser to the target is on
+the CTS (clear to send) line of the Link-Up pack.
+The signal from the target to the Organiser is on
+the RTS (ready to send) line of the Link-Up pack.
+
+<p>
+If your target is wired as Data Terminal
+Equipment the connections run as you might
+expect. CTS on the Link-Up pack socket is
+connected to CTS on the target connector, and
+similarly for RTS. If, however, your target is wired
+as Data Communication Equipment, CTS of the
+Link-Up pack must be connected to the RTS pin of
+the target, and vice versa. This is all shown in the
+diagrams of Appendix C.
+
+<h3>DSR/DTR</h3>
+
+<p>
+These signals are not used by the Organiser, but
+the relevant pins are connected together on the
+Link-Up socket, so that equipment which requires
+a 'data set ready' signal will get one whenever it
+generates a 'data terminal ready' signal.
+
+<hr>
+
+<a name="c4"></a><h2>4<br>Installing the Communications Software</h2>
+
+<p>
+Slot the Software pack into either of the solid state
+drives in the back of your Organiser. You should
+not have any other program pack (such as the
+Finance pack) in your Organiser at the same time.
+When you switch on, software to offer two new
+commands is automatically loaded.
+
+<p>
+You can test to see that it has been loaded by
+pressing the <b>MODE/HOME</b> key repeatedly. The
+commands available should be
+<div class=indent>
+<b>ENTER
+<br>OFF
+<br>SETUP
+<br>RESET.</b></div>
+
+
+<p>
+Every time you turn on the Organiser with the Link-
+Up Software pack in place you will be offered
+these commands.
+
+<p>
+The <b>CALC</b> option is not available when using the
+Link-Up pack.
+
+<p>
+If 'SETUP' is not displayed, this means that the
+communications software has not loaded properly.
+Try turning the Organiser off and on again, and
+check that the Software pack is properly slotted
+into position.
+
+<p>
+'SETUP' and 'RESET' can only be executed when
+the Software pack is in place.
+'SETUP' is described in detail in the next
+chapter.
+
+<p>
+<b>Once the 'SETUP' command has been used,
+turning the Organiser off does not dislodge the
+communications software. The Organiser can
+be turned off and the Software pack removed
+without affecting the communications
+software.</b>
+
+<p>
+'RESET' clears the communications software from
+the Organiser and returns it to its normal state.
+Select 'RESET' , press <b>EXECUTE</b>, then remove
+the Software pack.
+<br>Removing the battery or using any other
+specialist program pack (such as the Psion
+Finance pack) also clears the communication
+software.
+
+<p>
+When the communications software has been
+cleared, you must re-install it before any
+further communications can be undertaken.
+
+<hr>
+
+<a name="c5"></a><h2>5<br>Using the 'SETUP' Command</h2>
+
+<p>
+Imagine you are tuning in your radio. Out there on
+the airwaves, the station you want is transmitting
+at a certain frequency on a certain waveband. In
+order to hear it you must do two things. You must
+find out what this frequency is, then you must
+locate it on your dial.
+<br>Likewise, before communication can take place
+between the Organiser and a target device you
+must find out various things about the way in
+which the two machines can transfer data, then
+use the 'SETUP' command to tell the Organiser
+what they are.
+
+<p>
+Setting up communication between the Organiser
+and a target device is more complicated than
+tuning in a radio receiver. The transmission
+frequency (or Baud rate) is only one of the settings
+you have to make. Because information can be
+sent both ways between Organiser and target, you
+must set the controls which determine when data
+will travel (known as handshaking). Also, since
+different machines transmit data in different ways
+you must set the pattern of bits sent in each group
+of information.
+
+<p>
+Because you are in control of both ends of
+communication, you must set all these things on
+both the Organiser and the target.
+<br>Collectively, the settings which must be agreed
+between Organiser and target are called
+<b>transmission parameters</b>. You must first discover
+or set these transmission parameters on the target
+machine, then use the 'SETUP' command to tell
+the Organiser what they are.
+<br>A brief description of each one of these
+parameters is given later in this chapter, but it is
+not necessary to understand what each one does
+in order to use the Link-Up pack. It is important,
+however, to make sure that the settings are the
+same on both machines.
+<br>If your target device is another computer, you
+will need to run some sort of communications
+program on it to set these parameters. On printers,
+these parameters are often set on banks of
+switches.
+<br>Chapter 6 includes examples of setting these
+parameters on certain common computers and
+printers.
+
+<p>
+Once the parameters you need have been set on
+the Organiser they can be saved on the Software
+pack so that they automatically appear next time
+the communications software is loaded.
+
+
+<h3>The Default Settings</h3>
+
+<p>
+To get into 'SETUP' press the <b>MODE/HOME</b> key
+until 'SETUP' appears on the display, then press
+the <b>EXECUTE</b> key. The Organiser searches the
+Software pack for the last set of parameters saved.
+It loads them into its memory, and displays the first
+of these on its screen.
+
+<p>
+If you are using the Link-Up pack for the first time
+the parameters settings will be those shown
+below. If you have already used the 'SETUP'
+command, the parameters Will be set to the values
+you last saved.
+
+<table class=indent summary="">
+<tr><td>BAUD       </td><td>9600</td></tr>
+<tr><td>PARITY     </td><td>NONE</td></tr>
+<tr><td>BITS       </td><td>8</td></tr>
+<tr><td>STOP BITS  </td><td>1</td></tr>
+<tr><td>HANDSHAKING</td><td>NONE</td></tr>
+<tr><td>EOL        </td><td>CRLF (i.e. carriage return, line feed)</td></tr>
+<tr><td>EOF        </td><td>1A (ASCII character control-Z)</td></tr>
+<tr><td>TRANA      </td><td>BLANK</td></tr>
+<tr><td>TRANB      </td><td>BLANK</td></tr>
+</table>
+
+<p>
+<b>If these default values suit your immediate
+target, press the &darr; key until the 'EXIT'
+command is displayed then press EXECUTE.</b>
+You will then leave 'SETUP' and be ready to send
+and receive data as described in Chapter 5. If
+these settings are not suitable, they must be edited
+from within the 'SETUP' command.
+
+<h3>Changing the Settings</h3>
+
+<p>
+Within 'SETUP' the FIND and SAVE keys take on
+their alternative meanings, becoming &darr; and &uarr;
+respectively, as indicated by the blue arrows below
+the keys. Use these keys to move up and down
+through the list of parameters and their current
+values. Figure 5.1 lists the parameters you can set
+in this way, and the values you can choose from in
+each case. TRANA and TRANB are the Link-Up
+pack's translation commands. They are described
+below. Don't worry if there is no equivalent on your
+target machine.
+</p>
+
+<table class=boxtable summary="">
+<tr><td class="bu bl bd">PARAMETER</td><td class="bu bl bd">INDICATOR</td><td class="bu bl bd br">OPTIONS</td></tr>
+<tr><td class="bl">BAUD RATE           </td><td class="bl">BAUD:       </td><td class="bl br">150 300 600 1200 2400 4800 9600</td></tr>
+<tr><td class="bl">PARITY              </td><td class="bl">PAR:        </td><td class="bl br">ODD EVEN MARK SPACE NONE</td></tr>
+<tr><td class="bl">NO. OF DATA BITS    </td><td class="bl">BITS:       </td><td class="bl br">7 8</td></tr>
+<tr><td class="bl">NO. OF STOP BITS    </td><td class="bl">STOP:       </td><td class="bl br">1 2</td></tr>
+<tr><td class="bl">HANDSHAKING         </td><td class="bl">HAND:       </td><td class="bl br">RTS/CTS XON/XOFF NONE</td></tr>
+<tr><td class="bl">END OF LINE         </td><td class="bl">EOL         </td><td class="bl br" rowspan=2 style="vertical-align:middle;">} Up to 3 characters. See Text for details.</td></tr>
+<tr><td class="bl">END OF FILE         </td><td class="bl">EOF:        </td></tr>
+<tr><td class="bl">EXTRA TRANSLATION   </td><td class="bl">            </td><td class="bl br"></td></tr>
+<tr><td class="bl">&nbsp;&nbsp;&nbsp;&nbsp;ORGANISER VERSION </td><td class="bl">TRANA:      </td><td class="bl br" rowspan=2 style="vertical-align:middle;">} 1 character. See Text for details.</td></tr>
+<tr><td class="bl">&nbsp;&nbsp;&nbsp;&nbsp;TARGET VERSION    </td><td class="bl">TRANB:      </td></tr>
+<tr><td class="bl bd">EXIT                </td><td class="bl bd">EXIT:       </td><td class="bl br bd">NO SAVE  SAVE</td></tr>
+</table>
+
+<p><b>Transmission Parameters</b>
+<br>Figure 5.1
+
+<p>
+The parameters are, effectively, arranged in a loop.
+For instance, you can move from BAUD to TRANB
+either by pressing &uarr; twice or by pressing &darr; eight
+times. The values of most of the parameters are
+set by a multiple choice system, where you use
+the &lt;&lt; and &gt;&gt; keys to move left and right
+through a row of options for that parameter until
+the one you want is displayed. The value is now
+fixed until you alter it again. For instance, to
+change the BAUD rate from 9600 to 4800, press
+the &lt;&lt; key once until the display shows
+'BAUD:4800'. Now, you can press &uarr; or &darr; to move
+on to another parameter.
+
+<p>
+The EOL, EOF, TRANA and TRANB parameters
+cannot be handled by the multiple choice
+approach. To set these you must type in a new
+setting from the keyboard. When you have set the
+new value, press &uarr; or &darr; to move on to the next
+parameter.
+
+<p>
+You can set the parameters in any order you
+choose. When you wish to accept the setup as it
+stands move to the 'EXIT' command and press
+<b>EXECUTE</b>. Until you do that, there is no limit to
+the number of times you may alter the value of
+each parameter.
+<br>When you execute 'EXIT' the parameter values
+set become effective and remain so for all ensuing
+communications, until you replace the setup with
+another, or clear the communications software.
+
+
+<h3>Transmission Parameters Defined</h3>
+
+<h4>BAUD RATE &mdash; BAUD</h4>
+
+<p>
+The BAUD rate measures the speed at which lines
+of data are transferred. It is sometimes called bits
+per second by other communications packages.
+
+<p>
+If the BAUD rate is high, the probability of
+transmission errors increases. if some of your
+characters are not being transferred correctly, try
+lowering the BAUD rate on both Organiser and
+target.
+
+<p>
+It is not always best just to use the highest
+BAUD rate available. Many printers print at a much
+slower speed than the maximum BAUD rate
+available with the Link-Up pack. There is little point
+in trying to increase the rate of transfer if the
+printer cannot print any faster than it is doing.
+
+<h4>PARITY, DATA &amp; STOP BITS</h4>
+
+<p>
+The Organiser can transmit data in groups (known
+as frames) of ten or eleven bits. One character of
+data is included in each frame.
+
+<p>
+The first bit of each group is the start bit. The next
+seven or eight bits contain the actual data. Then
+there may be a bit known as the parity bit. Lastly,
+there will be one or two stop bits.
+
+<p>
+The 'PARlTY', 'BITS' and 'STOP' commands
+allow you to specify the data frame you need.
+
+<p>
+Figure 5.2 shows all the possible ways of
+combining start, data, parity and stop bits in a
+frame of ten or eleven bits.
+
+<p>
+Simple addition will reveal that two
+combinations are not allowed. Seven data, no
+parity and one stop bit is an illegal combination. It
+would leave only nine bits in the data frame.
+Similarly eight data bits, two stop bits and a parity
+bit is an illegal combination, because it would lead
+to a data frame of twelve bits.
+The Link-Up pack will not allow either of these
+combinations to be set.
+
+<table class=boxtable summary="">
+<tr>
+  <td width=60 class="ta bu bl bd">START<br>BIT</td>
+  <td width=300 class="ta bu bl bd">7 DATA<br>BITS</td>
+  <td width=60 class="ta bu bl bd">PARITY<br>BIT</td>
+  <td width=60 class="ta bu bl bd br">1 STOP<br>BIT</td>
+  <td width=60></td>
+</tr><tr>
+  <td colspan=5><small>Total 10</small><br>&nbsp;</td>
+</tr><tr>
+  <td class="ta bu bl bd">START<br>BIT</td>
+  <td class="ta bu bl bd">7 DATA<br>BITS</td>
+  <td class="ta bu bl bd">PARITY<br>BIT</td>
+  <td colspan=2 class="ta bu bl bd br">2 STOP<br>BITS</td>
+</tr><tr>
+  <td colspan=5><small>Total 11</small><br>&nbsp;</td>
+</tr><tr>
+  <td class="ta bu bl bd">START<br>BIT</td>
+  <td class="ta bu bl bd">7 DATA<br>BITS</td>
+  <td colspan=2 class="ta bu bl bd br">2 STOP<br>BITS</td>
+  <td></td>
+</tr><tr>
+  <td colspan=5><small>Total 10</small><br>&nbsp;</td>
+</tr><tr>
+  <td class="ta bu bl bd">START<br>BIT</td>
+  <td colspan=2 class="ta bu bl bd">8 DATA<br>BITS</td>
+  <td class="ta bu bl bd">PARITY<br>BIT</td>
+  <td class="ta bu bl bd br">1 STOP<br>BIT</td>
+</tr><tr>
+  <td colspan=5><small>Total 11</small><br>&nbsp;</td>
+</tr><tr>
+  <td class="ta bu bl bd">START<br>BIT</td>
+  <td colspan=2 class="ta bu bl bd">8 DATA<br>BITS</td>
+  <td colspan=2 class="ta bu bl bd br">2 STOP<br>BITS</td>
+</tr><tr>
+  <td colspan=5><small>Total 11</small><br>&nbsp;</td>
+</tr><tr>
+  <td class="ta bu bl bd">START<br>BIT</td>
+  <td colspan=2 class="ta bu bl bd">8 DATA<br>BITS</td>
+  <td class="ta bu bl bd br">1 STOP<br>BIT</td>
+  <td></td>
+</tr><tr>
+  <td colspan=5><small>Total 10</small><br>&nbsp;</td>
+</tr></table>
+
+<p>
+<b>Legal Data Frames</b>
+<br>Figure 5.2
+
+
+
+<h4>PARITY &mdash; PAR</h4>
+
+<p>
+A parity bit is a bit added to the data frame by the
+transmitting device. It helps the receiving device
+check whether the data has arrived correctly.
+<br>There are several different types of parity
+checking in use. The four which the Link-Up pack
+can understand and accept are shown in figure
+5.1.
+<br>If your target device uses parity checking, make
+sure that your Organiser 'SETUP' uses the same
+type of parity checking as the target device. Select
+the appropriate type using &gt;&gt; and &lt;&lt;.
+
+<p>
+If your target does not allow parity checking,
+select parity NONE on your 'SETUP'. If you do not
+use parity checking, the parity bit is not included in
+the data frame, allowing you to include one more
+data or stop bit.
+
+
+<h4>DATA BITS &mdash; BITS</h4>
+
+<p>
+This command allows you to set the number of
+data bits, in each frame.
+<br>As stated above, the length of each frame may
+be ten or eleven bits. Of these only seven or eight
+contain the information you want to transfer. The
+others are the start bit, stop bit(s) and the optional
+parity bit. With the &gt;&gt; and &lt;&lt; keys you may set
+the number of data bits to be seven or eight.
+
+<p>
+Some manufacturers include the parity bit in their
+definition of the data bits. This means that they
+would call seven data bits and a parity bit eight
+data bits. Check the definition of data bits used by
+your target device in its documentation.
+
+<p>
+Seven bits of data (not including the parity bit) is
+the most common number of bits used in data
+communication. All characters used in the
+Organiser can be represented with seven bits.
+<br>Some systems are set up to expect eight bits
+per character, and to allow communication with
+such devices the Link-Up pack will accept and
+transmit data frames with eight data bits.
+
+<p>
+In the Organiser, as in all computers, the
+characters which appear on the screen are
+represented by numbers inside the machine. For
+instance. the letter 'A' is represented by the
+number 65, 'B' by 66 etc. The most common code
+by which characters are represented is known as
+the American Standard Code for the Interchange
+of Information; ASCII. All ASCII characters can be
+represented with seven bits.
+<br>When the Organiser stores characters the data
+is compressed. Only ASCII characters between 32
+(20 hex) and 95 (5F hex) can be saved on the
+Organiser. (Because of this data compression, the
+Organiser actually stores up to 10,900 characters
+on an 8k datapak). The character set used by the
+Organiser is shown by the table in Appendix A.
+<br>When data is received by the Link-Up pack,
+lower case ASCII characters will be transferred to
+upper case, and any other characters not in the
+specified range are filtered out.
+
+
+<h4>STOP BITS &mdash; STOP</h4>
+
+<p>
+Stop bits mark the end of the data frame. Some
+systems use one stop bit, others require two. The
+Link-Up pack allows you to choose either option
+using the &gt;&gt; and &lt;&lt; keys. Remember, however,
+that the total number of bits in a frame must be ten
+or eleven. The six combinations of bits which
+satisfy all the conditions are shown in figure 5.2.
+
+
+<h4>HANDSHAKING &mdash; HAND</h4>
+
+<p>
+Data can only be transmitted when one device is
+ready to transmit and the other is ready to receive.
+Handshaking is a technique which ensures that
+this happens. It is another safety check on data
+transfer.
+<br>Three handshaking options are offered by the
+Link-Up pack. They are RTS/CTS, XON/XOFF or
+NONE. Choose the type of handshaking used by
+your target device. If it does not support RTS/CTS
+or XON/XOFF you will have to choose NONE.
+
+
+<h4>END OF LINE &mdash; EOL</h4>
+
+<p>
+Organiser marks the end of each record saved so
+it will be able to tell where that one ends and the
+next begins. Whether it is sending or receiving
+data, the Organiser must know which character or
+characters is to be used as the end of line marker.
+<br>The end of line marker may be up to three
+characters long. The most common characters
+used may be specified by typing in a standard
+abbreviation for them. Other characters may be
+specified by their 2 digit hexadecimal ASCII code
+Hence you may enter up to three pairs of digits
+from the keyboard in the EOL option of the
+'SETUP' command.
+<br>The Characters for which abbreviations exist
+are:<b>
+<br>CR (ASCII code 0D hex) -carriage return;
+<br>LF (ASCII Code 0A hex) -line feed;
+<br>FF (ASCII code 0C hex) -form feed;</b>
+
+<p>
+Most computers use the combination CRLF
+(carriage return, line feed) to end a line. If you are in
+doubt what to enter for EOL, use this combination.
+
+
+<h4>END OF FILE &mdash; EOF</h4>
+
+<p>
+This is the signal that the Organiser and target will
+interpret as the end of the file or batch of data it is
+transmitting. As with the EOL marker, you can
+enter up to three pairs of ASCII codes or the
+abbreviations CR, LF and FF.
+<br>ASCII value 1A (character control-Z) is used as
+the end of file marker by most microcomputer
+systems. If you are in doubt as to what to enter for
+EOF, then use 1A.
+
+
+<h4>TRANSLATE -- TRANA and TRANB</h4>
+
+<p>
+In most data communications, information is
+transferred literally. In some cases however, you
+may wish to substitute one character for another
+while data transfer is taking place. The translation
+commands 'TRANA' and 'TRANB' allow you to do
+this.
+<br>Enter your chosen character(s) (specified in
+ASCII as for EOL and EOF) next to the 'TRANA:'
+indicator, and move on to 'TRANB:' by pressing &darr;.
+When the Organiser is <b><i>sending</i></b> data to a target, it
+looks for any occurrences of the character you
+entered for 'TRANA' and transmits the 'TRANB'
+characters instead. Conversely, whenever it
+<b><i>receives</i></b> your 'TRANB' character(s) the Organiser
+replaces them with those you entered in 'TRANA'.
+
+<p>
+For example.
+<br>If you had saved an address on the Organiser
+with its street, town etc. separated by colons you
+might enter a 3A in 'TRANA' and CR in 'TRANB'
+so that any colons in a record would be
+transmitted as a carriage return. If the EOL marker
+is CR on the target device, the name, street, town
+etc will be displayed on the target on separate
+lines.
+
+<p>
+You can of course leave the 'TRANA' and 'TRANB'
+sections blank if you do not need an extra
+translation.
+
+
+<h3>Leaving Set-Up</h3>
+
+<p>
+The 'EXlT' command leaves 'SETUP'. 'EXlT' has
+two options: 'SAVE' and 'NO SAVE'.
+
+<p>
+When you come to the 'EXIT' command, the 'NO
+SAVE' option will be displayed. if you are likely to
+use your 'SETUP' several times, use the &gt;&gt; or
+&lt;&lt; key to select the 'SAVE' option before
+pressing <b>EXECUTE</b>. If you save your setup, it will
+appear as the default next time the
+communications software is loaded.
+<br>If you have not changed the settings of any
+parameter or if the setup you have created will
+only be used once, select the 'NO SAVE' Option.
+
+<p>
+After using the 'EXIT' command you can turn on
+the Organiser and remove the Software pack
+without disturbing the parameter settings you have
+made.
+
+<hr>
+
+<a name="c6"></a><h2>6<br>Sending and Receiving Data</h2>
+
+<p>
+When you have matched the hardware
+connections and software parameters as
+described in the previous two chapters you are
+ready to transmit data. The Link-Up pack's
+communication options are easy to select and
+self-explanatory in use. However, you must make
+sure that your target device is instructed to receive
+or send at the correct time.
+
+<p>
+If you are talking to someone on the telephone, you
+rely on the other person to say the right words at
+the right time, in order to smooth the path of
+communication between you.
+<br>If the other person became totally silent, or
+worse, suddenly started incanting curses in a
+foreign language, you would become confused and
+your ability to communicate would disappear.
+<br>The Link-Up pack also expects certain things
+from its target. You may have to type in some sort
+of receive command on your target before using a
+send command on the Organiser. If you type in the
+wrong command, or no command at all, the Link-
+Up pack may find itself trying to send information
+to a machine which does not want to listen, or
+waiting for information from a machine which has
+not been instructed to send. In these
+circumstances it may get stuck.
+<br>If this happens, press the <b>ON/CLEAR</b> key to
+free the Link-Up pack software, then find out what
+command is needed at your target. If you are
+communicating with another computer, you will
+usually have to type in a command on your target
+to match each sending or receiving command
+used on the Organiser.
+
+
+<h3>Send and Receive Commands</h3>
+
+<p>
+Press the <b>MODE/HOME</b> key several times. If the
+Connector pack is in place the commands 'SENDL'
+and 'RECL' should be displayed, along with the
+normal 'ENTER' and 'OFF' commands. 'SENDL'
+stands for send line. 'RECL' stands for receive
+line.
+<br>If the Software pack has been removed and
+replaced with a datapak, 'SENDF', 'SENDF' and
+'RECF' should also be displayed in the command
+cycle. 'SENDF' stands for send file, 'SENDP' for
+send program and 'RECF' for receive file.
+<br>Even if the Software pack has been removed.
+the communications software is still resident in the
+Organiser until removed with the 'RESET'
+command. It checks which packs are fitted to the
+solid state drives before offering commands to the
+user. If no datapak is in place, files cannot be sent
+or received. If the Connector pack is not in place
+you cannot send lines or files and only the 'OFF'
+and 'ENTER' commands can be selected.
+
+
+<h4>SENDL -- Sending a line</h4>
+
+<p>
+This command is for sending the current line of
+information. First make sure your target is ready to
+receive. Type the line or find the record you want to
+send. Press the <b>MODE/HOME</b> key until 'SENDL'
+appears on the screen, then press <b>EXECUTE</b>. You
+can edit the line before or after the transmission,
+though of course you will only transmit the version
+that is current when you press <b>EXECUTE</b>.
+
+
+<h4>SENDF &mdash; Sending a file</h4>
+
+<p>
+'SENDF' allows you to send all the records, or a
+selected group of records from a datapak.
+
+<p>
+If you execute 'SENDF', you will be offered a
+choice of ALL (press A) or QUERY (press Q. If you
+choose ALL, all the records on your datapak will
+be transmitted without interruption. In this case
+the records will not be displayed as they are found,
+since that would delay the transmission, but they
+will flash past as they are transmitted. If you select
+QUERY by pressing Q, the Organiser displays
+each record it finds and waits for you to press
+<b>EXECUTE</b> to confirm the instruction before it
+sends that record to the target. Press N if you do
+not wish to transmit the record which is displayed.
+The next record is presented for your confirmation
+in the usual way. With the QUERY option you can
+read through each record and stop and start the
+progression of characters across the display just
+as you can with any retrieved record in 'FlND'.
+You can stop the process by pressing <b>ON/CLEAR</b>.
+<br>If you press <b>ON/CLEAR</b> while the Organiser has
+just finished sending a record, the Link-Up pack
+software will return to the main command loop
+immediately. While the Organiser is in the middle
+of sending a record, it cannot look to see if the
+<b>ON/CLEAR</b> key has been pressed. You must keep
+pressing the key until the end of a record is
+reached. The Organiser will then be able to read
+the clear signal and stop transmission.
+
+<p>
+This is not all that the 'SENDF' command can do.
+After selecting 'SENDF', you can enter a string of
+characters in the display area. If you then press
+<b>EXECUTE</b>, the Organiser will send records
+containing that string to the target device. Once
+again you are asked if you want to send ALL
+records containing this string, or whether you want
+to scrutinise each record individually with the
+QUERY feature.
+<br>The 'SENDF' command has similarities with the
+normal 'FIND' command. If you press <b>EXECUTE</b>
+without specifying a search string, it acts on all the
+records in the datapak. If you enter a search
+string, it acts on all the records containing that
+string.
+
+
+<h4>SENDP &mdash; Sending a program</h4>
+
+<p>
+This command enables you to transmit programs
+or procedures that you have written and saved in a
+datapak.
+<br>As with the 'SENDF' command, you are allowed
+to send ALL programs saved on a datapak (type A)
+or QUERY each program before it is sent (type Q).
+<br>Alternatively, you may select 'SENDP' and type
+the name of the program you wish to transmit.
+before pressing <b>EXECUTE</b>.
+
+<p>
+'SENDP' can only be used to send programs on
+the currently fitted datapak. You cannot use the
+Connector pack and a specialist Program pack
+together. Indeed, fitting one of the specialist
+Program packs containing the programming
+language POPL will clear the communications
+software from your Organiser as soon as you
+switch on.
+<br>If you wish to send a program contained on a
+program pack, you must first save that program
+onto a datapak. You cannot save a program twice
+under the same name, so you will have to save it
+under a different name on the datapak.
+
+
+<h4>RECL &mdash; Receiving a line of information</h4>
+
+<p>
+This command enables the Organiser to receive
+up to two hundred characters of information from
+the target device. The data sent must be specified
+by a command from the target. When the target
+starts to transmit, the Organiser receives the
+transmitted information as the current line, and you
+can choose to save it, using the SAVE key (editing
+it first if you wish), or clear it.
+<br>Once 'RECL' has been executed, the Organiser
+will continue to expect to receive data until it
+receives an end of line character. If your target
+device does not transmit the correct end of line
+character, press <b>ON/CLEAR</b> to reset the
+Organiser software.
+
+<h4>RECF &mdash; Receiving a file of information</h4>
+
+<p>
+If you execute this command the Link-Up pack will
+receive a file from the target and store it on a
+datapak. Again the data to be transmitted will be
+specified at the target and must end with a proper
+end of file-character. If the target device does not
+transmit the end of file character correctly, try
+typing the EOF character in at its keyboard (if it
+has one), or use the <b>ON/CLEAR</b> key to reset the
+Organiser software.
+
+<p>
+If more than two hundred characters appear
+without an EOL code amongst them, the Organiser
+will start a new record in the datapak at the 201st
+character. For instance, if your 'SETUP' defines
+EOL as the ASCII code for a full stop, it is wise to
+ensure that the file does not contain any unusually
+long sentences before you transmit it to the
+Organiser. Any sentences containing more than
+two hundred characters will overflow into at least
+two records in the datapak.
+
+<p>
+When the data transfer is complete, the RECF
+indicator reappears.
+
+<hr>
+
+<a name="c7"></a><h2>7<br>Examples</h2>
+
+<p>
+This chapter consists of examples which show
+how to connect the Link-Up pack to various target
+devices. Obviously it has not been possible to
+include every computer and printer in this chapter,
+but even if your target is not described in this
+chapter, you may still find the examples helpful.
+
+<h3>Microcomputers</h3>
+
+<p>
+On most microcomputers you will need to run
+some sort of program which performs a similar
+function to the 'SETUP' command. it will set the
+parameters such as baud rate, parity checking etc.
+This may be a commercially marketed
+communications package or a program you have
+written yourself. Alternatively the commands to set
+the transmission parameters can often be
+accessed from the operating system, and can be
+executed one by one.
+
+
+<h3>The IBM PC</h3>
+
+<h4>The Hardware Interface</h4>
+
+<p>
+The Link-Up pack interface is wired so that it
+connects directly with the PC Asynchronous
+Communication card.
+
+
+<h4>Matching the Software Parameters</h4>
+
+<p>
+Appendix B includes the full listing of a BASIC
+program called "ORGCOMM.BAS". When run,
+ORGCOMM.BAS sets up the PC as follows:
+<table class = indent summary="">
+<tr><td>BAUD       </td><td>9600</td></tr>
+<tr><td>PARITY     </td><td>NONE</td></tr>
+<tr><td>BITS       </td><td>8</td></tr>
+<tr><td>STOP BITS  </td><td>1</td></tr>
+<tr><td>HAND       </td><td>RTS/CTS</td></tr>
+<tr><td>EOL        </td><td>CRLF</td></tr>
+<tr><td>EOF        </td><td>1ACRLF</td></tr>
+</table>
+
+<p>
+Alternatively, if you already possess a
+communications package for the PC, you may wish
+to use that. Many different communication
+packages are available for the PC. One well known
+package is "Crosstalk" produced by Microstuf.
+This section describes data transfer using
+Crosstalk with the Link-Up pack.
+
+<p>
+Using Crosstalk, the communication parameters
+which must be matched are displayed on the left
+hand side of the Crosstalk status screen. To
+change the baud rate (line speed) type the
+command 'SP 9600'. Crosstalk must be set to half
+duplex. A possible 'SETUP' would be
+<table class = indent summary="">
+<tr><td>BAUD       </td><td>9600</td></tr>
+<tr><td>PARITY     </td><td>NONE</td></tr>
+<tr><td>BITS       </td><td>8</td></tr>
+<tr><td>STOP BITS  </td><td>2</td></tr>
+<tr><td>HAND       </td><td>NONE</td></tr>
+<tr><td>EOL        </td><td>CRLF</td></tr>
+<tr><td>EOF        </td><td>1A</td></tr>
+</table>
+
+<p>
+Carriage return and line feed are the characters
+used for delimiting the end of a line on almost all
+microcomputers. Similarly the control-Z character
+(ASCII 1A) is normally used for end of file.
+<br>The transmission parameters of the IBM may be
+set at any time while Crosstalk is running. The
+transmission parameters of the Organiser must be
+set with the 'SETUP' command. before
+communication takes place.
+
+<h4>Sending and Receiving Data Using ORGCOMM.BAS</h4>
+
+<p>
+ORGCOMM.BAS show the options to send and
+receive files on the screen of your PC. Remember
+to use the receive option of ORGCOMM before the
+send command on the Organiser, and vice versa.
+
+
+<h4>Sending and Receiving Data Using Crosstalk</h4>
+
+<p>
+If no previous command has been entered on the
+PC, Crosstalk is ready to receive. If the status
+screen is not displayed, all data received will be
+displayed on the screen of the PC. If you want to
+save data to disk, use Crosstalk's capture
+command. Send lines and files from the Organiser
+to the PC by executing the relevant commands on
+the Organiser.
+<br>To send a line of data from the PC to the
+Organiser, execute the RECL command on the
+Organiser, then type a line at the PC keyboard.
+When the return key of the PC is pressed, the line
+should appear on the Organiser screen.
+
+
+
+<h3>ACT Apricot</h3>
+
+<p>
+Much of the following description of
+communication with the Apricot, also applies for
+communication with Sirius or Victor computers.
+
+
+<h4>The hardware interface</h4>
+
+<p>
+The centre port of the ACT Apricot is an RS232
+interface. The pin settings of this port and the Link-
+Up pack interface are identical but both have
+socket connectors. An interconnection cable with
+a plug connector at both ends is needed.
+
+
+<h4>Matching the software parameters</h4>
+
+<p>
+The ACT Apricot comes with a standard
+communications package &mdash; "ASYNC". Run ASYNC
+while you are creating a setup, and you will be able
+to set the software parameters on both the Apricot
+and the Organiser.
+<br>To use Link-Up with the Apricot, you must
+choose the user specified terminal option of
+ASYNC's main menu. You can then set the Baud
+rate (line speed), the parity convention, the number
+of data and stop bits and whether you want
+XON/XOFF handshaking.
+<br>Note that if you want XON/XOFF handshaking
+on the Apricot, you must set the receive and send
+parameters separately. On the Link-Up pack,
+handshaking for both sending and receiving is set
+with one command. XON/XOFF is the only form of
+handshaking possible with ASYNC.
+<br>Apricot already accepts ASCII 1A as an end of
+file, and CR, LF as an end of line marker.
+
+
+<h4>Sending and Receiving Data</h4>
+
+<p>
+Start terminal operation by selecting the relevant
+option of ASYNC. Press <b>MODE/HOME</b> on the
+Organiser until 'SENDL' appears on the screen,
+then type a few characters on the keyboard. Press
+<b>EXECUTE</b> and the characters will be displayed on
+the screen of the Apricot.
+<br>If you have replaced your Software pack with a
+datapak, you will be able to send and receive files
+as well as lines of information. In order to send
+files from the Apricot, set the Organiser to receive,
+then select the send option from the microscreen
+menu.
+
+
+
+<h3>Sinclair QL</h3>
+
+
+<h4>The hardware interface</h4>
+
+<p>
+The QL has two serial ports. Use the second serial
+port, SER2, for communications with the Link-Up
+pack. Sinclair supply a cable which connects the
+QL port to a 'D' type plug. One change must be
+made to the wiring. Pin 20 on the QL must be
+connected to pin 4 on the Link-Up pack socket.
+
+
+<h4>The Software Parameters</h4>
+
+<p>
+Use the following setup on the Organiser:
+<table class = indent summary="">
+<tr><td>BAUD       </td><td>1200</td></tr>
+<tr><td>PARITY     </td><td>NONE</td></tr>
+<tr><td>BITS       </td><td>8</td></tr>
+<tr><td>STOP BITS  </td><td>2</td></tr>
+<tr><td>HAND       </td><td>RTS/CTS</td></tr>
+<tr><td>EOL        </td><td>CRLF</td></tr>
+<tr><td>EOF        </td><td>1A</td></tr>
+</table>
+
+<p>
+The baud rate on the QL can be set by a QDOS
+command. Type 'BAUD 1200' to set the baud rate
+to 1200.
+<br>The QL defaults to no parity, 8 data bits, 2 stop
+bits and RTS/CTS handshaking, so you do not need
+to do anything in order set these.
+<br>In order to set the end of file marker to control-Z
+and the end of line marker to CR, use the 'c' option
+of the open or copy command, as shown in the
+next section.
+
+
+<h4>Sending and Receiving Data</h4>
+
+<p>
+Example One &mdash; to send a line from the QL to the
+Organiser.
+
+<p>
+Setup the Organiser with the parameters listed
+above. Execute the 'RECL' command on the
+Organiser.
+
+<p>
+On the QL, type:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OPEN #5, SER2C
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT #5,"Information"
+
+<p>
+The word "Information" will be displayed on the
+screen of the Organiser. A named string may also
+be sent to the Organiser: e.g.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRINT #5,a$
+<br>The extra 'c' after ser2 specifies the EOL and EOF
+characters for the QL. Do not forget to close
+channel five when you have finished
+communication.
+
+<p>
+Example Two &mdash; to send a file from the Organiser to
+the QL.
+
+<p>
+The QDOS copy command can be used to read
+in a file without opening a channel. To send the
+whole contents of a datapak to a file named FRED
+on microdrive 2 on the OL, type in the QDOS
+command:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COPY SER2C TO MDV2_FRED_EXP
+<br>then execute 'SENDF' on the Organiser.
+
+
+
+<h3>BBC Model B</h3>
+
+<h4>Hardware Interface</h4>
+
+<p>
+The BBC micro has an RS423 serial port with five
+contacts. A special lead must be made up to
+connect this port with the Link-Up pack. A diagram
+of the BBC RS423 port pinout is given in the BBC
+user guide. The pins must be connected as
+follows:
+<table summary="">
+<tr><td>Link-Up pack</td><td>BBC RS423</td></tr>
+<tr><td>RxD         </td><td>Data in</td></tr>
+<tr><td>TxD         </td><td>Data out</td></tr>
+<tr><td>RTS         </td><td>RTS</td></tr>
+<tr><td>CTS         </td><td>CTS</td></tr>
+<tr><td>0v          </td><td>0v</td></tr>
+</table>
+
+
+
+<h4>Software matching</h4>
+
+<p>
+Use the following 'SETUP':
+<table class=indent summary="">
+<tr><td>BAUD       </td><td>9600</td></tr>
+<tr><td>PARITY     </td><td>NONE</td></tr>
+<tr><td>BITS       </td><td>8</td></tr>
+<tr><td>STOP BITS  </td><td>1</td></tr>
+<tr><td>HAND       </td><td>NONE</td></tr>
+<tr><td>EOL        </td><td>CRLF</td></tr>
+<tr><td>EOF        </td><td>1A</td></tr>
+</table>
+Use the *FX commands on the BBC to open
+transmission channels and set the Baud rate to
+9600.
+
+<p>
+If you wish to transmit data from the Organiser to
+the BBC type:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*FX7,7
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*FX2,1
+
+<p>
+If you wish to transmit data from the BBC to the
+Organiser type:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*FX8,7
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*FX3,1
+
+<p>
+Data can then be transferred between the
+Organiser the BBC screen.
+
+
+
+<h3>Printers</h3>
+
+<p>
+The Link-Up pack always uses serial data
+transmission. Some dot-matrix printers only have
+parallel ports as standard.
+<br>In contrast, daisywheel printers almost always
+use serial transmission. On most printers,
+transmission parameters are set by DIP switches
+which are small switches commonly found under
+the front cover of the printer.
+
+
+<h3>Epson FX 80</h3>
+
+<p>
+Your Epson needs an optional serial interface card
+to communicate with Link-Up.
+
+<h4>Hardware Interface</h4>
+
+<p>
+A special interconnection cable must be made up
+to join the Link-Up pack and the Epson FX 80. The
+Epson only needs three connections to be made.
+
+<p>
+These are:
+<table summary="">
+<tr><td>Link-Up pack</td><td>Epson</td></tr>
+<tr><td>3 </td><td>3</td></tr>
+<tr><td>4 </td><td>11</td></tr>
+<tr><td>7 </td><td>7</td></tr>
+</table>
+
+
+<h4>Transmission parameters</h4>
+
+<p>
+The transmission parameters of the Epson are set
+by dip switches on the serial interface card. As the
+meanings and settings of these switches may vary
+between different versions of the serial interface
+card, you must consult the manual to your
+interface. It should be possible to set the switches
+to match the following 'SETUP':
+<table class=indent summary="">
+<tr><td>BAUD       </td><td>2400</td></tr>
+<tr><td>PARITY     </td><td>NONE</td></tr>
+<tr><td>BITS       </td><td>8</td></tr>
+<tr><td>STOP BITS  </td><td>1</td></tr>
+<tr><td>HAND       </td><td>RTS/CTS</td></tr>
+<tr><td>EOL        </td><td>CRLF</td></tr>
+<tr><td>EOF        </td><td>1A</td></tr>
+</table>
+
+<p>
+When this 'SETUP' has been created you can send
+lines, files or programs to the printer using the
+usual commands.
+
+<hr>
+
+<a name="c8"></a><h2>8<br>Psion After Sales Support</h2>
+
+<p>
+Many purchasers will want to use the Link-Up pack
+with devices which have not been covered in the
+last chapter. If you want to communicate with a
+machine which we have not described, and after
+reading its documentation you still cannot discover
+the correct hardware and software connections
+you have two options. Either you can go back to
+the dealer who sold you the machine and ask him
+how to set up your target, or you can write to Psion
+Software Support.
+<br>Psion Software Support aims to help users of
+Psion software with any problems they may have
+with our equipment. The address
+
+<p align=center>
+Psion Software Support Ltd.
+<br>22 Dorset Square
+<br>London NW1 6QG</p>
+
+
+
+<h3>WARRANTY</h3>
+
+<p>
+Your Psion Organiser Link-Up Pack carries a one
+year warranty against mechanical or electrical
+failure other than in the case of misuse or damage
+arising from negligence. There are no user-
+serviceable parts within your Link-Up Pack, and
+any attempt to dismantle or repair your Link-Up
+Pack other than by an Appointed Psion Service
+Agent will invalidate this warranty.
+
+<p>
+Should you experience any problems consult your
+Organiser manuals with particular reference to the
+troubleshooting sections. If you find no solution to
+your problem, send your Link-Up Pack in suitably
+protective packaging to:
+
+<p align=center>
+Service Department
+<br>Psion Processors Ltd.
+<br>22 Dorset Square
+London NW1 6QG</p>
+
+<p>
+We can accept no responsibility for goods
+damaged in transit to us. This warranty does not
+affect your statutory rights.
+
+<hr>
+
+<a name="cA"></a><h2>Appendix A<br>ASCII Character Set</h2>
+
+<p>
+Like most microcomputers the Organiser
+represents characters internally with ASCII code.
+The following table shows the decimal and
+hexadecimal representations of each character
+used by the Organiser.
+<br>Lower case letters received by the Link-Up pack
+will be translated into upper-case. Other
+characters outside the range 32 (20 hex) and 95
+(5F) hex will be filtered out.
+<br>Note that ASCII character 95 (5F hex) is used
+internally by the Organiser as an end of line
+marker. It cannot be read by the Link-Up pack.
+</p>
+
+<table summary="">
+<tr><td colspan=2 align=center><b>ORGANISER CHARACTER SET</b></td></tr>
+<tr><td class="bd bu bl br">
+
+<table summary="">
+<tr><td rowspan=2>characters</td><td colspan=2>ASCII code</td></tr>
+<tr><td><small>decimal</small></td><td><small>hex</small></td></tr>
+<tr><td>space    </td><td>32</td><td>20</td></tr>
+<tr><td>!        </td><td>33</td><td>21</td></tr>
+<tr><td>"        </td><td>34</td><td>22</td></tr>
+<tr><td>#        </td><td>35</td><td>23</td></tr>
+<tr><td>$        </td><td>36</td><td>24</td></tr>
+<tr><td>%        </td><td>37</td><td>25</td></tr>
+<tr><td>&amp;    </td><td>38</td><td>26</td></tr>
+<tr><td>'        </td><td>39</td><td>27</td></tr>
+<tr><td>(        </td><td>40</td><td>28</td></tr>
+<tr><td>)        </td><td>41</td><td>29</td></tr>
+<tr><td>*        </td><td>42</td><td>2A</td></tr>
+<tr><td>+        </td><td>43</td><td>2B</td></tr>
+<tr><td>comma    </td><td>44</td><td>2C</td></tr>
+<tr><td>-        </td><td>45</td><td>2D</td></tr>
+<tr><td>full stop</td><td>46</td><td>2E</td></tr>
+<tr><td>/        </td><td>47</td><td>2F</td></tr>
+<tr><td>0        </td><td>48</td><td>30</td></tr>
+<tr><td>1        </td><td>49</td><td>31</td></tr>
+<tr><td>2        </td><td>50</td><td>32</td></tr>
+<tr><td>3        </td><td>51</td><td>33</td></tr>
+<tr><td>4        </td><td>52</td><td>34</td></tr>
+<tr><td>5        </td><td>53</td><td>35</td></tr>
+<tr><td>6        </td><td>54</td><td>36</td></tr>
+<tr><td>7        </td><td>55</td><td>37</td></tr>
+<tr><td>8        </td><td>56</td><td>38</td></tr>
+<tr><td>9        </td><td>57</td><td>39</td></tr>
+<tr><td>:        </td><td>58</td><td>3A</td></tr>
+<tr><td>;        </td><td>59</td><td>3B</td></tr>
+<tr><td>&lt;        </td><td>60</td><td>3C</td></tr>
+<tr><td>=        </td><td>61</td><td>3D</td></tr>
+<tr><td>&gt;        </td><td>62</td><td>3E</td></tr>
+<tr><td>?        </td><td>63</td><td>3F</td></tr>
+</table>
+
+</td><td class="bd bu bl br">
+
+<table summary="">
+<tr><td rowspan=2>characters</td><td colspan=2>ASCII code</td></tr>
+<tr><td><small>decimal</small></td><td><small>hex</small></td></tr>
+<tr><td>@  </td><td>64</td><td>40</td></tr>
+<tr><td>A  </td><td>65</td><td>41</td></tr>
+<tr><td>B  </td><td>66</td><td>42</td></tr>
+<tr><td>C  </td><td>67</td><td>43</td></tr>
+<tr><td>D  </td><td>68</td><td>44</td></tr>
+<tr><td>E  </td><td>69</td><td>45</td></tr>
+<tr><td>F  </td><td>70</td><td>46</td></tr>
+<tr><td>G  </td><td>71</td><td>47</td></tr>
+<tr><td>H  </td><td>72</td><td>48</td></tr>
+<tr><td>I  </td><td>73</td><td>49</td></tr>
+<tr><td>J  </td><td>74</td><td>4A</td></tr>
+<tr><td>K  </td><td>75</td><td>4B</td></tr>
+<tr><td>L  </td><td>76</td><td>4C</td></tr>
+<tr><td>M  </td><td>77</td><td>4D</td></tr>
+<tr><td>N  </td><td>78</td><td>4E</td></tr>
+<tr><td>O  </td><td>79</td><td>4F</td></tr>
+<tr><td>P  </td><td>80</td><td>50</td></tr>
+<tr><td>Q  </td><td>81</td><td>51</td></tr>
+<tr><td>R  </td><td>82</td><td>52</td></tr>
+<tr><td>S  </td><td>83</td><td>53</td></tr>
+<tr><td>T  </td><td>84</td><td>54</td></tr>
+<tr><td>U  </td><td>85</td><td>55</td></tr>
+<tr><td>V  </td><td>86</td><td>56</td></tr>
+<tr><td>W  </td><td>87</td><td>57</td></tr>
+<tr><td>X  </td><td>88</td><td>58</td></tr>
+<tr><td>Y  </td><td>89</td><td>59</td></tr>
+<tr><td>Z  </td><td>90</td><td>5A</td></tr>
+<tr><td>[  </td><td>91</td><td>5B</td></tr>
+<tr><td>Y  </td><td>92</td><td>5C</td></tr>
+<tr><td>]  </td><td>93</td><td>5D</td></tr>
+<tr><td>^  </td><td>94</td><td>5E</td></tr>
+<tr><td>EOL</td><td>95</td><td>5F</td></tr>
+</table>
+</td></tr>
+</table>
+
+<hr>
+
+<a name="cB"></a><h2>Appendix B
+<br>ORGCOMM.BAS</h2>
+
+<p>
+The following is a listing of a BASIC program
+written to communicate between the IBM PC and
+the Organiser Link-Up pack.
+
+<p class=code>
+10  REM program to exchange data
+20  REM between PC and ORGANISER
+25  REM
+30  RS232$="com1:9600,n,8,1,cs65535,ds65535"
+40  Z$=CHR$(26) : REM eof character
+50  CLS
+52  PRINT "press A or B to see directory ,";
+54  PRINT " any other key to continue"
+60  A$=INKEY$ :IF A$="" THEN 60
+70  IF INSTR ("aAbB",A$) THEN FILES A$+":"
+80  PRINT
+82  PRINT "Press S for sending to PC, ";
+84  PRINT "or R to receive from PC"; S$
+90  K$=INKEY$
+95  IF K$="" OR INSTR("sSrR",K$)=0 THEN 90
+100 LINE INPUT "enter file name "; FILE$
+110 IF K$="s" THEN 150 ELSE 250
+120 REM
+130 REM *** read a file from organiser
+140 REM
+150 I=0
+152 DIM L$(16000)
+154 PRINT "set the Organiser up"
+160 OPEN FILE$ FOR OUTPUT AS #2
+170 OPEN RS232$ AS #3
+180 I=I+1:INPUT #3,L$(I):IF L$(I)&lt;&gt;Z$ THEN 180
+190 PRINT "Saving to file "; FILE$
+200 FOR X=1 TO I : PRINT X,L$(X)
+205 PRINT #2,L$(X) : NEXT X
+210 GOTO 330
+220 REM
+230 REM *** write a file to the organiser
+240 REM
+250 REM
+260 OPEN FILE$ FOR INPUT AS #2
+270 OPEN RS232$ FOR OUTPUT AS #3
+280 K$=INKEY$
+285 IF EOF(2) OR K$&lt;&gt;"" THEN 310
+290 INPUT #2,L$ : PRINT L$ : PRINT #3,L$
+300 GOTO 280
+310 PRINT #3, z$
+320 REM *** close files
+330 CLOSE #2 : CLOSE #3
+340 END</p>
+
+<hr>
+
+<a name="cC"></a><h2>Appendix C
+<br>DTE and DCE wiring</h2>
+
+<p>
+The Link-Up pack is wired as Data
+Communications Equipment. This means that the
+RxD and CTS connectors are output for the
+Organiser. The convention is designed so that DCE
+connectors join directly to DTE connectors.
+<br>If your target is wired as Data Terminal
+Equipment, RxD and CTS will be inputs for your
+target.
+<br>If your target is wired as Data Communication
+Equipment, the RxD and CTS of the Organiser
+must be connected to the TxD and RTS of the
+target.
+<br>The diagrams below show the direction of data
+flow and the connections to be made between the
+Organiser and DTE or DCE ports.
+</p>
+
+
+<table class=boxtable summary="">
+<tr><td colspan=7 align=center><b>CONNECTING THE ORGANISER TO A DTE</b><br>&nbsp;</td></tr>
+<tr>
+   <td align=center>ORGANISER<br>(DCE)</td>
+   <td colspan=5></td>
+   <td align=center>TARGET<br>DTE</td>
+</tr>
+  <tr><td align=center>2 </td><td>&larr;</td><td>TxD</td><td>-</td><td>TRANSMITTED DATA   </td><td>&larr;</td><td align=center>2</td></tr>
+  <tr><td align=center>3 </td><td>&rarr;</td><td>RxD</td><td>-</td><td>RECEIVED DATA      </td><td>&rarr;</td><td align=center>3</td></tr>
+  <tr><td align=center>4 </td><td>&larr;</td><td>RTS</td><td>-</td><td>READY TO SEND      </td><td>&larr;</td><td align=center>4</td></tr>
+  <tr><td align=center>5 </td><td>&rarr;</td><td>CTS</td><td>-</td><td>CLEAR TO SEND      </td><td>&rarr;</td><td align=center>5</td></tr>
+  <tr><td align=center>6 </td><td class=hooku2>&nbsp;</td><td>DSR</td><td>-</td><td>DATA SET READY     </td><td>&rarr;</td><td align=center>6</td></tr>
+  <tr><td align=center>20</td><td class=hookd2>&nbsp;</td><td>DTR</td><td>-</td><td>DATA TERMINAL READY</td><td>&larr;</td><td align=center>20</td></tr>
+  <tr><td align=center>7 </td><td> -    </td><td colspan=3>SIGNAL GROUND                  </td><td> -    </td><td align=center>7</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<table class=boxtable summary="">
+<tr><td colspan=7 align=center><b>CONNECTING THE ORGANISER TO A DCE</b><br>&nbsp;</td></tr>
+<tr>
+   <td align=center>ORGANISER<br>(DCE)</td>
+   <td colspan=5></td>
+   <td align=center>TARGET<br>DCE</td>
+</tr>
+  <tr><td align=center>2 </td><td>&larr;</td><td>TxD<td width=120 rowspan=2 class=swap1>&nbsp;</td><td>TxD</td><td>&rarr;</td><td align=center>2</td></tr>
+  <tr><td align=center>3 </td><td>&rarr;</td><td>RxD</td><td>RxD</td><td>&larr;</td><td align=center>3</td></tr>
+  <tr><td align=center>4 </td><td>&larr;</td><td>RTS<td rowspan=2 class=swap1>&nbsp;</td><td>RTS</td><td>&rarr;</td><td align=center>4</td></tr>
+  <tr><td align=center>5 </td><td>&rarr;</td><td>CTS</td><td>CTS</td><td>&larr;</td><td align=center>5</td></tr>
+  <tr><td align=center>6 </td><td class=hooku2>&nbsp;</td><td>DSR<td rowspan=2 class=swap2>&nbsp;</td><td>DSR</td><td>&larr;</td><td align=center>6</td></tr>
+  <tr><td align=center>20</td><td class=hookd2>&nbsp;</td><td>DTR</td><td>DTR</td><td>&rarr;</td><td align=center>20</td></tr>
+  <tr><td align=center>7 </td><td></td><td colspan=3 align=center>-------------</td><td></td><td align=center>7</td></tr>
+</table>
+
+<hr>
+
+<div class=nav><ul>
+<li><a href="../index.htm">Home</a></li>
+</ul></div>
+
+</body>
+</html>
